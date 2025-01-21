@@ -54,7 +54,7 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             // Console.WriteLine("username: " + Username);
             // Console.WriteLine("password: " +Password);
             DB dbCon = getDbCon();
-            string query = "SELECT * FROM user WHERE Username=@username AND Password=@password";
+            string query = "SELECT * FROM _user WHERE username=@username AND password=@password";
         
         
             if (!dbCon.IsConnect()) {
@@ -111,6 +111,7 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             byte[] hash = crypt.ComputeHash(Encoding.UTF8.GetBytes(password), 0, Encoding.UTF8.GetByteCount(password));
             return Convert.ToBase64String(hash);
         }
+        
         private DB getDbCon()
         {
             var dbCon = new DB();
