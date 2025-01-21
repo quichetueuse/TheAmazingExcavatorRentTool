@@ -1,4 +1,4 @@
-namespace DVDRENT.Models
+namespace TheAmazingExcavatorRentTool.Models
 {
     public class User
     {
