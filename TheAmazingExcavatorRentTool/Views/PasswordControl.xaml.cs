@@ -19,19 +19,12 @@ namespace TheAmazingExcavatorRentTool.Views
         {
             InitializeComponent();
             login_tb_password.PasswordChanged += OnPasswordChanged;
-            // login_tb_password.LostFocus += OnLostFocus;
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            // Password = ((PasswordBox)sender).SecurePassword;
             Password = login_tb_password .SecurePassword;
-            // Console.WriteLine(login_tb_password.Password);
         }
-
-        // private void OnLostFocus(object sender, RoutedEventArgs e)
-        // {
-        //     Console.WriteLine(login_tb_password.Password);
-        // }
+        
     }
 }

@@ -38,16 +38,5 @@ namespace TheAmazingExcavatorRentTool.Services
         {
             Connection.Close();
         }
-        
-        // private static DB getDbCon()
-        // {
-        //     var dbCon = new DB();
-        //     dbCon.Server = "localhost";
-        //     dbCon.DatabaseName = "bd_c#";
-        //     dbCon.UserName = "root";
-        //     dbCon.Password = "";
-        //
-        //     return dbCon;
-        // }
     }
 }
