@@ -54,7 +54,7 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             // Console.WriteLine("username: " + Username);
             // Console.WriteLine("password: " +Password);
             DB dbCon = getDbCon();
-            string query = "SELECT * FROM _user WHERE username=@username AND password=@password";
+            string query = "SELECT user_id, username, password, is_admin FROM _user WHERE username=@username AND password=@password";
         
         
             if (!dbCon.IsConnect()) {
