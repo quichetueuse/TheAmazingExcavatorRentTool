@@ -10,9 +10,12 @@ namespace TheAmazingExcavatorRentTool.ViewModels;
 public class ExcavatorVM : BaseVM
 {
     public ObservableCollection<Excavator> Excavators { get; set; }
+    
+    private BrandVM _brandvm;
 
-    public ExcavatorVM()
+    public ExcavatorVM(BrandVM brandvm)
     {
+        _brandvm = brandvm;
         Load_Excavators();
     }
 
@@ -33,12 +36,12 @@ public class ExcavatorVM : BaseVM
         set { _Description = value; }
     }
 
-    private int _BrandId;
+    private Brand _Brand;
 
-    public int BrandId
+    public Brand Brand
     {
-        get { return _BrandId; }
-        set { _BrandId = value; }
+        get { return _Brand; }
+        set { _Brand = value; }
     }
 
     private int _BucketLiters;
@@ -87,17 +90,17 @@ public class ExcavatorVM : BaseVM
     private DelegateCommand<Excavator> _deleteCommand;
 
     public DelegateCommand<Excavator> DeleteCommand =>
-        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Excavator>(DeleteDvd));
+        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Excavator>(DeleteExcavator));
 
     private DelegateCommand<Excavator> _updateCommand;
 
     public DelegateCommand<Excavator> UpdateCommand =>
-        _updateCommand ?? (_updateCommand = new DelegateCommand<Excavator>(UpdateDvd));
+        _updateCommand ?? (_updateCommand = new DelegateCommand<Excavator>(UpdateExcavator));
 
     private DelegateCommand _addCommand;
 
     public DelegateCommand AddCommand =>
-        _addCommand ?? (_addCommand = new DelegateCommand(AddDvd));
+        _addCommand ?? (_addCommand = new DelegateCommand(AddExcavator));
 
     public void Load_Excavators()
     {
@@ -118,6 +121,7 @@ public class ExcavatorVM : BaseVM
                 string Name = reader.GetString(1);
                 string Description = reader.GetString(2);
                 int BrandId = reader.GetInt32(3);
+                Brand brand = new Brand(0, "eee", 2024); // placeholder values
                 int BucketLiters = reader.GetInt32(4);
                 int release_year = reader.GetInt32(5);
                 bool IsUsed = reader.GetBoolean(6);
@@ -133,8 +137,16 @@ public class ExcavatorVM : BaseVM
                     PicturePath = null;
                 }
 
+                foreach (var variabBrand in _brandvm.Brands)
+                {
+                    if (variabBrand.BrandId == BrandId)
+                    {
+                        brand = variabBrand;
+                    }
+                }
+
                 excavators.Add(new Excavator(excavatorid: ExcavatorId, name: Name, description: Description, 
-                    brandid: BrandId, bucket_liters: BucketLiters, releaseyear: release_year, isused: IsUsed, 
+                    brand: brand, bucket_liters: BucketLiters, releaseyear: release_year, isused: IsUsed, 
                     dailyprice: DailyPrice, picturepath: PicturePath));
             }
 
@@ -145,7 +157,7 @@ public class ExcavatorVM : BaseVM
     }
 
 
-    private void DeleteDvd(Excavator excavator_to_delete)
+    private void DeleteExcavator(Excavator excavator_to_delete)
     {
         var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le Dvd '{excavator_to_delete.Name}'?", "Supression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -185,7 +197,7 @@ public class ExcavatorVM : BaseVM
         }
     }
 
-    public void UpdateDvd(Excavator excavator_to_update)
+    public void UpdateExcavator(Excavator excavator_to_update)
     {
         foreach (var excavator in Excavators)
         {
@@ -204,7 +216,7 @@ public class ExcavatorVM : BaseVM
             var cmd = new MySqlCommand(query, dbCon.Connection);
             cmd.Parameters.AddWithValue("@name", excavator_to_update.Name);
             cmd.Parameters.AddWithValue("@description", excavator_to_update.Description);
-            cmd.Parameters.AddWithValue("@brand_id", excavator_to_update.BrandId);
+            cmd.Parameters.AddWithValue("@brand_id", excavator_to_update.Brand.BrandId);
             cmd.Parameters.AddWithValue("@bucket_liters", excavator_to_update.BucketLiters);
             cmd.Parameters.AddWithValue("@release_year", excavator_to_update.ReleaseYear);
             cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(excavator_to_update.IsUsed));
@@ -235,7 +247,7 @@ public class ExcavatorVM : BaseVM
             MessageBoxImage.Information);
     }
 
-    public void AddDvd()
+    public void AddExcavator()
     {
         var Result = MessageBox.Show("Voulez-vous vraiment ajouter un Dvd ?", "Ajout ?", MessageBoxButton.YesNo,
             MessageBoxImage.Question);
@@ -249,7 +261,7 @@ public class ExcavatorVM : BaseVM
             //vérification des champs
             string name = Name;
             string description = Description;
-            int brand_id = BrandId;
+            Brand brand = Brand;
             int bucket_liters = BucketLiters;
             int release_year = ReleaseYear;
             bool is_used = IsUsed;
@@ -271,7 +283,7 @@ public class ExcavatorVM : BaseVM
             var cmd = new MySqlCommand(query, dbCon.Connection);
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@description", description);
-            cmd.Parameters.AddWithValue("@brand_id", brand_id);
+            cmd.Parameters.AddWithValue("@brand_id", brand.BrandId);
             cmd.Parameters.AddWithValue("@bucket_liters", bucket_liters);
             cmd.Parameters.AddWithValue("@release_year", release_year);
             cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(is_used));
@@ -288,7 +300,7 @@ public class ExcavatorVM : BaseVM
 
             var reader = cmd.ExecuteReader();
             int id_excavator_to_add = Convert.ToInt32(cmd.LastInsertedId);
-            Excavators.Add(new Excavator(excavatorid: id_excavator_to_add, name: name, description: description, brandid: brand_id,
+            Excavators.Add(new Excavator(excavatorid: id_excavator_to_add, name: name, description: description, brand: brand,
                 bucket_liters: bucket_liters, releaseyear: release_year, isused: Convert.ToBoolean(is_used), 
                 dailyprice: daily_price, picturepath: picture_path));
             dbCon.Close();
@@ -304,6 +316,7 @@ public class ExcavatorVM : BaseVM
         string name = "";
         string description = "";
         int brand_id = 0;
+        Brand brand = new Brand(0, "eee", 2024); // placeholder values
         int bucket_liters = 0;
         int release_year = 0;
         bool is_used = false;
@@ -342,20 +355,17 @@ public class ExcavatorVM : BaseVM
         }
 
         dbCon.Close();
+        
+        foreach (var variabBrand in _brandvm.Brands)
+        {
+            if (variabBrand.BrandId == brand_id)
+            {
+                brand = variabBrand;
+            }
+        }
 
-        return new Excavator(excavatorid: excavator_id, name: name, description: description, brandid: brand_id, 
+        return new Excavator(excavatorid: excavator_id, name: name, description: description, brand: brand, 
             bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: picture_path);
-    }
-
-    private DB getDbCon()
-    {
-        var dbCon = new DB();
-        dbCon.Server = "localhost";
-        dbCon.DatabaseName = "bd_c#";
-        dbCon.UserName = "root";
-        dbCon.Password = "";
-
-        return dbCon;
     }
 
     private string Sanitize(string str)
