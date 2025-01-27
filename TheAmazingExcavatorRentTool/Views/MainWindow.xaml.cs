@@ -39,6 +39,13 @@ public partial class MainWindow : Window
         
         
         // Check if user is admin
+        
+        
+        
+        
+        
+        TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
+        // excavatorItem.Content = new ClientsControl(_mainwindowvm.ClientVm);
     }
     
     
