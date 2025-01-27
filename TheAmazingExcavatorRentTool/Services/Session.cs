@@ -21,7 +21,7 @@ namespace TheAmazingExcavatorRentTool.Services
         }
         public static string? Username { get; set; }
         public static string? Password { get; set; }
-        public static bool? IsAdmin { get; set; }
+        public static bool IsAdmin { get; set; }
 
 
         public static void ShowSessionInfos()
