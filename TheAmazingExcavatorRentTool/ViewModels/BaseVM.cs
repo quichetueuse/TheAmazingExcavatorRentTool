@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TheAmazingExcavatorRentTool.Services;
 
 namespace TheAmazingExcavatorRentTool.ViewModels
 {
@@ -19,6 +20,17 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+        
+        protected DB getDbCon()
+        {
+            var dbCon = new DB();
+            dbCon.Server = "localhost";
+            dbCon.DatabaseName = "bd_c#";
+            dbCon.UserName = "root";
+            dbCon.Password = "";
+
+            return dbCon;
         }
     }
 }
