@@ -62,7 +62,7 @@ namespace TheAmazingExcavatorRentTool.Views
         
         private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            reloadComboboxItems();
+            // reloadComboboxItems();
             
             if (EditForm.IsVisible || AddForm.IsVisible)
                 return;
@@ -389,8 +389,14 @@ namespace TheAmazingExcavatorRentTool.Views
             var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à la pelleteuse '{txtEditName.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (Result == MessageBoxResult.No)
                 return;
-            if (!File.Exists(editSafeFileName))
-                File.Copy(txtEditImagePath.Text, editSafeFileName);
+
+            editSafeFileName = Path.GetFileName(txtEditImagePath.Text);
+            
+            if (!File.Exists(ImagesDir + editSafeFileName))
+            {
+                File.Copy(txtEditImagePath.Text, ImagesDir + editSafeFileName);
+            }
+
             int id = (ExcavatorGrid.SelectedItem as Excavator).ExcavatorId;
             String name = txtEditName.Text;
             String desc = txtEditDesc.Text;
@@ -400,7 +406,7 @@ namespace TheAmazingExcavatorRentTool.Views
             bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
             int daily_price = Convert.ToInt32(txtEditDailyPrice.Text);
             Excavator excav_obj = new Excavator(excavatorid: id, name: name, description: desc, brand: brand, 
-                bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: editSafeFileName);
+                bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: ImagesDir + editSafeFileName);
             _excavatorvm.UpdateExcavator(excav_obj);
         }
         private bool isValidYear(string str)
