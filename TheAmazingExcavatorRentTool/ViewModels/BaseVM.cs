@@ -26,7 +26,7 @@ namespace TheAmazingExcavatorRentTool.ViewModels
         {
             var dbCon = new DB();
             dbCon.Server = "localhost";
-            dbCon.DatabaseName = "bd_c#";
+            dbCon.DatabaseName = "heavy_app_e5";
             dbCon.UserName = "root";
             dbCon.Password = "";
 
