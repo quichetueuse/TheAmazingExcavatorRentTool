@@ -45,7 +45,7 @@ public partial class MainWindow : Window
         
         
         TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
-        // excavatorItem.Content = new ClientsControl(_mainwindowvm.ClientVm);
+        excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
     }
     
     

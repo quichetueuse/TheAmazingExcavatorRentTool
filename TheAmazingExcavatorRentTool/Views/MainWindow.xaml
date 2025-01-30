@@ -6,35 +6,19 @@
         xmlns:local="clr-namespace:TheAmazingExcavatorRentTool"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="The Greatest Excavator Renting App That was ever created" Height="720" Width="1280">
-    <Window.Resources>
-        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="Button" x:Key="BtnBorderRadius">
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10" />
-                </Style>
-            </Style.Resources>
-        </Style>
-    </Window.Resources>
-<TabControl TabStripPlacement="Top" Grid.Column="0" Grid.ColumnSpan="10000" Grid.Row="0" Name="modules_tabcontrol">
-    <TabItem Header="Excavators" Height="30px" Width="75px" Name="ItemExcavator">
-        </TabItem>
-        <TabItem Header="DVDs" Height="30px" Width="75px" Name="ItemDvds">
-        </TabItem>
+        Title="The Greatest Excavator Renting App That was ever created" Height="1080" Width="1920">
     
-        <TabItem Header="Locations" Height="30px" Width="75px" Name="ItemLocations" > <!-- Background="Cornsilk" -->
+    <TabControl TabStripPlacement="Top" Grid.Column="0" Grid.ColumnSpan="10000" Grid.Row="0" Name="modules_tabcontrol">
+        <TabItem Header="Excavators" Height="30px" Width="75px" Name="ItemExcavator"></TabItem>
+        <TabItem Header="DVDs" Height="30px" Width="75px" Name="ItemDvds"></TabItem>
+        <TabItem Header="Locations" Height="30px" Width="75px" Name="ItemLocations" ></TabItem>
+        <TabItem Header="Retours" Height="30px" Width="75px" Name="ItemRetours"></TabItem>
+        <TabItem Height="30px" Width="75px" Name="ItemDisconnect">
+            <TabItem.Template>
+                <ControlTemplate>
+                    <Button Click="UIElement_OnGotFocus" Content="Déconnexion" Background="IndianRed"></Button>
+                </ControlTemplate>
+            </TabItem.Template>
         </TabItem>
-        <TabItem Header="Retours" Height="30px" Width="75px" Name="ItemRetours">
-        </TabItem>
-    <TabItem Height="30px" Width="75px" Name="ItemDisconnect">
-        <TabItem.Template>
-            <ControlTemplate>
-                <Button Click="UIElement_OnGotFocus" Content="Déconnexion" Background="IndianRed"></Button>
-            </ControlTemplate>
-        </TabItem.Template>
-    </TabItem>
-</TabControl>
+    </TabControl>
 </Window>
