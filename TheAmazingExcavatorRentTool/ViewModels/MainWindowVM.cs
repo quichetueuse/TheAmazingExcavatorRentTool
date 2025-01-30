@@ -12,6 +12,16 @@ public class MainWindowVM: BaseVM
         set { _excavatorvm = value; }
     }
     
+    
+    
+    private BrandVM _brandvm;
+        
+    public BrandVM BrandVm
+    {
+        get { return _brandvm; }
+        set { _brandvm = value; }
+    }
+    
         
     // private UserVM _uservm;
     //     
@@ -23,7 +33,8 @@ public class MainWindowVM: BaseVM
 
     public MainWindowVM()
     {
-        ExcavatorVm = new ExcavatorVM();
+        BrandVm = new BrandVM();
+        ExcavatorVm = new ExcavatorVM(BrandVm);
         // _uservm = new UserVM();
     }
 }
