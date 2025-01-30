@@ -62,7 +62,6 @@ namespace TheAmazingExcavatorRentTool.Views
         
         private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // reloadComboboxItems();
             
             if (EditForm.IsVisible || AddForm.IsVisible)
                 return;
@@ -359,30 +358,6 @@ namespace TheAmazingExcavatorRentTool.Views
             }
         }
         
-        private void reloadComboboxItems()
-        {
-            if (ExcavatorGrid.SelectedItem == null)
-                return;
-            Excavator SelectedExcavator = ExcavatorGrid.SelectedItem as Excavator;
-            // Console.WriteLine(SelectedLocation.Client.FullName);
-        
-            cbEditBrand.ItemsSource = null;
-            cbEditBrand.Items.Clear();
-            
-            foreach (var brand in _excavatorvm.BrandVm.Brands)
-            {
-                if (brand.BrandId == SelectedExcavator.Brand.BrandId)
-                {
-                    cbEditBrand.Items.Add(brand);
-                    cbEditBrand.SelectedItem = brand;
-                }
-                else
-                {
-                    cbEditBrand.Items.Add(brand);
-                }
-            }
-            
-        }
         
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
