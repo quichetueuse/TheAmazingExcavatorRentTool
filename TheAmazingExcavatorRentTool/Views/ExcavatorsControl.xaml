@@ -20,9 +20,9 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <viewModels:ExcavatorVM/>
-    </UserControl.DataContext>
+    <!-- <UserControl.DataContext> -->
+    <!--     <viewModels:ExcavatorVM/> -->
+    <!-- </UserControl.DataContext> -->
     <Grid ShowGridLines="False" Background="Cornsilk">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -41,7 +41,7 @@
             Grid.Column="0" 
             Grid.ColumnSpan="2"
             Grid.RowSpan="3"
-            ItemsSource="{Binding Dvds}" 
+            ItemsSource="{Binding Excavators}" 
             AutoGenerateColumns="False" 
             CanUserSortColumns="False" 
             AlternatingRowBackground="LightBlue" 
@@ -49,149 +49,187 @@
             SelectionMode="Single" 
             IsReadOnly="True" 
             CanUserResizeColumns="False" 
-            SelectionChanged="DvdGrid_OnSelectionChanged" 
+            SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
             >
             <!-- Loaded="DvdGrid_OnLoaded" -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Marque" Binding="{Binding Genre}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Taille du godet" Binding="{Binding ReleaseYear}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Marque" Binding="{Binding Brand.Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Capacité du godet" Binding="{Binding BucketLiters}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Année de sortie" Binding="{Binding ReleaseYear}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn> 
                 <DataGridCheckBoxColumn Header="Est utilisé"  HeaderStyle="{StaticResource CenterGridHeaderStyle}" Binding="{Binding IsUsed}">
                 </DataGridCheckBoxColumn>
-                <DataGridTextColumn Header="Prix journalier" Binding="{Binding DailyPrice}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn> <DataGridTemplateColumn Header="Prix journalier" Binding="{Binding IsAvailable}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTemplateColumn> 
+                <DataGridTextColumn Header="Prix journalier" Binding="{Binding DailyPrice}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn> 
+                <DataGridTemplateColumn Header="Imagee de la pelleteuse" HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="50" Height="50" Source="{Binding PicturePath}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn> 
             </DataGrid.Columns>
         </DataGrid>
         
-            <GroupBox Grid.Column="2" Header="Modification" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="gbDvdUpdate">
-                    <StackPanel Grid.RowSpan="2">
-                        <Label Content="Titre:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                        <TextBox HorizontalAlignment="Left" Name="txtUpdateTitle" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=DvdGrid, Path=SelectedItem.Title, Mode=OneWay}" TextChanged="TxtUpdateTitle_OnTextChanged"/>
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdUpdateValidTitle"></Image>
-                        </StackPanel>
-                        <Label Content="Réalisateur:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtUpdateDirector" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.Director, ElementName=DvdGrid, Mode=OneWay}" TextChanged="TxtUpdateDirector_OnTextChanged"/>
-                            <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdUpdateValidDirector"></Image>
-                        </StackPanel>
-                        <Label Content="Genre:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtUpdateGenre" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.Genre, ElementName=DvdGrid, Mode=OneWay}" TextChanged="TxtUpdateGenre_OnTextChanged"/>
-                            <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdUpdateValidGenre"></Image>
-                        </StackPanel>
-                        <Label Content="Année de sortie:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtUpdateReleaseYear" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.ReleaseYear, ElementName=DvdGrid, Mode=OneWay}" TextChanged="TxtUpdateReleaseYear_OnTextChanged"/>
-                            <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdUpdateValidReleaseYear"></Image>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 10 0 0">
-                        <Label Content="Disponibilité:"></Label>
-                        <CheckBox Name="txtUpdateIsAvailable" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsAvailable, ElementName=DvdGrid, Mode=OneWay}"></CheckBox>
-                        </StackPanel>
-                        <!-- <StackPanel Orientation="Horizontal"> VerticalAlignment="Top"-->
-                        <!--     <TextBox HorizontalAlignment="Left" Name="txtUpdateIsAvailable" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.IsAvailable, ElementName=DvdGrid, Mode=TwoWay}" TextChanged="TxtUpdateIsAvailable_OnTextChanged"/> -->
-                        <!--     <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdUpdateAvailability"></Image> -->
-                        <!-- </StackPanel> -->
-                        
-                        <Label Content="Image de couverture:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtUpdateImagePath" VerticalAlignment="Top" Width="250" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=DvdGrid, Path=SelectedItem.CoverImagePath, Mode=OneWay}" IsReadOnly="True"/>
-                            <Button x:Name="btnUpdateBrowseImage" Content="Choisir" Height="25" Width="75" Click="BtnUpdateBrowseImage_OnClick"></Button>
-                        </StackPanel>
-                        <Image Width="50" Height="50" Margin="0 0 0 0" Name="DvdUpdateImagePreview" Source="{Binding SelectedItem.CoverImagePath, Mode=TwoWay, ElementName=DvdGrid}"></Image>
-                        
-                        <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
-                        <Button Name="btnDvdApplyChanges" Content="Enregistrer" Margin="10 0" MinHeight="50" MinWidth="100" Click="BtnDvdApplyChanges_OnClick" Style="{StaticResource BtnBorderRadius}"></Button> <!-- Command="{Binding Path=UpdateCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}"-->
-                        <Button Name="btnDvdClearUpdate" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearDvdUpdate" Style="{StaticResource BtnBorderRadius}"></Button>
-                        </WrapPanel>
+        <GroupBox Grid.Column="2" Header="Modification" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="EditForm">
+                <StackPanel Grid.RowSpan="2">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Nom:"></Label>
+                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtEditName" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Name, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidNameImg"></Image>
                     </StackPanel>
-                </GroupBox>
-            
-            <GroupBox Grid.Column="2" Header="Ajout" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="gbDvdAdd">
-                    <StackPanel Grid.RowSpan="2">
-                        <Label Content="Titre:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                        <TextBox HorizontalAlignment="Left" Name="txtAddTitle" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Title, Mode=TwoWay}" TextChanged="TxtAddTitle_OnTextChanged"/>
-                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdAddValidTitle"></Image>
-                        </StackPanel>
-                        <Label Content="Réalisateur:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtAddDirector" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Director, Mode=TwoWay}" TextChanged="TxtAddDirector_OnTextChanged"/>
-                            <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdAddValidDirector"></Image>
-                        </StackPanel>
-                        <Label Content="Genre:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtAddGenre" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Genre, Mode=TwoWay}" TextChanged="TxtAddGenre_OnTextChanged"/>
-                            <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdAddValidGenre"></Image>
-                        </StackPanel>
-                        <Label Content="Année de sortie:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtAddReleaseYear" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ReleaseYear, Mode=TwoWay}" TextChanged="TxtAddReleaseYear_OnTextChanged"/>
-                            <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdAddValidReleaseYear"></Image>
-                        </StackPanel>
-                        <!-- <Label Content="Availability:"></Label> -->
-                        <!-- <StackPanel Orientation="Horizontal"> VerticalAlignment="Top"-->
-                        <!--     <TextBox HorizontalAlignment="Left" Name="txtAddIsAvailable" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding IsAvailable, Mode=TwoWay}" TextChanged="TxtAddIsAvailable_OnTextChanged"/> -->
-                        <!--     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="DvdAddValidAvailability"></Image> -->
-                        <!-- </StackPanel> -->
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 10 0 0">
-                        <Label Content="Disponibilité:"></Label>
-                        <CheckBox Name="txtAddIsAvailable" VerticalContentAlignment="Center" IsChecked="{Binding IsAvailable, Mode=TwoWay}"></CheckBox>
-                        </StackPanel>
-                        <Label Content="Image de couverture:"></Label>
-                        <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                            <TextBox HorizontalAlignment="Left" Name="txtAddImagePath" VerticalAlignment="Top" Width="250" Height="25" VerticalContentAlignment="Center" IsReadOnly="True"/> <!-- Text="{Binding CoverImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
-                            <Button x:Name="btnAddBrowseImage" Content="Choisir" Height="25" Width="75" Click="BtnAddBrowseImage_OnClick"></Button>
-                        </StackPanel>
-                        <Image Width="50" Height="50" Margin="0 0 0 0" Name="DvdAddImagePreview"></Image>
-                        <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
-                        <Button Name="btnDvdAdd" Content="Ajouter" Margin="10 0" MinHeight="50" MinWidth="100" Command="{Binding Path=AddCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}" IsEnabled="False" Style="{StaticResource BtnBorderRadius}"></Button>
-                        <Button Name="btnDvdClearAdd" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearDvdAdd" Style="{StaticResource BtnBorderRadius}"></Button>
-                        </WrapPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Description:"></Label>
+                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditDesc" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Description, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                    <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDescImg"></Image>
                     </StackPanel>
-                </GroupBox>
-            
-        <!-- Textboxes and labels for Client details -->
-        <!-- Other TextBoxes and Labels for Clients details -->
-        <!-- <Button Content="Update" Grid.Row="0" Grid.Column="2" Height="23" MinWidth="75" HorizontalAlignment="Left" Name="btnUpdateDvd" VerticalAlignment="Top" Width="141" Command="{Binding Path=UpdateCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}"/> -->
-        <!-- <Button Content="Delete" Grid.Row="0" Grid.Column="2" Height="23" MinWidth="75" HorizontalAlignment="Right" Name="btnDeleteDvd" VerticalAlignment="Top" Width="141" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}" IsEnabled="False"/> -->
-        <!-- <Button Content="Add" Grid.Row="0" Grid.Column="2" Height="23" MinWidth="75" HorizontalAlignment="Right" Name="btnAddDvd" VerticalAlignment="Bottom" Width="141" Command="{Binding AddCommand}"/>  -->
-        <!-- <Button Content="Clear" Grid.Row="0" Grid.Column="2" Height="23" MinWidth="75" HorizontalAlignment="Left" Name="btnClearDvd" VerticalAlignment="Bottom" Width="141" Click="BtnClearDvd_OnClick"/> -->
-            
-                           <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Name="btnDvdAppearAdd" Width="150" Height="50" Margin="5" Click="BtnDvdAppearAdd_OnClick"> <!-- TODO refaire fonction -->
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                    <Image Source="../Assets/add-icon.png" Width="24" Height="24" Name="imgDvdAppearAdd"></Image>
-                </Button>
-                <Button Name="btnDvdAppearEdit" Width="150" Height="50" Margin="5" IsEnabled="False" Click="BtnDvdAppearEdit_OnClick">
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                    <Image Source="../Assets/edit-icon.png" Width="24" Height="24" Name="imgDvdEdit"></Image>
-                </Button>
-                <Button Name="btnDvdDelete" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}">
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                    <Image Source="../Assets/redtrashcan-icon.png" Width="24" Height="24" Name="imgDvdDelete"></Image>
-                </Button>
-                
-                <!-- <Button Width="150" Height="50" Margin="5" > -->
-                <!--     <Image Source="../Assets/redtrashcan-icon.png" Width="24" Height="24" Name="imgClientDeletee"></Image> -->
-                <!--     <Label>Apply Changes</Label> -->
-                <!-- </Button> -->
-            </StackPanel>
+                    
+                    <Label Content="Marque:"></Label>
+                    <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
+                        <ComboBox Name="cbEditBrand" ItemsSource="{Binding BrandVm.Brands}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Brand, ElementName=ExcavatorGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock 
+                                            Margin="5 0"
+                                            VerticalAlignment="Center">
+                                            <Run Text="{Binding Name, Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBrandImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Capacité du godet:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditBucketLiters" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.BucketLiters, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBucketLitersImg"></Image>
+                    </StackPanel>
+                    
+                    <Label Content="Année de sortie:"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox HorizontalAlignment="Left" Name="txtEditReleaseYear" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.ReleaseYear, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidReleaseYearImg"></Image>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 10 0 0">
+                    
+                    <Label Content="Utilisation en cours:"></Label>
+                    <CheckBox Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Prix journalier:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditDailyPrice" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.DailyPrice, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDailyPriceImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
+                        <Label Content="Image de la pelleteuse:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditImagePath" VerticalAlignment="Top" Width="250" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.PicturePath, Mode=OneWay}" IsReadOnly="True"/>
+                        <Button x:Name="btnUpdateBrowseImage" Content="Choisir" Height="25" Width="75" Click="BtnUpdateBrowseImage_OnClick"></Button>
+                    </StackPanel>
+                    <Image Width="50" Height="50" Margin="0 0 0 0" Name="EditImagePreview" Source="{Binding SelectedItem.PicturePath, Mode=TwoWay, ElementName=ExcavatorGrid}"></Image>
+                    
+                    <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
+                    <Button Name="editBtn" Content="Enregistrer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ApplyChanges" Style="{StaticResource BtnBorderRadius}"></Button> <!-- Command="{Binding Path=UpdateCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}"-->
+                    <Button Name="clearEditBtn" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearEditForm" Style="{StaticResource BtnBorderRadius}"></Button>
+                    </WrapPanel>
+                </StackPanel>
+            </GroupBox>
+        
+        <GroupBox Grid.Column="2" Header="Ajout" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="AddForm">
+                <StackPanel Grid.RowSpan="2">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Nom:"></Label>
+                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtAddName" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidNameImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Description:"></Label>
+                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddDesc" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                    <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidDescImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Marque:"></Label>
+                        <ComboBox Name="cbAddBrand" ItemsSource="{Binding BrandVm.Brands}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Brand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock 
+                                            Margin="5 0"
+                                            VerticalAlignment="Center">
+                                            <Run  Text="Nom entier :" />
+                                            <Run Text="{Binding Name, Mode=OneWay}"/>
+                                        </TextBlock>
+                                        <TextBlock 
+                                            Margin="5 0"
+                                            Text="|"
+                                       
+                                            VerticalAlignment="Center" />
+                                        <TextBlock
+                                            Margin="5 0"
+                                            VerticalAlignment="Center">
+                                            <Run  Text="Tel :" />
+                                            <Run Text="{Binding CreationYear, Mode=OneWay}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBrandImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Capacité du godet:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddBucketLiters" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding BucketLiters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBucketLitersImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Année de sortie:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddReleaseYear" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidReleaseYearImg"></Image>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Prix journalier:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddDailyPrice" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding DailyPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidDailyPriceImg"></Image>
+                    </StackPanel>
+                    
+                    <Label Content="Image de la pelleteuse:"></Label>
+                    <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
+                        <TextBox HorizontalAlignment="Left" Name="txtAddImagePath" VerticalAlignment="Top" Width="250" Height="25" VerticalContentAlignment="Center" IsReadOnly="True"/> <!-- Text="{Binding CoverImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+                        <Button x:Name="btnAddBrowseImage" Content="Choisir" Height="25" Width="75" Click="BtnAddBrowseImage_OnClick"></Button>
+                    </StackPanel>
+                    
+                    <Image Width="50" Height="50" Margin="0 0 0 0" Name="AddImagePreview"></Image>
+                    <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
+                    <Button Name="addBtn" Content="Ajouter" Margin="10 0" MinHeight="50" MinWidth="100" Command="{Binding Path=AddCommand}" IsEnabled="False" Style="{StaticResource BtnBorderRadius}"></Button>
+                    <Button Name="clearAddButton" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearAddForm" Style="{StaticResource BtnBorderRadius}"></Button>
+                    </WrapPanel>
+                </StackPanel>
+            </GroupBox>
+    
+        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Name="ManageAddFormBtn" Width="150" Height="50" Margin="5" Click="ManageAddForm" Style="{StaticResource BtnBorderRadius}">
+                <Image Source="../Assets/add-icon.png" Width="24" Height="24" Name="manageAddBtnImage"></Image>
+            </Button>
+            <Button Name="ManageEditFormBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Click="ManageEditForm" Style="{StaticResource BtnBorderRadius}">
+                <Image Source="../Assets/edit-icon.png" Width="24" Height="24" Name="manageEditBtnImage"></Image>
+            </Button>
+            <Button Name="DeleteBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=ExcavatorGrid, Path=SelectedItem}" Style="{StaticResource BtnBorderRadius}">
+                <Image Source="../Assets/redtrashcan-icon.png" Width="24" Height="24" Name="deleteBtnImage"></Image>
+            </Button>
+        </StackPanel>
             
             
             

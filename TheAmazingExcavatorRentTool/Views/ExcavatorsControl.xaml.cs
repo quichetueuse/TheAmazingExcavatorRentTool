@@ -5,317 +5,428 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using DVDRENT.Models;
-using DVDRENT.ViewModels;
+using TheAmazingExcavatorRentTool.Models;
+using TheAmazingExcavatorRentTool.ViewModels;
 using Microsoft.Win32;
 
-namespace DVDRENT.Views
+namespace TheAmazingExcavatorRentTool.Views
 {
     public partial class ExcavatorsControl : UserControl
-    {
-        private DvdVM _dvdvm;
-        public ExcavatorsControl(DvdVM dvdvm)
-        {
-            InitializeComponent();
-            _dvdvm = dvdvm;
-            DataContext = _dvdvm;
-        }
-        //===== DVD variables =====
-        private BitmapImage notValidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
-        private BitmapImage validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
-        private bool isDvdEditing = false;
-        private bool isDvdAdding = false;
+    {    
         
-        private bool EditValidTitle = false;
-        private bool EditValidDirector = false;
-        private bool EditValidGenre = false;
-        private bool EditValidReleaseYear = false;
-        // private bool EditValidAvailability = false;
+        // initialising variables
+        private BitmapImage invalidIcon;
+        private BitmapImage validIcon;
         
-        private bool AddValidTitle = false;
-        private bool AddValidDirector = false;
-        private bool AddValidGenre = false;
-        private bool AddValidReleaseYear = false;
+        private BitmapImage minusIcon;
+        private BitmapImage plusIcon;
 
-        private string absoluteSolutionPath = "C:\\Users\\Eliot\\RiderProjects\\DVDRENT\\DVDRENT\\CoverImages\\";
-        private string safeFileName;
+        private bool editValidName;
+        private bool editValidDesc;
+        private bool editValidBrand;
+        private bool editValidBucketLiters;
+        private bool editValidReleaseYear;
+        private bool editValidDailyPrice;
         
-        private void DvdGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private bool addValidName;
+        private bool addValidDesc;
+        private bool addValidBrand; 
+        private bool addValidBucketLiters;
+        private bool addValidReleaseYear;
+        private bool addValidDailyPrice;
+
+        private string ImagesDir;
+        private string editSafeFileName;
+        private string addSafeFileName;
+        
+
+        
+        private ExcavatorVM _excavatorvm;
+        public ExcavatorsControl(ExcavatorVM excavatorvm)
         {
-            if (isDvdAdding || isDvdEditing)
+            // InitializeComponent();
+            _excavatorvm = excavatorvm;
+            InitializeComponent();
+            DataContext = _excavatorvm;
+            
+            invalidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
+            validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
+            
+            minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
+            plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
+            ImagesDir =
+                "C:\\Users\\Eliot\\RiderProjects\\TheAmazingExcavatorRentTool\\TheAmazingExcavatorRentTool\\ExcavatorImages\\";
+        }
+        
+        
+        
+        private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            reloadComboboxItems();
+            
+            if (EditForm.IsVisible || AddForm.IsVisible)
                 return;
 
-            btnDvdDelete.IsEnabled = true;
-            btnDvdAppearEdit.IsEnabled = true;
+            DeleteBtn.IsEnabled = true;
+            ManageEditFormBtn.IsEnabled = true;
         }
         
-        private void DvdGrid_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var lastColumn = DvdGrid.Columns.Last();
-            if (lastColumn == null) return;
-
-            lastColumn.Width = new DataGridLength(1.0d, DataGridLengthUnitType.Star);
-        }
         
-        private void ClearDvdAdd(object sender, RoutedEventArgs e)
+        private void ClearAddForm(object sender, RoutedEventArgs e)
         {
-            txtAddTitle.Clear();
-            txtAddDirector.Clear();
-            txtAddGenre.Clear();
+            txtAddName.Clear();
+            txtAddDesc.Clear();
+            cbAddBrand.SelectedItem = null;
+            txtAddBucketLiters.Clear();
             txtAddReleaseYear.Clear();
+            txtAddDailyPrice.Clear();
             
-            DvdAddImagePreview.Source = null;
+            AddImagePreview.Source = null;
             txtAddImagePath.Text = "Aucun fichier séclectionné";
-            safeFileName = null;
+            addSafeFileName = null;
         }
         
-        private void ClearDvdUpdate(object sender, RoutedEventArgs e)
+        private void ClearEditForm(object sender, RoutedEventArgs e)
         {
-            txtUpdateTitle.Clear();
-            txtUpdateDirector.Clear();
-            txtUpdateGenre.Clear();
-            txtUpdateReleaseYear.Clear();
-            txtUpdateImagePath.Clear();
-            DvdUpdateImagePreview.Source = null;
-            txtUpdateImagePath.Text = "Aucun fichier séclectionné";
-            safeFileName = null;
+            txtEditName.Clear();
+            txtEditDesc.Clear();
+            cbEditBrand.SelectedItem = null;
+            txtEditBucketLiters.Clear();
+            txtEditReleaseYear.Clear();
+            checkBEditIsUsed.IsChecked = false;
+            txtEditDailyPrice.Clear();
+            
+            EditImagePreview.Source = null;
+            txtEditImagePath.Text = "Aucun fichier séclectionné";
+            editSafeFileName = null;
 
         }
 
-        private void BtnDvdAppearAdd_OnClick(object sender, RoutedEventArgs e)
+        private void ManageAddForm(object sender, RoutedEventArgs e)
         {
-            if (gbDvdAdd.Visibility == Visibility.Hidden)
+            if (AddForm.Visibility == Visibility.Hidden)
             {
-                isDvdAdding = true;
-                imgDvdAppearAdd.Source = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
-                btnDvdAppearEdit.IsEnabled = false;
-                btnDvdDelete.IsEnabled = false;
-                gbDvdAdd.Visibility = Visibility.Visible;
+                AddForm.Visibility = Visibility.Visible;
+                manageAddBtnImage.Source = minusIcon;
+                ManageEditFormBtn.IsEnabled = false;
+                DeleteBtn.IsEnabled = false;
 
             }
-            else if (gbDvdAdd.Visibility == Visibility.Visible)
+            
+            else if (AddForm.Visibility == Visibility.Visible)
             {
-                isDvdAdding = false;
-                imgDvdAppearAdd.Source = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
-                if (DvdGrid.SelectedItems.Count > 0)
+                AddForm.Visibility = Visibility.Hidden;
+                manageAddBtnImage.Source = plusIcon;
+                if (ExcavatorGrid.SelectedItems.Count > 0)
                 {
-                    btnDvdAppearEdit.IsEnabled = true;
-                    btnDvdDelete.IsEnabled = true;
+                    ManageEditFormBtn.IsEnabled = true;
+                    DeleteBtn.IsEnabled = true;
                 }
                 
-                gbDvdAdd.Visibility = Visibility.Hidden;
-                safeFileName = null;
-                DvdGrid.Focus();
+                addSafeFileName = null;
+                ExcavatorGrid.Focus();
             }
         }
 
-        private void BtnDvdAppearEdit_OnClick(object sender, RoutedEventArgs e)
+        private void ManageEditForm(object sender, RoutedEventArgs e)
         {
-            if (gbDvdUpdate.Visibility == Visibility.Hidden)
+            if (EditForm.Visibility == Visibility.Hidden)
             {
-                isDvdEditing = true;
-                btnDvdAppearAdd.IsEnabled = false;
-                btnDvdDelete.IsEnabled = false;
-                gbDvdUpdate.Visibility = Visibility.Visible;
+                EditForm.Visibility = Visibility.Visible;
+                ManageAddFormBtn.IsEnabled = false;
+                DeleteBtn.IsEnabled = false;
 
             }
-            else if (gbDvdUpdate.Visibility == Visibility.Visible)
+            else if (EditForm.Visibility == Visibility.Visible)
             {
-                isDvdEditing = false;
-                if (DvdGrid.SelectedItems.Count > 0)
+                EditForm.Visibility = Visibility.Hidden;
+                if (ExcavatorGrid.SelectedItems.Count > 0)
                 {
-                    btnDvdAppearAdd.IsEnabled = true;
-                    btnDvdDelete.IsEnabled = true;
+                    ManageAddFormBtn.IsEnabled = true;
+                    DeleteBtn.IsEnabled = true;
                 }
-                gbDvdUpdate.Visibility = Visibility.Hidden;
-                safeFileName = null;
-                DvdGrid.Focus();
+                editSafeFileName = null;
+                ExcavatorGrid.Focus();
             }
         }
-        private void CanEditDvd()
+        private void CanEdit()
         {
-            if (EditValidTitle && EditValidDirector && EditValidGenre && EditValidReleaseYear)
+            if (editValidName && editValidDesc && editValidBrand && editValidBucketLiters && editValidReleaseYear && editValidDailyPrice)
             {
-                btnDvdApplyChanges.IsEnabled = true;
+                editBtn.IsEnabled = true;
             }
             else
             {
-                btnDvdApplyChanges.IsEnabled = false;
+                editBtn.IsEnabled = false;
             }
         }
 
-        private void CanAddDvd()
+        private void CanAdd()
         {
-            if (AddValidTitle && AddValidDirector && AddValidGenre && AddValidReleaseYear)
+            if (addValidName && addValidDesc && addValidBrand && addValidBucketLiters && addValidReleaseYear && addValidDailyPrice)
             {
-                btnDvdAdd.IsEnabled = true;
+                addBtn.IsEnabled = true;
             }
             else
             {
-                btnDvdAdd.IsEnabled = false;
+                addBtn.IsEnabled = false;
             }
-        }
-        
-        
-        
-         private void TxtAddTitle_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidTitle(txtAddTitle.Text))
-            {
-                DvdAddValidTitle.Source = validIcon;
-                AddValidTitle = true;
-            }
-            else
-            {
-                DvdAddValidTitle.Source = notValidIcon;
-                AddValidTitle = false;
-            }
-            CanAddDvd();
         }
 
-        private void TxtAddDirector_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void ValidateComboboxFields(object sender, SelectionChangedEventArgs e)
         {
-            if (isValidDirector(txtAddDirector.Text))
-            {
-                DvdAddValidDirector.Source = validIcon;
-                AddValidDirector = true;
-            }
-            else
-            {
-                DvdAddValidDirector.Source = notValidIcon;
-                AddValidDirector = false;
-            }
-            CanAddDvd();
-        }
+            ComboBox senderElement = (ComboBox)sender;
 
-        private void TxtAddGenre_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidGenre(txtAddGenre.Text))
+            if (senderElement.Name == cbEditBrand.Name)
             {
-                DvdAddValidGenre.Source = validIcon;
-                AddValidGenre = true;
-            }
-            else
-            {
-                DvdAddValidGenre.Source = notValidIcon;
-                AddValidGenre = false;
-            }
-            CanAddDvd();
-        }
-
-        private void TxtAddReleaseYear_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidYear(txtAddReleaseYear.Text))
-            {
-                if(Convert.ToInt32(txtAddReleaseYear.Text) > DateTime.Now.Year)
+                if (!isValidComboBoxSelection(senderElement))
+                {
+                    EditValidBrandImg.Source = invalidIcon;
+                    editValidBrand = false;
+                    _excavatorvm.Brand = cbEditBrand.SelectedItem as Brand;
+                    CanEdit();
                     return;
-                DvdAddValidReleaseYear.Source = validIcon;
-                AddValidReleaseYear = true;
+                }
+                
+                EditValidBrandImg.Source = validIcon;
+                editValidBrand = true;
+                CanEdit();
             }
-            else
+            
+            if (senderElement.Name == cbAddBrand.Name)
             {
-                DvdAddValidReleaseYear.Source = notValidIcon;
-                AddValidReleaseYear = false;
-            }
-            CanAddDvd();
-        }
-
-        private void TxtUpdateTitle_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidTitle(txtUpdateTitle.Text))
-            {
-                DvdUpdateValidTitle.Source = validIcon;
-                EditValidTitle = true;
-            }
-            else
-            {
-                DvdUpdateValidTitle.Source = notValidIcon;
-                EditValidTitle = false;
-            }
-            CanEditDvd();
-        }
-
-        private void TxtUpdateDirector_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidDirector(txtUpdateDirector.Text))
-            {
-                DvdUpdateValidDirector.Source = validIcon;
-                EditValidDirector = true;
-            }
-            else
-            {
-                DvdUpdateValidDirector.Source = notValidIcon;
-                EditValidDirector = false;
-            }
-            CanEditDvd();
-        }
-
-        private void TxtUpdateGenre_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidGenre(txtUpdateGenre.Text))
-            {
-                DvdUpdateValidGenre.Source = validIcon;
-                EditValidGenre = true;
-            }
-            else
-            {
-                DvdUpdateValidGenre.Source = notValidIcon;
-                EditValidGenre = false;
-            }
-            CanEditDvd();
-        }
-
-        private void TxtUpdateReleaseYear_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isValidYear(txtUpdateReleaseYear.Text))
-            {
-                if(Convert.ToInt32(txtUpdateReleaseYear.Text) > DateTime.Now.Year)
+                if (!isValidComboBoxSelection(senderElement))
+                {
+                    AddValidBrandImg.Source = invalidIcon;
+                    addValidBrand = false;
+                    CanAdd();
                     return;
-                DvdUpdateValidReleaseYear.Source = validIcon;
-                EditValidReleaseYear = true;
+                }
+                
+                AddValidBrandImg.Source = validIcon;
+                addValidBrand = true;
+                CanAdd();
             }
-            else
-            {
-                DvdUpdateValidReleaseYear.Source = notValidIcon;
-                EditValidReleaseYear = false;
-            }
-            CanEditDvd();
         }
         
-        private void BtnDvdApplyChanges_OnClick(object sender, RoutedEventArgs e)
+        private void ValidateTextFields(object sender, TextChangedEventArgs e)
         {
-            var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications au Dvd '{txtUpdateTitle.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            TextBox sender_element = (TextBox)sender;
+            //Name input in add form
+            if (sender_element.Name == txtAddName.Name)
+            {
+                if (!isValidName(sender_element.Text))
+                {
+                    AddValidNameImg.Source = invalidIcon;
+                    addValidName = false;
+                    CanAdd();
+                    return;
+                }
+                AddValidNameImg.Source = validIcon;
+                addValidName = true;
+                CanAdd();
+            }
+            // Name input in edit form
+            if (sender_element.Name == txtEditName.Name)
+            {
+                if (!isValidName(sender_element.Text))
+                {
+                    EditValidNameImg.Source = invalidIcon;
+                    editValidName = false;
+                    CanEdit();
+                    return;
+                }
+                EditValidNameImg.Source = validIcon;
+                editValidName = true;
+                CanEdit();
+            }
+            // Desc input in add form
+            if (sender_element.Name == txtAddDesc.Name)
+            {
+                if (!isValidDesc(sender_element.Text))
+                {
+                    AddValidDescImg.Source = invalidIcon;
+                    addValidDesc = false;
+                    CanAdd();
+                    return;
+                }
+                AddValidDescImg.Source = validIcon;
+                addValidDesc = true;
+                CanAdd();
+            }
+            // Desc input in edit form
+            if (sender_element.Name == txtEditDesc.Name)
+            {
+                if (!isValidDesc(sender_element.Text))
+                {
+                    EditValidDescImg.Source = invalidIcon;
+                    editValidDesc = false;
+                    CanEdit();
+                    return;
+                }
+                EditValidDescImg.Source = validIcon;
+                editValidDesc = true;
+                CanEdit();
+            }
+            // Bucket liters input in add form
+            if (sender_element.Name == txtAddBucketLiters.Name)
+            {
+                if (!isValidNumber(sender_element.Text))
+                {
+                    AddValidBucketLitersImg.Source = invalidIcon;
+                    addValidBucketLiters = false;
+                    CanAdd();
+                    return;
+                }
+                AddValidBucketLitersImg.Source = validIcon;
+                addValidBucketLiters = true;
+                CanAdd();
+            }
+            // Bucket liters input in edit form
+            if (sender_element.Name == txtEditBucketLiters.Name)
+            {
+                if (!isValidNumber(sender_element.Text))
+                {
+                    EditValidBucketLitersImg.Source = invalidIcon;
+                    editValidBucketLiters = false;
+                    CanEdit();
+                    return;
+                }
+                EditValidBucketLitersImg.Source = validIcon;
+                editValidBucketLiters = true;
+                CanEdit();
+            }
+            // Release year input in add form
+            if (sender_element.Name == txtAddReleaseYear.Name)
+            {
+                
+                if (!isValidYear(sender_element.Text) || Convert.ToInt32(sender_element.Text) > DateTime.Now.Year)
+                {
+                    AddValidReleaseYearImg.Source = invalidIcon;
+                    addValidReleaseYear = false;
+                    CanAdd();
+                    return;
+                }
+                
+                
+                AddValidReleaseYearImg.Source = validIcon;
+                addValidReleaseYear = true;
+                CanAdd();
+            }
+            // Release year input in edit form
+            if (sender_element.Name == txtEditReleaseYear.Name)
+            {
+                if (!isValidYear(sender_element.Text) || Convert.ToInt32(sender_element.Text) > DateTime.Now.Year)
+                {
+                    EditValidReleaseYearImg.Source = invalidIcon;
+                    editValidReleaseYear = false;
+                    CanEdit();
+                    return;
+                }
+                EditValidReleaseYearImg.Source = validIcon;
+                editValidReleaseYear = true;
+                CanEdit();
+            }
+            
+            // Daily price input in add form
+            if (sender_element.Name == txtAddDailyPrice.Name)
+            {
+                if (!isValidNumber(sender_element.Text))
+                {
+                    AddValidDailyPriceImg.Source = invalidIcon;
+                    addValidDailyPrice = false;
+                    CanAdd();
+                    return;
+                }
+                AddValidDailyPriceImg.Source = validIcon;
+                addValidDailyPrice = true;
+                CanAdd();
+            }
+            
+            // Daily price input in add form
+            if (sender_element.Name == txtEditDailyPrice.Name)
+            {
+                if (!isValidNumber(sender_element.Text))
+                {
+                    EditValidDailyPriceImg.Source = invalidIcon;
+                    editValidDailyPrice = false;
+                    CanEdit();
+                    return;
+                }
+                EditValidDailyPriceImg.Source = validIcon;
+                editValidDailyPrice = true;
+                CanEdit();
+            }
+        }
+        
+        private void reloadComboboxItems()
+        {
+            if (ExcavatorGrid.SelectedItem == null)
+                return;
+            Excavator SelectedExcavator = ExcavatorGrid.SelectedItem as Excavator;
+            // Console.WriteLine(SelectedLocation.Client.FullName);
+        
+            cbEditBrand.ItemsSource = null;
+            cbEditBrand.Items.Clear();
+            
+            foreach (var brand in _excavatorvm.BrandVm.Brands)
+            {
+                if (brand.BrandId == SelectedExcavator.Brand.BrandId)
+                {
+                    cbEditBrand.Items.Add(brand);
+                    cbEditBrand.SelectedItem = brand;
+                }
+                else
+                {
+                    cbEditBrand.Items.Add(brand);
+                }
+            }
+            
+        }
+        
+        private void ApplyChanges(object sender, RoutedEventArgs e)
+        {
+            var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à la pelleteuse '{txtEditName.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (Result == MessageBoxResult.No)
                 return;
-            if (!File.Exists(safeFileName))
-                File.Copy(txtUpdateImagePath.Text, safeFileName);
-            Dvd dvd = DvdGrid.SelectedItem as Dvd;
-            String titre = txtUpdateTitle.Text;
-            String director = txtUpdateDirector.Text;
-            String genre = txtUpdateGenre.Text;
-            int release_year = Convert.ToInt32(txtUpdateReleaseYear.Text);
-            bool availability = Convert.ToBoolean(txtUpdateIsAvailable.IsChecked);
-            _dvdvm.UpdateDvd(new Dvd(dvdid: dvd.DVDId, title: titre, director: director, genre: genre, releaseyear: release_year, isAvailable: availability, coverImagePath: safeFileName));
+            if (!File.Exists(editSafeFileName))
+                File.Copy(txtEditImagePath.Text, editSafeFileName);
+            int id = (ExcavatorGrid.SelectedItem as Excavator).ExcavatorId;
+            String name = txtEditName.Text;
+            String desc = txtEditDesc.Text;
+            Brand brand = cbEditBrand.SelectedItem as Brand;
+            int bucket_liters = Convert.ToInt32(txtEditBucketLiters.Text);
+            int release_year = Convert.ToInt32(txtEditReleaseYear.Text);
+            bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
+            int daily_price = Convert.ToInt32(txtEditDailyPrice.Text);
+            Excavator excav_obj = new Excavator(excavatorid: id, name: name, description: desc, brand: brand, 
+                bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: editSafeFileName);
+            _excavatorvm.UpdateExcavator(excav_obj);
         }
         private bool isValidYear(string str)
         {
             Regex regex = new Regex("^(?=.*?(19[56789]|20\\d{2}).*)\\d{4}$");
             return regex.IsMatch(str);
         }
-        private bool isValidDirector(string str)
+        private bool isValidName(string str)
         {
-            Regex regex = new Regex("[a-zA-Z]+");
+            Regex regex = new Regex("^[a-zA-Z0-9éàèç. ,]{0,32}$");
             return regex.IsMatch(str);
+        }
+
+        private bool isValidComboBoxSelection(ComboBox element)
+        {
+            return element.SelectedItem != null;
         }
         
-        private bool isValidTitle(string str)
+        private bool isValidDesc(string str)
         {
-            Regex regex = new Regex("[a-zA-Z-.]+");
+            Regex regex = new Regex("^[a-zA-Z0-9éàèç. ,]{0,128}$");
             return regex.IsMatch(str);
         }
-        private bool isValidGenre(string str)
+        private bool isValidNumber(string str)
         {
-            Regex regex = new Regex("[a-zA-Z]+");
+            Regex regex = new Regex("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
             return regex.IsMatch(str);
         }
 
@@ -330,13 +441,13 @@ namespace DVDRENT.Views
 
             if (dialog.ShowDialog() != true)
             {
-                txtUpdateImagePath.Text = "Aucun fichier séclectionné";
-                safeFileName = null;
+                txtEditImagePath.Text = "Aucun fichier séclectionné";
+                editSafeFileName = null;
                 return;
             }
-            txtUpdateImagePath.Text = dialog.FileName;
-            DvdUpdateImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
-            safeFileName = absoluteSolutionPath + dialog.SafeFileName;
+            txtEditImagePath.Text = dialog.FileName;
+            EditImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
+            editSafeFileName = ImagesDir + dialog.SafeFileName;
             // Console.WriteLine(safeFileName);
         }
 
@@ -352,13 +463,13 @@ namespace DVDRENT.Views
             if (dialog.ShowDialog() != true)
             {
                 txtAddImagePath.Text = "Aucun fichier séclectionné";
-                safeFileName = null;
+                addSafeFileName = null;
                 return;
             }
             txtAddImagePath.Text = dialog.FileName;
-            DvdAddImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
-            safeFileName = absoluteSolutionPath + dialog.SafeFileName;
-            _dvdvm.CoverImagePath = safeFileName;
+            AddImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
+            addSafeFileName = ImagesDir + dialog.SafeFileName;
+            _excavatorvm.PicturePath = addSafeFileName;
         }
         
     }
