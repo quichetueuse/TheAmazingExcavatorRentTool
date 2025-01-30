@@ -81,9 +81,9 @@ namespace TheAmazingExcavatorRentTool.Views
             txtAddReleaseYear.Clear();
             txtAddDailyPrice.Clear();
             
-            AddImagePreview.Source = null;
-            txtAddImagePath.Text = "Aucun fichier séclectionné";
-            addSafeFileName = null;
+            // AddImagePreview.Source = null;
+            // txtAddImagePath.Text = "Aucun fichier séclectionné";
+            // addSafeFileName = null;
         }
         
         private void ClearEditForm(object sender, RoutedEventArgs e)
@@ -96,9 +96,9 @@ namespace TheAmazingExcavatorRentTool.Views
             checkBEditIsUsed.IsChecked = false;
             txtEditDailyPrice.Clear();
             
-            EditImagePreview.Source = null;
-            txtEditImagePath.Text = "Aucun fichier séclectionné";
-            editSafeFileName = null;
+            // EditImagePreview.Source = null;
+            // txtEditImagePath.Text = "Aucun fichier séclectionné";
+            // editSafeFileName = null;
 
         }
 
