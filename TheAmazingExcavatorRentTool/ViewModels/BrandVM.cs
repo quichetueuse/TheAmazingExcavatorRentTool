@@ -12,6 +12,7 @@ public class BrandVM: BaseVM
     
     public BrandVM()
     {
+        LoadBrands();
         // Load_Excavators();
     }
     
@@ -31,6 +32,35 @@ public class BrandVM: BaseVM
     {
         get { return _CreationYear; }
         set { _CreationYear = value; }
+    }
+    
+    public void LoadBrands()
+    {
+        ObservableCollection<Brand> brands = new ObservableCollection<Brand>();
+
+        var dbCon = getDbCon();
+
+        if (dbCon.IsConnect())
+        {
+            string query = "SELECT brand_id, name, creation_year FROM brand";
+            var cmd = new MySqlCommand(query, dbCon.Connection);
+
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+
+                Int32 BrandId = reader.GetInt32(0);
+                string Name = reader.GetString(1);
+                int CreationYear = reader.GetInt32(2);
+                
+                
+                brands.Add(new Brand(brandId: BrandId, name: Name, creationYear: CreationYear));
+            }
+
+            dbCon.Close();
+        }
+
+        Brands = brands;
     }
     
     public Brand getBrand(int brand_id)
