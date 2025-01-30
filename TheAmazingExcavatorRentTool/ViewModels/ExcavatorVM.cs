@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using Prism.Commands;
 using MySqlConnector;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
@@ -11,12 +12,21 @@ public class ExcavatorVM : BaseVM
 {
     public ObservableCollection<Excavator> Excavators { get; set; }
     
-    private BrandVM _brandvm;
 
     public ExcavatorVM(BrandVM brandvm)
     {
         _brandvm = brandvm;
         Load_Excavators();
+    }
+    
+    private BrandVM _brandvm;
+
+    public BrandVM BrandVm
+    {
+        get
+        {
+            return _brandvm;
+        }
     }
 
 
@@ -49,7 +59,10 @@ public class ExcavatorVM : BaseVM
     public int BucketLiters
     {
         get { return _BucketLiters; }
-        set { _BucketLiters = value; }
+        set
+        {
+            _BucketLiters = value;
+        }
     }
 
     private int _ReleaseYear;
@@ -223,11 +236,11 @@ public class ExcavatorVM : BaseVM
             cmd.Parameters.AddWithValue("@daily_price", excavator_to_update.DailyPrice);
             if (excavator_to_update.PicturePath == null)
             {
-                cmd.Parameters.AddWithValue("@coverimage", null);
+                cmd.Parameters.AddWithValue("@picture", null);
             }
             else
             {
-                cmd.Parameters.AddWithValue("@coverimage", excavator_to_update.PicturePath);
+                cmd.Parameters.AddWithValue("@picture", excavator_to_update.PicturePath);
             }
             cmd.Parameters.AddWithValue("@id", excavator_to_update.ExcavatorId);
 
@@ -262,6 +275,7 @@ public class ExcavatorVM : BaseVM
             string name = Name;
             string description = Description;
             Brand brand = Brand;
+            int brand_id = brand.BrandId;
             int bucket_liters = BucketLiters;
             int release_year = ReleaseYear;
             bool is_used = IsUsed;
@@ -279,11 +293,11 @@ public class ExcavatorVM : BaseVM
             }
 
             string query =
-                "INSERT INTO excavator (excavator_id, name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @daily_price, @picture_path)";
+                "INSERT INTO excavator (name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @is_used, @daily_price, @picture_path)";
             var cmd = new MySqlCommand(query, dbCon.Connection);
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@description", description);
-            cmd.Parameters.AddWithValue("@brand_id", brand.BrandId);
+            cmd.Parameters.AddWithValue("@brand_id", brand_id);
             cmd.Parameters.AddWithValue("@bucket_liters", bucket_liters);
             cmd.Parameters.AddWithValue("@release_year", release_year);
             cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(is_used));
