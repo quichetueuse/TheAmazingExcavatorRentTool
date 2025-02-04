@@ -112,15 +112,5 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             return Convert.ToBase64String(hash);
         }
         
-        private DB getDbCon()
-        {
-            var dbCon = new DB();
-            dbCon.Server = "localhost";
-            dbCon.DatabaseName = "heavy_app_e5";
-            dbCon.UserName = "root";
-            dbCon.Password = "";
-
-            return dbCon;
-        }
     }
 }
