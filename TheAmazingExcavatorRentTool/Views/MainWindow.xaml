@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TheAmazingExcavatorRentTool"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        Icon="../Assets/app-icon.png"
         Title="The Greatest Excavator Renting App That was ever created" Height="1080" Width="1920">
     
     <TabControl TabStripPlacement="Top" Grid.Column="0" Grid.ColumnSpan="10000" Grid.Row="0" Name="modules_tabcontrol">

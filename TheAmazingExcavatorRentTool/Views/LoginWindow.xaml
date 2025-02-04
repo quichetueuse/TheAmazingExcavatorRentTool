@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Page de connexion" Height="720" Width="1080"
         WindowStartupLocation="CenterScreen"
+        Icon="../Assets/app-icon.png"
         x:Name="loginwindow">
     <Window.Resources>
         <Style TargetType="Button" x:Key="BtnBorderRadius">
