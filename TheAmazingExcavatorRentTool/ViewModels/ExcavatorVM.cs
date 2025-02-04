@@ -172,7 +172,7 @@ public class ExcavatorVM : BaseVM
 
     private void DeleteExcavator(Excavator excavator_to_delete)
     {
-        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le Dvd '{excavator_to_delete.Name}'?", "Supression ?",
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la pelleteuse '{excavator_to_delete.Name}'?", "Supression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
@@ -262,7 +262,7 @@ public class ExcavatorVM : BaseVM
 
     public void AddExcavator()
     {
-        var Result = MessageBox.Show("Voulez-vous vraiment ajouter un Dvd ?", "Ajout ?", MessageBoxButton.YesNo,
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter une pelleteuse ?", "Ajout ?", MessageBoxButton.YesNo,
             MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
@@ -325,8 +325,7 @@ public class ExcavatorVM : BaseVM
 
     public Excavator getExcavator(int excavator_id) //getExcavator
     {
-        // creer et retourne un dvd en fonction de l'id passée en parametre 
-        //select DvdId, title from DVD
+        // creer et retourne un une pelleteuse en fonction de l'id passée en parametre 
         string name = "";
         string description = "";
         int brand_id = 0;
