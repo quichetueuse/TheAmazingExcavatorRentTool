@@ -367,7 +367,7 @@ namespace TheAmazingExcavatorRentTool.Views
 
             editSafeFileName = Path.GetFileName(txtEditImagePath.Text);
             
-            if (!File.Exists(ImagesDir + editSafeFileName) && editSafeFileName != "")
+            if (!File.Exists(ImagesDir + editSafeFileName) && editSafeFileName != "Aucun fichier séclectionné")
             {
                 File.Copy(txtEditImagePath.Text, ImagesDir + editSafeFileName);
             }
@@ -380,8 +380,17 @@ namespace TheAmazingExcavatorRentTool.Views
             int release_year = Convert.ToInt32(txtEditReleaseYear.Text);
             bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
             int daily_price = Convert.ToInt32(txtEditDailyPrice.Text);
+            string? file_path;
+            if (editSafeFileName == "" || editSafeFileName == "Aucun fichier séclectionné")
+            {
+                file_path = null;
+            }
+            else
+            {
+                file_path = ImagesDir + editSafeFileName;
+            }
             Excavator excav_obj = new Excavator(excavatorid: id, name: name, description: desc, brand: brand, 
-                bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: ImagesDir + editSafeFileName);
+                bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: file_path);
             _excavatorvm.UpdateExcavator(excav_obj);
 
             ExcavatorGrid.SelectedItem = excav_obj;
@@ -426,11 +435,20 @@ namespace TheAmazingExcavatorRentTool.Views
             {
                 txtEditImagePath.Text = "Aucun fichier séclectionné";
                 editSafeFileName = null;
+                EditImagePreview.Source = null;
                 return;
             }
             txtEditImagePath.Text = dialog.FileName;
             EditImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
             editSafeFileName = ImagesDir + dialog.SafeFileName;
+            
+            
+            // Binding myBinding = new Binding();
+            // myBinding.Source = _excavatorvm;
+            // myBinding.Path = new PropertyPath("PicturePath");
+            // myBinding.Mode = BindingMode.TwoWay;
+            // myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            // BindingOperations.SetBinding(txtEditImagePath, TextBox.TextProperty, myBinding);
             // Console.WriteLine(safeFileName);
         }
 
@@ -447,6 +465,8 @@ namespace TheAmazingExcavatorRentTool.Views
             {
                 txtAddImagePath.Text = "Aucun fichier séclectionné";
                 addSafeFileName = null;
+                _excavatorvm.PicturePath = null;
+                AddImagePreview.Source = null;
                 return;
             }
             txtAddImagePath.Text = dialog.FileName;
