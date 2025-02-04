@@ -475,7 +475,7 @@ namespace TheAmazingExcavatorRentTool.Views
                 return;
             }
 
-            if (!File.Exists(ImagesDir + addSafeFileName))
+            if (!File.Exists(ImagesDir + dialog.SafeFileName))
             {
                 File.Copy(dialog.FileName, ImagesDir + dialog.SafeFileName);
             }
