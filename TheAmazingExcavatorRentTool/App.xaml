@@ -6,6 +6,7 @@
     <Application.Resources>
         <Style x:Key="CenteredGridContent">
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
             <!-- <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter> -->
         </Style>
         
