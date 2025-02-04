@@ -19,10 +19,28 @@
                 </Style>
             </Style.Resources>
         </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxStyling">
+            <Setter Property="MinWidth" Value="300"></Setter>
+        </Style>
+        
+        <Style TargetType="StackPanel" x:Key="FirstStackPanelMarginStyling">
+            <Setter Property="Margin" Value="0 10 0 20"></Setter>
+        </Style>
+        
+        <Style TargetType="StackPanel" x:Key="StackPanelMarginStyling">
+            <Setter Property="Margin" Value="0 0 0 20"></Setter>
+        </Style>
+        
+        <Style TargetType="TextBox" x:Key="TextBoxFileStyling">
+            <Setter Property="MinWidth" Value="400"></Setter>
+            <Setter Property="Width" Value="400"></Setter>
+        </Style>
+        
     </UserControl.Resources>
     <!-- <UserControl.DataContext> -->
     <!--     <viewModels:ExcavatorVM/> -->
     <!-- </UserControl.DataContext> -->
+    
     <Grid ShowGridLines="False" Background="Cornsilk">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -75,19 +93,19 @@
         <GroupBox Grid.Column="2" Header="Modification" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="EditForm">
                 <StackPanel Grid.RowSpan="2">
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource FirstStackPanelMarginStyling}">
                         <Label Content="Nom:"></Label>
-                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtEditName" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Name, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtEditName" VerticalAlignment="Top"  Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Name, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidNameImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Description:"></Label>
-                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditDesc" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Description, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditDesc" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Description, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDescImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}"> <!--VerticalAlignment="Top"-->
                         <Label Content="Marque:"></Label>
                         <ComboBox Name="cbEditBrand" ItemsSource="{Binding BrandVm.Brands}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Brand, ElementName=ExcavatorGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
                             <ComboBox.ItemTemplate>
@@ -105,32 +123,32 @@
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBrandImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Capacité du godet:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtEditBucketLiters" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.BucketLiters, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditBucketLiters" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.BucketLiters, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBucketLitersImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Année de sortie:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtEditReleaseYear" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.ReleaseYear, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditReleaseYear" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.ReleaseYear, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidReleaseYearImg"></Image>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 10 0 0">
                     
-                    <Label Content="Utilisation en cours:"></Label>
-                    <CheckBox Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 10 0 0"  Style="{StaticResource FirstStackPanelMarginStyling}">
+                        <Label Content="Utilisation en cours:"></Label>
+                        <CheckBox Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prix journalier:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtEditDailyPrice" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.DailyPrice, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditDailyPrice" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.DailyPrice, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDailyPriceImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Image de la pelleteuse:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtEditImagePath" VerticalAlignment="Top" Width="250" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.PicturePath, Mode=OneWay}" IsReadOnly="True"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtEditImagePath" VerticalAlignment="Top" Style="{StaticResource TextBoxFileStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.PicturePath, Mode=OneWay}" IsReadOnly="True"/>
                         <Button x:Name="btnUpdateBrowseImage" Content="Choisir" Height="25" Width="75" Click="BtnUpdateBrowseImage_OnClick"></Button>
                     </StackPanel>
                     <Image Width="50" Height="50" Margin="0 0 0 0" Name="EditImagePreview" Source="{Binding SelectedItem.PicturePath, Mode=OneWay, ElementName=ExcavatorGrid}"></Image>
@@ -145,21 +163,21 @@
         <GroupBox Grid.Column="2" Header="Ajout" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="AddForm">
                 <StackPanel Grid.RowSpan="2">
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource FirstStackPanelMarginStyling}">
                         <Label Content="Nom:"></Label>
-                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtAddName" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtAddName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidNameImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Description:"></Label>
-                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddDesc" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddDesc" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidDescImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Marque:"></Label>
-                        <ComboBox Name="cbAddBrand" ItemsSource="{Binding BrandVm.Brands}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Brand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
+                        <ComboBox Name="cbAddBrand" ItemsSource="{Binding BrandVm.Brands}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Brand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -187,27 +205,27 @@
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBrandImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Capacité du godet:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtAddBucketLiters" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding BucketLiters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddBucketLiters" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding BucketLiters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBucketLitersImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Année de sortie:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtAddReleaseYear" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddReleaseYear" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidReleaseYearImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prix journalier:"></Label>
-                        <TextBox HorizontalAlignment="Left" Name="txtAddDailyPrice" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" Text="{Binding DailyPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddDailyPrice" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding DailyPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidDailyPriceImg"></Image>
                     </StackPanel>
                     
-                    <Label Content="Image de la pelleteuse:"></Label>
-                    <StackPanel Orientation="Horizontal"> <!--VerticalAlignment="Top"-->
-                        <TextBox HorizontalAlignment="Left" Name="txtAddImagePath" VerticalAlignment="Top" Width="250" Height="25" VerticalContentAlignment="Center" IsReadOnly="True"/> <!-- Text="{Binding CoverImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
+                        <Label Content="Image de la pelleteuse:"></Label>
+                        <TextBox HorizontalAlignment="Left" Name="txtAddImagePath" VerticalAlignment="Top" Style="{StaticResource TextBoxFileStyling}" Height="25" VerticalContentAlignment="Center" IsReadOnly="True" Text="Aucun fichier séclectionné"/>
                         <Button x:Name="btnAddBrowseImage" Content="Choisir" Height="25" Width="75" Click="BtnAddBrowseImage_OnClick"></Button>
                     </StackPanel>
                     <Image Width="50" Height="50" Margin="0 0 0 0" Name="AddImagePreview"></Image>
