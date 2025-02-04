@@ -25,10 +25,19 @@ namespace TheAmazingExcavatorRentTool.ViewModels
         protected DB getDbCon()
         {
             var dbCon = new DB();
-            dbCon.Server = "localhost";
-            dbCon.DatabaseName = "heavy_app_e5";
-            dbCon.UserName = "root";
-            dbCon.Password = "";
+            if (Session.IsAdmin)
+            {
+                dbCon.Server = "localhost";
+                dbCon.DatabaseName = "heavy_app_e5";
+                dbCon.UserName = "excav_admin";
+                dbCon.Password = "yX8!fknX2bFLax97";
+            } else
+            {
+                dbCon.Server = "localhost";
+                dbCon.DatabaseName = "heavy_app_e5";
+                dbCon.UserName = "excav_user";
+                dbCon.Password = "UN5CDnVl!3b0nx$T";
+            }
 
             return dbCon;
         }
