@@ -147,7 +147,7 @@ public class ExcavatorVM : BaseVM
                 }
                 else
                 {
-                    PicturePath = null;
+                    PicturePath = "Aucun fichier séclectionné";
                 }
 
                 foreach (var variabBrand in _brandvm.Brands)
