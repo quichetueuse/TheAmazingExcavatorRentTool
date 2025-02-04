@@ -79,10 +79,10 @@ namespace TheAmazingExcavatorRentTool.Views
             txtAddBucketLiters.Clear();
             txtAddReleaseYear.Clear();
             txtAddDailyPrice.Clear();
-            
-            // AddImagePreview.Source = null;
-            // txtAddImagePath.Text = "Aucun fichier séclectionné";
-            // addSafeFileName = null;
+
+            AddImagePreview.SetCurrentValue(Image.SourceProperty, null);
+            txtAddImagePath.SetCurrentValue(TextBox.TextProperty, "Aucun fichier séclectionné");
+            addSafeFileName = null;
         }
         
         private void ClearEditForm(object sender, RoutedEventArgs e)
@@ -471,6 +471,11 @@ namespace TheAmazingExcavatorRentTool.Views
                 _excavatorvm.PicturePath = null;
                 AddImagePreview.Source = null;
                 return;
+            }
+
+            if (!File.Exists(ImagesDir + addSafeFileName))
+            {
+                File.Copy(dialog.FileName, ImagesDir + dialog.SafeFileName);
             }
             txtAddImagePath.Text = dialog.FileName;
             AddImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
