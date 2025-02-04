@@ -272,7 +272,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Bucket liters input in add form
             if (sender_element.Name == txtAddBucketLiters.Name)
             {
-                if (!isValidNumber(sender_element.Text))
+                if (!isValidNumber(sender_element.Text) || sender_element.Text == "0")
                 {
                     AddValidBucketLitersImg.Source = invalidIcon;
                     addValidBucketLiters = false;
@@ -286,7 +286,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Bucket liters input in edit form
             if (sender_element.Name == txtEditBucketLiters.Name)
             {
-                if (!isValidNumber(sender_element.Text))
+                if (!isValidNumber(sender_element.Text) || sender_element.Text == "0")
                 {
                     EditValidBucketLitersImg.Source = invalidIcon;
                     editValidBucketLiters = false;
@@ -332,7 +332,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Daily price input in add form
             if (sender_element.Name == txtAddDailyPrice.Name)
             {
-                if (!isValidNumber(sender_element.Text))
+                if (!isValidNumber(sender_element.Text) || sender_element.Text == "0")
                 {
                     AddValidDailyPriceImg.Source = invalidIcon;
                     addValidDailyPrice = false;
@@ -347,7 +347,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Daily price input in add form
             if (sender_element.Name == txtEditDailyPrice.Name)
             {
-                if (!isValidNumber(sender_element.Text))
+                if (!isValidNumber(sender_element.Text) || sender_element.Text == "0")
                 {
                     EditValidDailyPriceImg.Source = invalidIcon;
                     editValidDailyPrice = false;
