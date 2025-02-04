@@ -10,7 +10,7 @@ public class Excavator
     public int ReleaseYear { get; set; }
     public bool IsUsed { get; set; }
     public int DailyPrice { get; set; }
-    public string PicturePath { get; set; }
+    public string? PicturePath { get; set; }
 
     public Excavator(int excavatorid, string name, string description, Brand brand, int bucket_liters, int releaseyear, bool isused, int dailyprice, string picturepath)
     {
