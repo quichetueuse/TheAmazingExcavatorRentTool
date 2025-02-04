@@ -367,7 +367,7 @@ namespace TheAmazingExcavatorRentTool.Views
 
             editSafeFileName = Path.GetFileName(txtEditImagePath.Text);
             
-            if (!File.Exists(ImagesDir + editSafeFileName))
+            if (!File.Exists(ImagesDir + editSafeFileName) && editSafeFileName != "")
             {
                 File.Copy(txtEditImagePath.Text, ImagesDir + editSafeFileName);
             }
@@ -383,6 +383,8 @@ namespace TheAmazingExcavatorRentTool.Views
             Excavator excav_obj = new Excavator(excavatorid: id, name: name, description: desc, brand: brand, 
                 bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: ImagesDir + editSafeFileName);
             _excavatorvm.UpdateExcavator(excav_obj);
+
+            ExcavatorGrid.SelectedItem = excav_obj;
         }
         private bool isValidYear(string str)
         {
