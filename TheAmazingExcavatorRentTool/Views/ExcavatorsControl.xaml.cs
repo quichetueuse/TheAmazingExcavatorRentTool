@@ -433,13 +433,16 @@ namespace TheAmazingExcavatorRentTool.Views
 
             if (dialog.ShowDialog() != true)
             {
-                txtEditImagePath.Text = "Aucun fichier séclectionné";
+                txtEditImagePath.SetCurrentValue(TextBox.TextProperty, "Aucun fichier séclectionné");
                 editSafeFileName = null;
-                EditImagePreview.Source = null;
+                // EditImagePreview.Source = null;
+                EditImagePreview.SetCurrentValue(Image.SourceProperty, null);
                 return;
             }
-            txtEditImagePath.Text = dialog.FileName;
-            EditImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
+            // txtEditImagePath.Text = dialog.FileName;
+            txtEditImagePath.SetCurrentValue(TextBox.TextProperty, dialog.FileName);
+            // EditImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
+            EditImagePreview.SetCurrentValue(Image.SourceProperty, new BitmapImage(new Uri(dialog.FileName)));
             editSafeFileName = ImagesDir + dialog.SafeFileName;
             
             
