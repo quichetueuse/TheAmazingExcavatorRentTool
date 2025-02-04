@@ -10,6 +10,23 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         
+        <!-- <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}"> -->
+        <!--     <Setter Property="Template"> -->
+        <!--         <Setter.Value> -->
+        <!--             <ControlTemplate TargetType="{x:Type DataGridCell}"> -->
+        <!--                 <Grid Background="{TemplateBinding Background}"> -->
+        <!--                     <ContentPresenter VerticalAlignment="Center" /> -->
+        <!--                 </Grid> -->
+        <!--             </ControlTemplate> -->
+        <!--         </Setter.Value> -->
+        <!--     </Setter> -->
+        <!-- </Style> -->
+        
+        <Style x:Key="CenteredGridContent">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <!-- <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter> -->
+        </Style>
+        
         <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
@@ -80,7 +97,6 @@
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
-            Style="{StaticResource CenterGridContent}"
             >
             
             <!-- Center content on both axis -->
@@ -92,15 +108,14 @@
             <!-- </DataGrid.Resources> -->
             <!-- Loaded="DvdGrid_OnLoaded" -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Marque" Binding="{Binding Brand.Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Capacité du godet" Binding="{Binding BucketLiters}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Année de sortie" Binding="{Binding ReleaseYear}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn> 
-                <DataGridCheckBoxColumn Header="Est utilisé"  HeaderStyle="{StaticResource CenterGridHeaderStyle}" Binding="{Binding IsUsed}">
-                </DataGridCheckBoxColumn>
-                <DataGridTextColumn Header="Prix journalier" Binding="{Binding DailyPrice}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn> 
-                <DataGridTemplateColumn Header="Imagee de la pelleteuse" HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Header="Marque" Binding="{Binding Brand.Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Header="Capacité du godet" Binding="{Binding BucketLiters}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Header="Année de sortie" Binding="{Binding ReleaseYear}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/> 
+                <DataGridCheckBoxColumn Header="Est utilisé"  HeaderStyle="{StaticResource CenterGridHeaderStyle}" Binding="{Binding IsUsed}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Header="Prix journalier" Binding="{Binding DailyPrice}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/> 
+                <DataGridTemplateColumn Header="Image de la pelleteuse" HeaderStyle="{StaticResource CenterGridHeaderStyle}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Width="50" Height="50" Source="{Binding PicturePath}"/>
@@ -174,7 +189,7 @@
                     <Image Width="50" Height="50" Margin="0 0 0 0" Name="EditImagePreview" Source="{Binding SelectedItem.PicturePath, Mode=OneWay, ElementName=ExcavatorGrid}"></Image>
                     
                     <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
-                    <Button Name="editBtn" Content="Enregistrer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ApplyChanges" Style="{StaticResource BtnBorderRadius}"></Button> <!-- Command="{Binding Path=UpdateCommand}" CommandParameter="{Binding ElementName=DvdGrid, Path=SelectedItem}"-->
+                    <Button Name="editBtn" Content="Enregistrer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ApplyChanges" Style="{StaticResource BtnBorderRadius}"></Button>
                     <Button Name="clearEditBtn" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearEditForm" Style="{StaticResource BtnBorderRadius}"></Button>
                     </WrapPanel>
                 </StackPanel>
