@@ -9,9 +9,20 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        
         <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
+        
+        <Style x:Key="CenterGridContent" TargetType="DataGrid">
+            <Style.Resources>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        
         <Style TargetType="Button" x:Key="BtnBorderRadius">
             <Style.Resources>
                 <Style TargetType="Border">
@@ -69,7 +80,16 @@
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
+            Style="{StaticResource CenterGridContent}"
             >
+            
+            <!-- Center content on both axis -->
+            <!-- <DataGrid.Resources> -->
+            <!--     <Style TargetType="DataGridCell"> -->
+            <!--         <Setter Property="HorizontalAlignment" Value="Center"></Setter> -->
+            <!--         <Setter Property="VerticalAlignment" Value="Center"></Setter> -->
+            <!--     </Style> -->
+            <!-- </DataGrid.Resources> -->
             <!-- Loaded="DvdGrid_OnLoaded" -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
