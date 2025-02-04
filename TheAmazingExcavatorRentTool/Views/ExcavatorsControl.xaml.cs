@@ -75,7 +75,8 @@ namespace TheAmazingExcavatorRentTool.Views
         {
             txtAddName.Clear();
             txtAddDesc.Clear();
-            cbAddBrand.SelectedItem = null;
+            cbAddBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
+            // cbAddBrand.SelectedItem = null;
             txtAddBucketLiters.Clear();
             txtAddReleaseYear.Clear();
             txtAddDailyPrice.Clear();
@@ -89,10 +90,11 @@ namespace TheAmazingExcavatorRentTool.Views
         {
             txtEditName.Clear();
             txtEditDesc.Clear();
-            cbEditBrand.SelectedItem = null;
+            cbEditBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
             txtEditBucketLiters.Clear();
             txtEditReleaseYear.Clear();
-            checkBEditIsUsed.IsChecked = false;
+            // checkBEditIsUsed.IsChecked = false;
+            checkBEditIsUsed.SetCurrentValue(CheckBox.IsCheckedProperty, false);
             txtEditDailyPrice.Clear();
             
             // EditImagePreview.Source = null;
