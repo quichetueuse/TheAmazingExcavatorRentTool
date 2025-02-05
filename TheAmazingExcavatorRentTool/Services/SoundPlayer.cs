@@ -50,6 +50,7 @@ public class SoundPlayer
     private void OnMediaFailed(object sender, ExceptionEventArgs e)
     {
         var exception = e.ErrorException;
+        throw exception;
         // Handle exception
     }
 
