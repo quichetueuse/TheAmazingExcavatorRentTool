@@ -216,7 +216,7 @@ namespace TheAmazingExcavatorRentTool.Views
             //Name input in add form
             if (sender_element.Name == txtAddName.Name)
             {
-                if (!isValidName(sender_element.Text))
+                if (!isValidName(sender_element.Text) || sender_element.Text.Length == 0)
                 {
                     AddValidNameImg.Source = invalidIcon;
                     addValidName = false;
@@ -230,7 +230,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Name input in edit form
             if (sender_element.Name == txtEditName.Name)
             {
-                if (!isValidName(sender_element.Text))
+                if (!isValidName(sender_element.Text) || sender_element.Text.Length == 0)
                 {
                     EditValidNameImg.Source = invalidIcon;
                     editValidName = false;
@@ -244,7 +244,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Desc input in add form
             if (sender_element.Name == txtAddDesc.Name)
             {
-                if (!isValidDesc(sender_element.Text))
+                if (!isValidDesc(sender_element.Text) || sender_element.Text.Length == 0)
                 {
                     AddValidDescImg.Source = invalidIcon;
                     addValidDesc = false;
@@ -258,7 +258,7 @@ namespace TheAmazingExcavatorRentTool.Views
             // Desc input in edit form
             if (sender_element.Name == txtEditDesc.Name)
             {
-                if (!isValidDesc(sender_element.Text))
+                if (!isValidDesc(sender_element.Text) || sender_element.Text.Length == 0)
                 {
                     EditValidDescImg.Source = invalidIcon;
                     editValidDesc = false;
