@@ -10,10 +10,20 @@ public class BrandVM: BaseVM
     
     public ObservableCollection<Brand> Brands { get; set; }
     
+    private SoundPlayer soundPlayer;
+
+    private readonly string loadQuery;
+    // private readonly string addQuery;
+    // private readonly string updateQuery;
+    // private readonly string deleteQuery;
+    // private readonly string checkRentalQuery;
+    
     public BrandVM()
     {
+        // Creating queries string
+        loadQuery = "SELECT brand_id, name, creation_year FROM brand";
+        
         LoadBrands();
-        // Load_Excavators();
     }
     
     
@@ -23,7 +33,11 @@ public class BrandVM: BaseVM
     public string Name
     {
         get { return _Name; }
-        set { _Name = value; }
+        set
+        {
+            _Name = value; 
+            OnPropertyChanged();
+        }
     }
     
     private string _CreationYear;
@@ -31,7 +45,11 @@ public class BrandVM: BaseVM
     public string CreationYear
     {
         get { return _CreationYear; }
-        set { _CreationYear = value; }
+        set
+        {
+            _CreationYear = value; 
+            OnPropertyChanged();
+        }
     }
     
     public void LoadBrands()
@@ -40,57 +58,29 @@ public class BrandVM: BaseVM
 
         var dbCon = getDbCon();
 
-        if (dbCon.IsConnect())
-        {
-            string query = "SELECT brand_id, name, creation_year FROM brand";
-            var cmd = new MySqlCommand(query, dbCon.Connection);
-
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-
-                Int32 BrandId = reader.GetInt32(0);
-                string Name = reader.GetString(1);
-                int CreationYear = reader.GetInt32(2);
-                
-                
-                brands.Add(new Brand(brandId: BrandId, name: Name, creationYear: CreationYear));
-            }
-
-            dbCon.Close();
-        }
-
-        Brands = brands;
-    }
-    
-    public Brand getBrand(int brand_id)
-    {
-        string name = "";
-        int creation_year = 0;
-
-        
-        DB dbCon = getDbCon();
         if (!dbCon.IsConnect())
         {
-            throw new Exception("Failed to open database");
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
         }
         
-        string query = "SELECT name, creation_year FROM brand Where brand_id=@id";
-        var cmd = new MySqlCommand(query, dbCon.Connection);
-        cmd.Parameters.AddWithValue("@id", brand_id);
+        var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
 
         var reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-            name = reader.GetString(1);
-            brand_id =reader.GetInt32(3);
 
+            Int32 BrandId = reader.GetInt32(0);
+            string Name = reader.GetString(1);
+            int CreationYear = reader.GetInt32(2);
+            
+            
+            brands.Add(new Brand(brandId: BrandId, name: Name, creationYear: CreationYear));
         }
 
         dbCon.Close();
 
-        return new Brand(brandId: brand_id, name: name, creationYear: creation_year);
+        Brands = brands;
     }
-    
     
 }
