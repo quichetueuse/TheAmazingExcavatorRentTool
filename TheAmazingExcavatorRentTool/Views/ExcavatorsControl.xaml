@@ -93,7 +93,19 @@
                                         <TextBlock 
                                             Margin="5 0"
                                             VerticalAlignment="Center">
+                                            <Run  Text="Nom entier :" />
                                             <Run Text="{Binding Name, Mode=OneWay}"/>
+                                        </TextBlock>
+                                        <TextBlock 
+                                            Margin="5 0"
+                                            Text="|"
+                                       
+                                            VerticalAlignment="Center" />
+                                        <TextBlock
+                                            Margin="5 0"
+                                            VerticalAlignment="Center">
+                                            <Run  Text="Crée en :" />
+                                            <Run Text="{Binding CreationYear, Mode=OneWay}" />
                                         </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
@@ -173,7 +185,7 @@
                                         <TextBlock
                                             Margin="5 0"
                                             VerticalAlignment="Center">
-                                            <Run  Text="Tel :" />
+                                            <Run  Text="Crée en :" />
                                             <Run Text="{Binding CreationYear, Mode=OneWay}" />
                                         </TextBlock>
                                     </StackPanel>
