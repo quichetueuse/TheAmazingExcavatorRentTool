@@ -5,7 +5,7 @@ using TheAmazingExcavatorRentTool.Services;
 
 namespace TheAmazingExcavatorRentTool.ViewModels
 {
-    public class BaseVM : INotifyPropertyChanged
+    public abstract class BaseVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
