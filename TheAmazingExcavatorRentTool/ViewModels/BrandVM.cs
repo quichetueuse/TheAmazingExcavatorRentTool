@@ -13,10 +13,10 @@ public class BrandVM: BaseVM
     private SoundPlayer soundPlayer;
 
     private readonly string loadQuery;
-    // private readonly string addQuery;
-    // private readonly string updateQuery;
-    // private readonly string deleteQuery;
-    // private readonly string checkRentalQuery;
+    private readonly string addQuery;
+    private readonly string updateQuery;
+    private readonly string deleteQuery;
+    private readonly string checkExcavQuery;
     
     public BrandVM()
     {
