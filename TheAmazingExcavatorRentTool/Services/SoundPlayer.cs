@@ -20,7 +20,7 @@ public class SoundPlayer
         soundPlayer.MediaEnded += OnMediaEnded;
 
         successSoundPath = new Uri(@"C:\Users\Eliot\RiderProjects\TheAmazingExcavatorRentTool\TheAmazingExcavatorRentTool\Assets\applepay.mp3");
-        failSoundPath = new Uri(@"C:\Users\Eliot\RiderProjects\TheAmazingExcavatorRentTool\TheAmazingExcavatorRentTool\Assets\denied.mp3");
+        failSoundPath = new Uri(@"C:\Users\Eliot\RiderProjects\TheAmazingExcavatorRentTool\TheAmazingExcavatorRentTool\Assets\fail_sound.mp3");
 
         isRunning = false;
     }
@@ -36,6 +36,13 @@ public class SoundPlayer
         if (isRunning)
             return;
         soundPlayer.Open(successSoundPath);
+    }
+    
+    public void PlayFailSound()
+    {
+        if (isRunning)
+            return;
+        soundPlayer.Open(failSoundPath);
     }
     
     
