@@ -25,7 +25,8 @@ public class CustomerVM: BaseVM
         loadQuery = "SELECT customer_id, first_name, last_name, email, birth_date FROM customer";
         updateQuery =
             "UPDATE customer SET first_name=@first_name, last_name=@last_name, email=@email, birth_date=@birth_date WHERE customer_id=@id";
-        
+        checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
+        deleteQuery ="DELETE FROM customer WHERE customer_id=@id";
         Load();
     }
 
@@ -79,9 +80,9 @@ public class CustomerVM: BaseVM
     }
     
     // Command that get called from view
-    // private DelegateCommand<Excavator> _deleteCommand;
-    // public DelegateCommand<Excavator> DeleteCommand =>
-    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Excavator>(DeleteExcavator));
+    private DelegateCommand<Customer> _deleteCommand;
+    public DelegateCommand<Customer> DeleteCommand =>
+        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Customer>(Delete));
     //
     // private DelegateCommand _addCommand;
     // public DelegateCommand AddCommand =>
@@ -168,5 +169,49 @@ public class CustomerVM: BaseVM
         MessageBox.Show("Modifications appliquées à la pelleteuse", "Modifications Appliquées", MessageBoxButton.OK,
             MessageBoxImage.Information);
         
+    }
+
+    private void Delete(Customer customer_to_delete)
+    {
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le client sélectionné '{customer_to_delete.FirstName} {customer_to_delete.LastName}'?", "Supression ?",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
+        var dbCon = getDbCon();
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Checking if customer is not used in rental
+        MySqlCommand cmd1 = new MySqlCommand(checkRentalQuery, dbCon.Connection);
+        cmd1.Parameters.AddWithValue("@id", customer_to_delete.CustomerId);
+
+        Int32 count = Convert.ToInt32(cmd1.ExecuteScalar());
+        if (count > 0)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Une Location utilise ce ce client!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        // Deleting customer from database
+        var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@id", customer_to_delete.CustomerId);
+        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        
+        foreach (var varCustomer in Customers.ToList())
+        {
+            if (varCustomer.CustomerId != customer_to_delete.CustomerId)
+                continue;
+            Customers.Remove(varCustomer);
+            soundPlayer.PlaySuccessSound();
+            MessageBox.Show("Suppression du client effectuée", "suppression effectuée", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            
+        }
+        dbCon.Close();
     }
 }
