@@ -43,9 +43,15 @@ public partial class MainWindow : Window
         
         
         
-        
+        // Excavator view
         TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
         excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
+        
+        // Brand view
+        
+        // Customer view
+        TabItem customerItem = modules_tabcontrol.Items[2] as TabItem;
+        customerItem.Content = new CustomersControl(_mainwindowvm.CustomerVm);
     }
     
     
