@@ -55,19 +55,19 @@
                     <StackPanel Orientation="Horizontal" Style="{StaticResource FirstStackPanelMarginStyling}">
                         <Label Content="Nom:"></Label>
                         <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtEditLastName" VerticalAlignment="Top"  Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.LastName, Mode=OneWay}" TextChanged="ValidateTextFields"/>
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidLastNameImg"></Image>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidLastNameImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prénom:"></Label>
                         <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditFirstName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.FirstName, Mode=OneWay}" TextChanged="ValidateTextFields"/>
-                    <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidFirstNameImg"></Image>
+                    <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidFirstNameImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Email:"></Label>
                         <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditEmail" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.Email, Mode=OneWay}" TextChanged="ValidateTextFields"/>
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidEmailImg"></Image>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidEmailImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
@@ -79,7 +79,7 @@
                                 </Style>
                             </DatePicker.Resources>
                         </DatePicker>                                
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBirthDateImg"></Image>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBirthDateImg"></Image>
                     </StackPanel>
                     
                     <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
@@ -95,31 +95,31 @@
                     <StackPanel Orientation="Horizontal" Style="{StaticResource FirstStackPanelMarginStyling}">
                         <Label Content="Nom:"></Label>
                         <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtAddLastName" VerticalAlignment="Top"  Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidLastNameImg"></Image>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidLastNameImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prénom:"></Label>
                         <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddFirstName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
-                    <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidFirstNameImg"></Image>
+                    <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidFirstNameImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Email:"></Label>
                         <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddEmail" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidEmailImg"></Image>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidEmailImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Dâte de naissance:"></Label>
-                        <DatePicker HorizontalAlignment="Left" Name="dpAddBirthDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="ValidateDatePicker">
+                        <DatePicker HorizontalAlignment="Left" Name="dpAddBirthDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <DatePicker.Resources>
                                 <Style TargetType="DatePickerTextBox">
                                     <Setter Property="IsReadOnly" Value="True"/>
                                 </Style>
                             </DatePicker.Resources>
                         </DatePicker>                                
-                        <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBirthDateImg"></Image>
+                        <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBirthDateImg"></Image>
                     </StackPanel>
                     
                     <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
