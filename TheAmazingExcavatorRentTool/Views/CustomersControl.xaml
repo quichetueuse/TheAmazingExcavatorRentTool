@@ -136,7 +136,7 @@
             <Button Name="ManageEditFormBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Click="ManageEditForm" Style="{StaticResource BtnBorderRadius}">
                 <Image Source="../Assets/edit-icon.png" Width="24" Height="24" Name="manageEditBtnImage"></Image>
             </Button>
-            <Button Name="DeleteBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=ExcavatorGrid, Path=SelectedItem}" Style="{StaticResource BtnBorderRadius}">
+            <Button Name="DeleteBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=CustomerGrid, Path=SelectedItem}" Style="{StaticResource BtnBorderRadius}">
                 <Image Source="../Assets/redtrashcan-icon.png" Width="24" Height="24" Name="deleteBtnImage"></Image>
             </Button>
         </StackPanel>
