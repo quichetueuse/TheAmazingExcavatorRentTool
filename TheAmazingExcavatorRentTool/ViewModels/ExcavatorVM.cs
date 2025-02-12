@@ -331,7 +331,7 @@ public class ExcavatorVM : BaseVM
             MessageBoxImage.Information);
     }
 
-    public void AddExcavator()
+    private void AddExcavator()
     {
         var Result = MessageBox.Show("Voulez-vous vraiment ajouter une pelleteuse ?", "Ajout ?", MessageBoxButton.YesNo,
             MessageBoxImage.Question);
