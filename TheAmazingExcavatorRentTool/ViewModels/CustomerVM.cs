@@ -27,6 +27,9 @@ public class CustomerVM: BaseVM
             "UPDATE customer SET first_name=@first_name, last_name=@last_name, email=@email, birth_date=@birth_date WHERE customer_id=@id";
         checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
         deleteQuery ="DELETE FROM customer WHERE customer_id=@id";
+        addQuery = "INSERT INTO customer (first_name, last_name, email, birth_date) VALUES (@first_name, @last_name, @email, @birth_date)";
+        
+        // loading data
         Load();
     }
 
@@ -83,10 +86,10 @@ public class CustomerVM: BaseVM
     private DelegateCommand<Customer> _deleteCommand;
     public DelegateCommand<Customer> DeleteCommand =>
         _deleteCommand ?? (_deleteCommand = new DelegateCommand<Customer>(Delete));
-    //
-    // private DelegateCommand _addCommand;
-    // public DelegateCommand AddCommand =>
-    //     _addCommand ?? (_addCommand = new DelegateCommand(AddExcavator));
+    
+    private DelegateCommand _addCommand;
+    public DelegateCommand AddCommand =>
+        _addCommand ?? (_addCommand = new DelegateCommand(Add));
     
 
     private void Load()
@@ -123,7 +126,7 @@ public class CustomerVM: BaseVM
     }
 
 
-    private void Update(Customer customer_to_update)
+    public void Update(Customer customer_to_update)
     {
         // Check if a customer already exists with the same first name, last name and email
         foreach (var customer in Customers)
@@ -202,10 +205,13 @@ public class CustomerVM: BaseVM
         cmd.Parameters.AddWithValue("@id", customer_to_delete.CustomerId);
         cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
         
+        // Deleting customer from app
         foreach (var varCustomer in Customers.ToList())
         {
             if (varCustomer.CustomerId != customer_to_delete.CustomerId)
                 continue;
+            
+            // Notify the user that the removal succeeded
             Customers.Remove(varCustomer);
             soundPlayer.PlaySuccessSound();
             MessageBox.Show("Suppression du client effectuée", "suppression effectuée", MessageBoxButton.OK,
@@ -213,5 +219,65 @@ public class CustomerVM: BaseVM
             
         }
         dbCon.Close();
+    }
+
+    private void Add()
+    {
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter une pelleteuse ?", "Ajout ?", MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Check if customer with the same first name / last name / email already exists
+        string first_name = _FirstName;
+        string last_name = _LastName;
+        string email = _Email;
+        DateTime birth_date = _BirthDate;
+
+        foreach (var customer in Customers)
+        {
+            if (customer.FirstName == first_name && customer.LastName == last_name && customer.Email == email)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Un client possède le même nom, prénom et email!", "Erreur", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+        }
+        
+        // Adding customer to database
+        var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@first_name", first_name);
+        cmd.Parameters.AddWithValue("@last_name", last_name);
+        cmd.Parameters.AddWithValue("@email", email);
+        cmd.Parameters.AddWithValue("@birth_date", birth_date);
+        
+        cmd.ExecuteReader();
+        
+        // Adding customer to app
+        int customer_id = Convert.ToInt32(cmd.LastInsertedId);
+        Customer customer_obj = new Customer(customer_id: customer_id, first_name: first_name, last_name: last_name,
+            email: email, birth_date: birth_date);
+        Customers.Add(customer_obj);
+        dbCon.Close();
+        
+        // Notify the user that adding succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Ajout de la pelleteuse effectué", "Ajout effectué", MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        // Clearing add form
+        FirstName = "";
+        LastName = "";
+        Email = "";
+        BirthDate = DateTime.Now;
     }
 }
