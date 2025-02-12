@@ -45,7 +45,7 @@
                 <DataGridTextColumn Header="Nom" Binding="{Binding LastName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
                 <DataGridTextColumn Header="Prénom" Binding="{Binding FirstName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
-                <DataGridTextColumn Header="Date de naissance" Binding="{Binding BirthDate}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Header="Date de naissance" Binding="{Binding BirthDate, StringFormat=dd/MM/yyyy}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
             </DataGrid.Columns>
         </DataGrid>
         
