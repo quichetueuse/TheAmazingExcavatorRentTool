@@ -367,7 +367,7 @@ public class ExcavatorVM : BaseVM
             }
         }
         
-        var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
+        var cmd = new MySqlCommand(addQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@name", name);
         cmd.Parameters.AddWithValue("@description", description);
         cmd.Parameters.AddWithValue("@brand_id", brand_id);

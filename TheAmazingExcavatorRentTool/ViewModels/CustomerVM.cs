@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
 using MySqlConnector;
 using TheAmazingExcavatorRentTool.Models;
@@ -28,6 +29,12 @@ public class CustomerVM: BaseVM
         checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
         deleteQuery ="DELETE FROM customer WHERE customer_id=@id";
         addQuery = "INSERT INTO customer (first_name, last_name, email, birth_date) VALUES (@first_name, @last_name, @email, @birth_date)";
+        
+        // Loading sound player
+        soundPlayer = new SoundPlayer();
+        
+        // Setting default birth date
+        BirthDate = DateTime.Now;
         
         // loading data
         Load();
@@ -153,7 +160,9 @@ public class CustomerVM: BaseVM
         cmd.Parameters.AddWithValue("@first_name", customer_to_update.FirstName);
         cmd.Parameters.AddWithValue("@last_name", customer_to_update.LastName);
         cmd.Parameters.AddWithValue("@email", customer_to_update.Email);
-        cmd.Parameters.AddWithValue("@birth_date", customer_to_update.BirthDate);
+        // string str_birth_date = customer_to_update.BirthDate.ToShortDateString();
+        // cmd.Parameters.AddWithValue("@birth_date", str_birth_date);
+        cmd.Parameters.Add("@birth_date", MySqlDbType.Date).Value = customer_to_update.BirthDate;
         cmd.Parameters.AddWithValue("@id", customer_to_update.CustomerId);
         cmd.ExecuteReader();
         dbCon.Close();
@@ -169,7 +178,7 @@ public class CustomerVM: BaseVM
         
         // Notify the user that the update succeeded
         soundPlayer.PlaySuccessSound();
-        MessageBox.Show("Modifications appliquées à la pelleteuse", "Modifications Appliquées", MessageBoxButton.OK,
+        MessageBox.Show("Modifications appliquées au client", "Modifications Appliquées", MessageBoxButton.OK,
             MessageBoxImage.Information);
         
     }
@@ -223,7 +232,7 @@ public class CustomerVM: BaseVM
 
     private void Add()
     {
-        var Result = MessageBox.Show("Voulez-vous vraiment ajouter une pelleteuse ?", "Ajout ?", MessageBoxButton.YesNo,
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter un client ?", "Ajout ?", MessageBoxButton.YesNo,
             MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
@@ -254,11 +263,14 @@ public class CustomerVM: BaseVM
         }
         
         // Adding customer to database
-        var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
+        var cmd = new MySqlCommand(addQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@first_name", first_name);
         cmd.Parameters.AddWithValue("@last_name", last_name);
         cmd.Parameters.AddWithValue("@email", email);
-        cmd.Parameters.AddWithValue("@birth_date", birth_date);
+
+        // string str_birth_date = BirthDate.ToShortDateString();
+        cmd.Parameters.Add("@birth_date", MySqlDbType.Date).Value =birth_date;
+        // cmd.Parameters.AddWithValue("@birth_date", str_birth_date);
         
         cmd.ExecuteReader();
         
@@ -271,7 +283,7 @@ public class CustomerVM: BaseVM
         
         // Notify the user that adding succeeded
         soundPlayer.PlaySuccessSound();
-        MessageBox.Show("Ajout de la pelleteuse effectué", "Ajout effectué", MessageBoxButton.OK,
+        MessageBox.Show("Ajout du client effectué", "Ajout effectué", MessageBoxButton.OK,
             MessageBoxImage.Information);
 
         // Clearing add form
