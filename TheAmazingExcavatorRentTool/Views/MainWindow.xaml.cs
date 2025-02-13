@@ -39,17 +39,25 @@ public partial class MainWindow : Window
         
         
         // Check if user is admin
-        
+        if (Session.IsAdmin)
+        {
+            // Brand view
+            TabItem brandItem = new TabItem();
+            brandItem.Header = "Marques";
+            brandItem.Height = 30;
+            brandItem.Width = 75;
+            brandItem.Name = "ItemBrand";
+            brandItem.Content = new BrandsControl(_mainwindowvm.BrandVm);
+            modules_tabcontrol.Items.Insert(1, brandItem);
+            
+            // User view
+        }
         
         
         
         // Excavator view
         TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
         excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
-        
-        // Brand view
-        TabItem brandItem = modules_tabcontrol.Items[1] as TabItem;
-        brandItem.Content = new BrandsControl(_mainwindowvm.BrandVm);
         
         // Customer view
         TabItem customerItem = modules_tabcontrol.Items[2] as TabItem;

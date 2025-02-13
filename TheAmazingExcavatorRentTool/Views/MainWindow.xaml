@@ -11,9 +11,9 @@
     
     <TabControl TabStripPlacement="Top" Grid.Column="0" Grid.ColumnSpan="10000" Grid.Row="0" Name="modules_tabcontrol">
         <TabItem Header="Pelleteuses" Height="30px" Width="75px" Name="ItemExcavator"></TabItem>
-        <TabItem Header="Marques" Height="30px" Width="75px" Name="ItemBrand"></TabItem>
+        <!-- <TabItem Header="Marques" Height="30px" Width="75px" Name="ItemBrand"></TabItem> -->
         <TabItem Header="Clients" Height="30px" Width="75px" Name="ItemCustomer" ></TabItem>
-        <TabItem Header="Retours" Height="30px" Width="75px" Name="ItemRetours"></TabItem>
+        <TabItem Header="Locations" Height="30px" Width="75px" Name="ItemRental"></TabItem>
         <TabItem Height="30px" Width="75px" Name="ItemDisconnect">
             <TabItem.Template>
                 <ControlTemplate>
