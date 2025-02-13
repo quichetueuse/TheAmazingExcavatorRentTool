@@ -205,7 +205,7 @@ public partial class BrandsControl : UserControl
     
     private bool isValidYear(string year)
     {
-        if (year.Length == 0 || year.Length > 4)
+        if (year.Length == 0 || year.Length > 4 || year == "")
             return false;
         int int_year = Convert.ToInt32(year);
 
