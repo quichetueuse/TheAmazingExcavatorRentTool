@@ -235,7 +235,38 @@ public class RentalVM: BaseVM
 
     private void Delete(Rental rental_to_delete)
     {
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la location sélectionnée ' Mr {rental_to_delete.Customer.FirstName} {rental_to_delete.Customer.LastName} sur la pelleteuse {rental_to_delete.Excavator.Name}'?", "Suppression ?",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
         
+        var dbCon = getDbCon();
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Deleting rental from database
+        var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@id", rental_to_delete.RentalId);
+        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        
+        // Deleting rental from app
+        foreach (Rental varRental in Rentals.ToList())
+        {
+            if (varRental.RentalId != rental_to_delete.RentalId)
+                continue;
+            
+            // Notify the user that the removal succeeded
+            Rentals.Remove(varRental);
+            soundPlayer.PlaySuccessSound();
+            MessageBox.Show("Suppression de la location effectuée", "suppression effectuée", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            break;
+            
+        }
+        dbCon.Close();
     }
 
     private void Add()
