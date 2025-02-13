@@ -73,13 +73,13 @@ namespace TheAmazingExcavatorRentTool.Views
         
         private void ClearAddForm(object sender, RoutedEventArgs e)
         {
-            txtAddName.Clear();
-            txtAddDesc.Clear();
+            txtAddName.SetCurrentValue(TextBox.TextProperty, "");
+            txtAddDesc.SetCurrentValue(TextBox.TextProperty, "");
             cbAddBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
             // cbAddBrand.SelectedItem = null;
-            txtAddBucketLiters.Clear();
-            txtAddReleaseYear.Clear();
-            txtAddDailyPrice.Clear();
+            txtAddBucketLiters.SetCurrentValue(TextBox.TextProperty, "");
+            txtAddReleaseYear.SetCurrentValue(TextBox.TextProperty, "");
+            txtAddDailyPrice.SetCurrentValue(TextBox.TextProperty, "");
 
             AddImagePreview.SetCurrentValue(Image.SourceProperty, null);
             txtAddImagePath.SetCurrentValue(TextBox.TextProperty, "Aucun fichier séclectionné");
@@ -88,14 +88,14 @@ namespace TheAmazingExcavatorRentTool.Views
         
         private void ClearEditForm(object sender, RoutedEventArgs e)
         {
-            txtEditName.Clear();
-            txtEditDesc.Clear();
+            txtEditName.SetCurrentValue(TextBox.TextProperty, "");
+            txtEditDesc.SetCurrentValue(TextBox.TextProperty, "");
             cbEditBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
-            txtEditBucketLiters.Clear();
-            txtEditReleaseYear.Clear();
+            txtEditBucketLiters.SetCurrentValue(TextBox.TextProperty, "");
+            txtEditReleaseYear.SetCurrentValue(TextBox.TextProperty, "");
             // checkBEditIsUsed.IsChecked = false;
             checkBEditIsUsed.SetCurrentValue(CheckBox.IsCheckedProperty, false);
-            txtEditDailyPrice.Clear();
+            txtEditDailyPrice.SetCurrentValue(TextBox.TextProperty, "");
             
             // EditImagePreview.Source = null;
             // txtEditImagePath.Text = "Aucun fichier séclectionné";
@@ -111,6 +111,7 @@ namespace TheAmazingExcavatorRentTool.Views
                 manageAddBtnImage.Source = minusIcon;
                 ManageEditFormBtn.IsEnabled = false;
                 DeleteBtn.IsEnabled = false;
+                CanAdd();
 
             }
             
