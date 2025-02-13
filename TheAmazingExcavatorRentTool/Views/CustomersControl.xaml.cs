@@ -147,14 +147,12 @@ public partial class CustomersControl : UserControl
         {
             if (!isValidBirthDate(sender_element.SelectedDate))
             {
-                Console.WriteLine($"invalid date {sender_element.SelectedDate}");
                 AddValidBirthDateImg.Source = invalidIcon;
                 addValidBirthDate = false;
                 CanAdd();
                 return;
             }
-
-            Console.WriteLine($"valid date {sender_element.SelectedDate}");
+            
             AddValidBirthDateImg.Source = validIcon;
             addValidBirthDate = true;
             CanAdd();
