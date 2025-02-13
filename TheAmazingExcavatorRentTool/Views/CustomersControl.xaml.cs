@@ -53,17 +53,17 @@ public partial class CustomersControl : UserControl
     
     private void ClearAddForm(object sender, RoutedEventArgs e)
     {
-        txtAddFirstName.Clear();
-        txtAddLastName.Clear();
-        txtAddEmail.Clear();
+        txtAddFirstName.SetCurrentValue(TextBox.TextProperty, "");
+        txtAddLastName.SetCurrentValue(TextBox.TextProperty, "");
+        txtAddEmail.SetCurrentValue(TextBox.TextProperty, "");
         dpAddBirthDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
     }
         
     private void ClearEditForm(object sender, RoutedEventArgs e)
     {
-        txtEditFirstName.Clear();
-        txtEditLastName.Clear();
-        txtEditEmail.Clear();
+        txtEditFirstName.SetCurrentValue(TextBox.TextProperty, "");
+        txtEditLastName.SetCurrentValue(TextBox.TextProperty, "");
+        txtEditEmail.SetCurrentValue(TextBox.TextProperty, "");
         dpEditBirthDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
 
     }
@@ -76,6 +76,7 @@ public partial class CustomersControl : UserControl
             manageAddBtnImage.Source = minusIcon;
             ManageEditFormBtn.IsEnabled = false;
             DeleteBtn.IsEnabled = false;
+            CanAdd();
 
         }
         
@@ -146,13 +147,18 @@ public partial class CustomersControl : UserControl
         {
             if (!isValidBirthDate(sender_element.SelectedDate))
             {
+                Console.WriteLine($"invalid date {sender_element.SelectedDate}");
                 AddValidBirthDateImg.Source = invalidIcon;
                 addValidBirthDate = false;
                 CanAdd();
+                return;
             }
+
+            Console.WriteLine($"valid date {sender_element.SelectedDate}");
             AddValidBirthDateImg.Source = validIcon;
             addValidBirthDate = true;
             CanAdd();
+            return;
         }
         // datepicker in edit form
         if (sender_element.Name == dpEditBirthDate.Name)
@@ -162,10 +168,12 @@ public partial class CustomersControl : UserControl
                 EditValidBirthDateImg.Source = invalidIcon;
                 editValidBirthDate = false;
                 CanEdit();
+                return;
             }
             EditValidBirthDateImg.Source = validIcon;
             editValidBirthDate = true;
             CanEdit();
+            return;
         }
     }
     
@@ -185,6 +193,7 @@ public partial class CustomersControl : UserControl
             AddValidFirstNameImg.Source = validIcon;
             addValidFirstName = true;
             CanAdd();
+            return;
         }
         // Last name input in edit form
         if (sender_element.Name == txtEditFirstName.Name)
@@ -199,6 +208,7 @@ public partial class CustomersControl : UserControl
             EditValidFirstNameImg.Source = validIcon;
             editValidFirstName = true;
             CanEdit();
+            return;
         }
         // Last name input in add form
         if (sender_element.Name == txtAddLastName.Name)
@@ -213,6 +223,7 @@ public partial class CustomersControl : UserControl
             AddValidLastNameImg.Source = validIcon;
             addValidLastName = true;
             CanAdd();
+            return;
         }
         // Last name input in edit form
         if (sender_element.Name == txtEditLastName.Name)
@@ -227,6 +238,7 @@ public partial class CustomersControl : UserControl
             EditValidLastNameImg.Source = validIcon;
             editValidLastName = true;
             CanEdit();
+            return;
         }
         // Email input in add form
         if (sender_element.Name == txtAddEmail.Name)
@@ -241,6 +253,7 @@ public partial class CustomersControl : UserControl
             AddValidEmailImg.Source = validIcon;
             addValidEmail = true;
             CanAdd();
+            return;
         }
         // Email input in edit form
         if (sender_element.Name == txtEditEmail.Name)
@@ -255,6 +268,7 @@ public partial class CustomersControl : UserControl
             EditValidEmailImg.Source = validIcon;
             editValidEmail = true;
             CanEdit();
+            return;
         }
     }
     
@@ -274,6 +288,11 @@ public partial class CustomersControl : UserControl
     {
         // return (date.Year < DateTime.Now.Year && date.);
         if (date == null)
+        {
+            return false;
+        }
+
+        if (DateTime.Now.Year - date.Value.Year < 18)
         {
             return false;
         }
