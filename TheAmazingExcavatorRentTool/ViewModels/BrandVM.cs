@@ -58,14 +58,14 @@ public class BrandVM: BaseVM
         }
     }
     
-    // private DelegateCommand<Brand> _deleteCommand;
-    // public DelegateCommand<Brand> DeleteCommand =>
-    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Brand>(Delete));
-    //
-    //
-    // private DelegateCommand _addCommand;
-    // public DelegateCommand AddCommand =>
-    //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
+    private DelegateCommand<Brand> _deleteCommand;
+    public DelegateCommand<Brand> DeleteCommand =>
+        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Brand>(Delete));
+    
+    
+    private DelegateCommand _addCommand;
+    public DelegateCommand AddCommand =>
+        _addCommand ?? (_addCommand = new DelegateCommand(Add));
     
     private void Load()
     {
