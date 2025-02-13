@@ -39,6 +39,7 @@
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
+            Style="{StaticResource HeightSetter}"
             >
             
             <DataGrid.Columns>

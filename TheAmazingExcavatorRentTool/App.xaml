@@ -47,6 +47,14 @@
             <Setter Property="Width" Value="400"></Setter>
         </Style>
         
+        <Style TargetType="DataGrid" x:Key="HeightSetter">
+            <Style.Resources>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Height" Value="25"></Setter>  
+                </Style>
+            </Style.Resources>
+        </Style>
+        
         <!-- <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}"> -->
         <!--     <Setter Property="Template"> -->
         <!--         <Setter.Value> -->
