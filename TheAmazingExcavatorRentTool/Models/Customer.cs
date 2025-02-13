@@ -5,8 +5,15 @@ public class Customer
     internal int CustomerId { get; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+
+    public string FullName
+    {
+        get;
+        set;
+    }
     public string Email { get; set; }
     public DateTime BirthDate { get; set; }
+    
 
 
     public Customer(int customer_id, string first_name, string last_name, string email, DateTime birth_date)
@@ -16,5 +23,6 @@ public class Customer
         LastName = last_name;
         Email = email;
         BirthDate = birth_date;
+        FullName = FirstName + " " + LastName;
     }
 }
