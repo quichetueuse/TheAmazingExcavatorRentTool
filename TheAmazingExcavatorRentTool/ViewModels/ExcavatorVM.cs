@@ -261,6 +261,7 @@ public class ExcavatorVM : BaseVM
             soundPlayer.PlaySuccessSound();
             MessageBox.Show("Suppression de la pelleteuse effectuée", "suppression effectuée", MessageBoxButton.OK,
                 MessageBoxImage.Information);
+            break;
             
         }
         
@@ -323,6 +324,7 @@ public class ExcavatorVM : BaseVM
             if (Excavators[i].ExcavatorId == excavator_to_update.ExcavatorId)
             {
                 Excavators[i] = excavator_to_update;
+                break;
             }
         }
         
