@@ -29,7 +29,7 @@ public class BrandVM: BaseVM
         deleteQuery ="DELETE FROM brand WHERE brand_id=@id";
         addQuery = "INSERT INTO brand (name, creation_year) VALUES (@name, @creation_year)";
         
-        LoadB();
+        Load();
     }
     
     
@@ -46,9 +46,9 @@ public class BrandVM: BaseVM
         }
     }
     
-    private string _CreationYear;
+    private int _CreationYear;
 
-    public string CreationYear
+    public int CreationYear
     {
         get { return _CreationYear; }
         set
@@ -67,7 +67,7 @@ public class BrandVM: BaseVM
     // public DelegateCommand AddCommand =>
     //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
     
-    private void LoadB()
+    private void Load()
     {
         ObservableCollection<Brand> brands = new ObservableCollection<Brand>();
 
@@ -189,5 +189,58 @@ public class BrandVM: BaseVM
             
         }
         dbCon.Close();
+    }
+
+    private void Add()
+    {
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter une marque ?", "Ajout ?", MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Check if brand with the same name already exists
+        string name = _Name;
+        int creation_year = _CreationYear;
+
+        foreach (var brand in Brands)
+        {
+            if (brand.Name == name)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Une marque possède le même nom!", "Erreur", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+        }
+        
+        // Adding brand to database
+        var cmd = new MySqlCommand(addQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@name", name);
+        cmd.Parameters.AddWithValue("@creation_year", creation_year);
+
+        cmd.ExecuteReader();
+        
+        // Adding brand to app
+        int brand_id = Convert.ToInt32(cmd.LastInsertedId);
+        Brand brand_obj = new Brand(brandId: brand_id, name: name, creationYear: creation_year);
+        Brands.Add(brand_obj);
+        dbCon.Close();
+        
+        // Notify the user that adding succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Ajout de la marque effectué", "Ajout effectué", MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        // Clearing add form
+        Name = "";
+        CreationYear = DateTime.Now.Year;
     }
 }
