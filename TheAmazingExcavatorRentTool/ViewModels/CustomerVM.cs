@@ -186,7 +186,7 @@ public class CustomerVM: BaseVM
 
     private void Delete(Customer customer_to_delete)
     {
-        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le client sélectionné '{customer_to_delete.FirstName} {customer_to_delete.LastName}'?", "Supression ?",
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le client sélectionné '{customer_to_delete.FirstName} {customer_to_delete.LastName}'?", "Suppression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;

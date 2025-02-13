@@ -226,7 +226,7 @@ public class ExcavatorVM : BaseVM
 
     private void DeleteExcavator(Excavator excavator_to_delete)
     {
-        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la pelleteuse '{excavator_to_delete.Name}'?", "Supression ?",
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la pelleteuse '{excavator_to_delete.Name}'?", "Suppression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
