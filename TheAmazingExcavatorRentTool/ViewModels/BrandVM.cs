@@ -141,5 +141,53 @@ public class BrandVM: BaseVM
         MessageBox.Show("Modifications appliquées à la marque", "Modifications Appliquées", MessageBoxButton.OK,
             MessageBoxImage.Information);
     }
-    
+
+    private void Delete(Brand brand_to_delete)
+    {
+        
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la marque sélectionnée '{brand_to_delete.Name} ({brand_to_delete.CreationYear})'?", "Supression ?",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
+        var dbCon = getDbCon();
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Checking if brand is not used by any excavator
+        MySqlCommand cmd1 = new MySqlCommand(checkExcavQuery, dbCon.Connection);
+        cmd1.Parameters.AddWithValue("@id", brand_to_delete.BrandId);
+
+        Int32 count = Convert.ToInt32(cmd1.ExecuteScalar());
+        if (count > 0)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Une pelleteuse appartient à cette marque!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        // Deleting brand from database
+        var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@id", brand_to_delete.BrandId);
+        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        
+        // Deleting brand from app
+        foreach (var varBrand in Brands.ToList())
+        {
+            if (varBrand.BrandId != brand_to_delete.BrandId)
+                continue;
+            
+            // Notify the user that the removal succeeded
+            Brands.Remove(varBrand);
+            soundPlayer.PlaySuccessSound();
+            MessageBox.Show("Suppression de la marque effectuée", "suppression effectuée", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            break;
+            
+        }
+        dbCon.Close();
+    }
 }
