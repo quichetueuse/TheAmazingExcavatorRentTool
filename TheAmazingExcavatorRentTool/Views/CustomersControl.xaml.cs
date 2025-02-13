@@ -193,7 +193,7 @@ public partial class CustomersControl : UserControl
             CanAdd();
             return;
         }
-        // Last name input in edit form
+        // First name input in edit form
         if (sender_element.Name == txtEditFirstName.Name)
         {
             if (!isValidName(sender_element.Text) || sender_element.Text.Length == 0)
