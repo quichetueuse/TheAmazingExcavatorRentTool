@@ -143,7 +143,7 @@ public class CustomerVM: BaseVM
             if (customer.FirstName == customer_to_update.FirstName && customer.LastName == customer_to_update.LastName && customer.Email == customer_to_update.Email && customer.CustomerId != customer_to_update.CustomerId)
             {
                 soundPlayer.PlayFailSound();
-                MessageBox.Show("Une un client de même nom avec la même adresse email éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Un client de même nom avec la même adresse email éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
@@ -167,7 +167,7 @@ public class CustomerVM: BaseVM
         cmd.ExecuteReader();
         dbCon.Close();
         
-        // Updating user in app
+        // Updating customer in app
         for (int i = 0; i < Customers.Count; i++)
         {
             if (Customers[i].CustomerId == customer_to_update.CustomerId)
