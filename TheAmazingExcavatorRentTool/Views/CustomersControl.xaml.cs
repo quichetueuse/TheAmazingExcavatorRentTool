@@ -299,7 +299,7 @@ public partial class CustomersControl : UserControl
     
     private void ApplyChanges(object sender, RoutedEventArgs e)
     {
-        var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à ce client '{txtEditFirstName.Text} {txtEditLastName}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à ce client '{txtEditFirstName.Text} {txtEditLastName.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
         
