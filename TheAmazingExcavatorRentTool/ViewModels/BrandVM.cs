@@ -22,8 +22,13 @@ public class BrandVM: BaseVM
     {
         // Creating queries string
         loadQuery = "SELECT brand_id, name, creation_year FROM brand";
+        updateQuery =
+            "UPDATE brand SET name=@name, creation_year=@creation_year WHERE brand_id=@id";
+        checkExcavQuery = "SELECT COUNT(*) FROM excavator WHERE brand_id=@id";
+        deleteQuery ="DELETE FROM brand WHERE brand_id=@id";
+        addQuery = "INSERT INTO brand (name, creation_year) VALUES (@name, @creation_year)";
         
-        LoadBrands();
+        LoadB();
     }
     
     
@@ -61,7 +66,7 @@ public class BrandVM: BaseVM
     // public DelegateCommand AddCommand =>
     //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
     
-    private void LoadBrands()
+    private void LoadB()
     {
         ObservableCollection<Brand> brands = new ObservableCollection<Brand>();
 
