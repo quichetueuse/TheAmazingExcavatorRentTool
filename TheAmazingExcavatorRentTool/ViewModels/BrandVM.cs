@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using MySqlConnector;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
@@ -95,6 +96,50 @@ public class BrandVM: BaseVM
         dbCon.Close();
 
         Brands = brands;
+    }
+
+    public void Update(Brand brand_to_update)
+    {
+        // Check if a customer already exists with the same first name, last name and email
+        foreach (var brand in Brands)
+        {
+            if (brand.Name == brand_to_update.Name && brand_to_update.BrandId != brand_to_update.BrandId)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Une marque de même nom éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+        // Updating brand in database
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@name", brand_to_update.Name);
+        cmd.Parameters.AddWithValue("@creation_year", brand_to_update.CreationYear);
+        cmd.Parameters.AddWithValue("@id", brand_to_update.BrandId);
+        cmd.ExecuteReader();
+        dbCon.Close();
+        
+        // Updating brand in app
+        for (int i = 0; i < Brands.Count; i++)
+        {
+            if (Brands[i].BrandId == brand_to_update.BrandId)
+            {
+                Brands[i] = brand_to_update;
+                break;
+            }
+        }
+        
+        // Notify the user that the update succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Modifications appliquées à la marque", "Modifications Appliquées", MessageBoxButton.OK,
+            MessageBoxImage.Information);
     }
     
 }
