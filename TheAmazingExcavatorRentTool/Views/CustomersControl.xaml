@@ -61,13 +61,13 @@
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prénom:"></Label>
-                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditFirstName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.FirstName, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtEditFirstName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.FirstName, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidFirstNameImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Email:"></Label>
-                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditEmail" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.Email, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="64" HorizontalAlignment="Left" Name="txtEditEmail" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.Email, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidEmailImg"></Image>
                     </StackPanel>
                     
@@ -101,13 +101,13 @@
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prénom:"></Label>
-                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddFirstName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="32" HorizontalAlignment="Left" Name="txtAddFirstName" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidFirstNameImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Email:"></Label>
-                        <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddEmail" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox MaxLength="64" HorizontalAlignment="Left" Name="txtAddEmail" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidEmailImg"></Image>
                     </StackPanel>
                     
