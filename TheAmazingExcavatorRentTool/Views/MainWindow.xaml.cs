@@ -62,6 +62,10 @@ public partial class MainWindow : Window
         // Customer view
         TabItem customerItem = modules_tabcontrol.Items[2] as TabItem;
         customerItem.Content = new CustomersControl(_mainwindowvm.CustomerVm);
+        
+        // Customer view
+        TabItem rentalItem = modules_tabcontrol.Items[3] as TabItem;
+        rentalItem.Content = new RentalsControl(_mainwindowvm.RentalVm);
     }
     
     

@@ -14,6 +14,7 @@
         <!-- <TabItem Header="Marques" Height="30px" Width="75px" Name="ItemBrand"></TabItem> -->
         <TabItem Header="Clients" Height="30px" Width="75px" Name="ItemCustomer" ></TabItem>
         <TabItem Header="Locations" Height="30px" Width="75px" Name="ItemRental"></TabItem>
+        <!-- <TabItem Header="Test" Visibility="Collapsed" Height="30px" Width="75px" Name="ItemTest"></TabItem> -->
         <TabItem Height="30px" Width="75px" Name="ItemDisconnect">
             <TabItem.Template>
                 <ControlTemplate>
