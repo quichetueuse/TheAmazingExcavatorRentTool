@@ -173,6 +173,7 @@ public class CustomerVM: BaseVM
             if (Customers[i].CustomerId == customer_to_update.CustomerId)
             {
                 Customers[i] = customer_to_update;
+                break;
             }
         }
         
@@ -225,6 +226,7 @@ public class CustomerVM: BaseVM
             soundPlayer.PlaySuccessSound();
             MessageBox.Show("Suppression du client effectuée", "suppression effectuée", MessageBoxButton.OK,
                 MessageBoxImage.Information);
+            break;
             
         }
         dbCon.Close();
