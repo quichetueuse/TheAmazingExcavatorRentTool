@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using MySqlConnector;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
@@ -104,6 +105,15 @@ public class RentalVM: BaseVM
             OnPropertyChanged();
         }
     }
+    
+    // Command that get called from view
+    // private DelegateCommand<Rental> _deleteCommand;
+    // public DelegateCommand<Rental> DeleteCommand =>
+    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Rental>(Delete));
+    //
+    // private DelegateCommand _addCommand;
+    // public DelegateCommand AddCommand =>
+    //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
 
     private void Load()
     {
@@ -162,6 +172,75 @@ public class RentalVM: BaseVM
         dbCon.Close();
 
         Rentals = rentals;
+    }
+
+    public void Update(Rental rental_to_update)
+    {
+        // Check if excavator is used by another rental
+        if (rental_to_update.Excavator.IsUsed)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("La pelleteuse choisie est utilisée!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        // Check if a rental with the same customer, excavator on the same time period already exists
+        foreach (var rental in Rentals)
+        {
+            if (rental.RentalId == rental_to_update.RentalId)
+                continue;
+            if (rental.Excavator.ExcavatorId == rental_to_update.Excavator.ExcavatorId &&
+                rental.Customer.CustomerId == rental_to_update.Customer.CustomerId &&
+                rental.StartDate == rental_to_update.StartDate &&
+                rental.ReturnDate == rental_to_update.ReturnDate)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Une location de ce client avec cette pelleteuse sur cette période éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+        // Updating rental in database
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@customer_id", rental_to_update.Customer.CustomerId);
+        cmd.Parameters.AddWithValue("@excavator_id", rental_to_update.Excavator.ExcavatorId);
+        cmd.Parameters.Add("@start_date", MySqlDbType.Date).Value = rental_to_update.StartDate;
+        cmd.Parameters.Add("@return_date", MySqlDbType.Date).Value = rental_to_update.ReturnDate;
+        cmd.Parameters.AddWithValue("@id", rental_to_update.RentalId);
+        cmd.ExecuteReader();
+        dbCon.Close();
+        
+        // Updating rental in app
+        for (int i = 0; i < Rentals.Count; i++)
+        {
+            if (Rentals[i].RentalId == rental_to_update.RentalId)
+            {
+                Rentals[i] = rental_to_update;
+                break;
+            }
+        }
+        
+        // Notify the user that the update succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Modifications appliquées à la location", "Modifications Appliquées", MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+
+    private void Delete(Rental rental_to_delete)
+    {
+        
+    }
+
+    private void Add()
+    {
+        
     }
     
 }
