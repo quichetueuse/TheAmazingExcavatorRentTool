@@ -199,6 +199,11 @@ public class RentalVM: BaseVM
                 return;
             }
         }
+        
+        // Calculate total rental price
+        int price = CalculatePrice(start_date: rental_to_update.StartDate,
+            return_date: rental_to_update.ReturnDate, price: rental_to_update.Excavator.DailyPrice);
+        
         // Updating rental in database
         var dbCon = getDbCon();
         
@@ -213,6 +218,7 @@ public class RentalVM: BaseVM
         cmd.Parameters.AddWithValue("@excavator_id", rental_to_update.Excavator.ExcavatorId);
         cmd.Parameters.Add("@start_date", MySqlDbType.Date).Value = rental_to_update.StartDate;
         cmd.Parameters.Add("@return_date", MySqlDbType.Date).Value = rental_to_update.ReturnDate;
+        cmd.Parameters.AddWithValue("@price", price);
         cmd.Parameters.AddWithValue("@id", rental_to_update.RentalId);
         cmd.ExecuteReader();
         dbCon.Close();
@@ -271,7 +277,85 @@ public class RentalVM: BaseVM
 
     private void Add()
     {
+
+        Customer customer = _Customer;
+        Excavator excavator = _Excavator;
+        DateTime start_date = _StartDate;
+        DateTime return_date = _ReturnDate;
+        int price = 0;
         
+        // Check if excavator is used by another rental
+        if (excavator.IsUsed)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("La pelleteuse choisie est utilisée!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        // Check if a rental with the same customer, excavator on the same time period already exists
+        foreach (var rental in Rentals)
+        {
+            if (rental.Excavator.ExcavatorId == excavator.ExcavatorId &&
+                rental.Customer.CustomerId == customer.CustomerId &&
+                rental.StartDate == start_date &&
+                rental.ReturnDate == return_date)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Une location de ce client avec cette pelleteuse sur cette période éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+        
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Calculate total rental price
+        price = CalculatePrice(start_date: start_date, return_date: return_date, price: excavator.DailyPrice);
+        
+        // Adding rental to database
+        var cmd = new MySqlCommand(addQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@customer_id", customer.CustomerId);
+        cmd.Parameters.AddWithValue("@excavator_id", excavator.ExcavatorId);
+        
+        cmd.Parameters.Add("@start_date", MySqlDbType.Date).Value = start_date;
+        cmd.Parameters.Add("@return_date", MySqlDbType.Date).Value = return_date;
+        cmd.Parameters.AddWithValue("@price", price);
+        
+        cmd.ExecuteReader();
+        
+        // Adding rental to app
+        int rental_id = Convert.ToInt32(cmd.LastInsertedId);
+        Rental rental_obj = new Rental(rentalId: rental_id, customer: customer, excavator: excavator,
+            startDate: start_date, returnDate: return_date, price: price);
+        Rentals.Add(rental_obj);
+        dbCon.Close();
+        
+        // Notify the user that adding succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Ajout de la location effectué", "Ajout effectué", MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        // Clearing add form
+        _Customer = null;
+        _Excavator = null;
+        _StartDate = DateTime.Now;
+        _ReturnDate = DateTime.Now;
+    }
+
+
+    private int CalculatePrice(DateTime start_date, DateTime return_date, int price)
+    {
+        int day_difference = return_date.Day - start_date.Day;
+        return day_difference * price;
     }
     
 }
+
+//todo mettre à jour le use case (car marque necessite admin maintenant)
+//todo modifier mcd pour peut etre accueillir une table archive qui stockera toutes les locations supprimées
+// todo supprimer de update excavator la possibilité de le mettre en used => changement d'état automatique en fonction des locations
