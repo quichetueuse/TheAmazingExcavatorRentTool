@@ -33,6 +33,9 @@ public class RentalVM: BaseVM
 
         soundPlayer = new SoundPlayer();
         
+        StartDate = DateTime.Now;
+        ReturnDate = DateTime.Now;
+        
         Load();
     }
     
@@ -107,13 +110,13 @@ public class RentalVM: BaseVM
     }
     
     // Command that get called from view
-    // private DelegateCommand<Rental> _deleteCommand;
-    // public DelegateCommand<Rental> DeleteCommand =>
-    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Rental>(Delete));
-    //
-    // private DelegateCommand _addCommand;
-    // public DelegateCommand AddCommand =>
-    //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
+    private DelegateCommand<Rental> _deleteCommand;
+    public DelegateCommand<Rental> DeleteCommand =>
+        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Rental>(Delete));
+    
+    private DelegateCommand _addCommand;
+    public DelegateCommand AddCommand =>
+        _addCommand ?? (_addCommand = new DelegateCommand(Add));
 
     private void Load()
     {
@@ -203,6 +206,7 @@ public class RentalVM: BaseVM
         // Calculate total rental price
         int price = CalculatePrice(start_date: rental_to_update.StartDate,
             return_date: rental_to_update.ReturnDate, price: rental_to_update.Excavator.DailyPrice);
+        rental_to_update.Price = price;
         
         // Updating rental in database
         var dbCon = getDbCon();
@@ -278,6 +282,11 @@ public class RentalVM: BaseVM
     private void Add()
     {
 
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter une location ?", "Ajout ?", MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
         Customer customer = _Customer;
         Excavator excavator = _Excavator;
         DateTime start_date = _StartDate;
@@ -351,7 +360,7 @@ public class RentalVM: BaseVM
     private int CalculatePrice(DateTime start_date, DateTime return_date, int price)
     {
         int day_difference = return_date.Day - start_date.Day;
-        return day_difference * price;
+        return (day_difference + 1) * price;
     }
     
 }
@@ -359,3 +368,5 @@ public class RentalVM: BaseVM
 //todo mettre à jour le use case (car marque necessite admin maintenant)
 //todo modifier mcd pour peut etre accueillir une table archive qui stockera toutes les locations supprimées
 // todo supprimer de update excavator la possibilité de le mettre en used => changement d'état automatique en fonction des locations
+//todo changer les requetes check en 
+//todo afficher dans les combobox seulement 
