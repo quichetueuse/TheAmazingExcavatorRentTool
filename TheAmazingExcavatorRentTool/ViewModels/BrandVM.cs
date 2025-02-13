@@ -28,6 +28,8 @@ public class BrandVM: BaseVM
         checkExcavQuery = "SELECT COUNT(*) FROM excavator WHERE brand_id=@id";
         deleteQuery ="DELETE FROM brand WHERE brand_id=@id";
         addQuery = "INSERT INTO brand (name, creation_year) VALUES (@name, @creation_year)";
+
+        soundPlayer = new SoundPlayer();
         
         Load();
     }
@@ -144,8 +146,7 @@ public class BrandVM: BaseVM
 
     private void Delete(Brand brand_to_delete)
     {
-        
-        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la marque sélectionnée '{brand_to_delete.Name} ({brand_to_delete.CreationYear})'?", "Supression ?",
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la marque sélectionnée '{brand_to_delete.Name} ({brand_to_delete.CreationYear})'?", "Suppression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
