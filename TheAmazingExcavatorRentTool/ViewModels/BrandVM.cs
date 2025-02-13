@@ -52,19 +52,16 @@ public class BrandVM: BaseVM
         }
     }
     
-    // private DelegateCommand<Excavator> _deleteCommand;
-    // public DelegateCommand<Excavator> DeleteCommand =>
-    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Excavator>(DeleteExcavator));
+    // private DelegateCommand<Brand> _deleteCommand;
+    // public DelegateCommand<Brand> DeleteCommand =>
+    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Brand>(Delete));
     //
-    // private DelegateCommand<Excavator> _updateCommand;
-    // public DelegateCommand<Excavator> UpdateCommand =>
-    //     _updateCommand ?? (_updateCommand = new DelegateCommand<Excavator>(UpdateExcavator));
     //
     // private DelegateCommand _addCommand;
     // public DelegateCommand AddCommand =>
-    //     _addCommand ?? (_addCommand = new DelegateCommand(AddExcavator));
+    //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
     
-    public void LoadBrands()
+    private void LoadBrands()
     {
         ObservableCollection<Brand> brands = new ObservableCollection<Brand>();
 

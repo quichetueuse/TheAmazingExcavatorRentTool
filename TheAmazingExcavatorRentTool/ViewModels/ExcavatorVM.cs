@@ -36,7 +36,7 @@ public class ExcavatorVM : BaseVM
             "INSERT INTO excavator (name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @is_used, @daily_price, @picture_path)";
             
         
-        
+        //todo ajouter les commentaires comme dans le customerVM
         
         _brandvm = brandvm;
         Load_Excavators();
@@ -167,7 +167,7 @@ public class ExcavatorVM : BaseVM
     public DelegateCommand AddCommand =>
         _addCommand ?? (_addCommand = new DelegateCommand(AddExcavator));
 
-    public void Load_Excavators()
+    private void Load_Excavators()
     {
         ObservableCollection<Excavator> excavators = new ObservableCollection<Excavator>();
 
