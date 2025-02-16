@@ -370,6 +370,7 @@ namespace TheAmazingExcavatorRentTool.Views
 
             editSafeFileName = Path.GetFileName(txtEditImagePath.Text);
             
+            // if file is not present in local image dir and file is set
             if (!File.Exists(ImagesDir + editSafeFileName) && editSafeFileName != "Aucun fichier séclectionné")
             {
                 File.Copy(txtEditImagePath.Text, ImagesDir + editSafeFileName);
@@ -384,9 +385,9 @@ namespace TheAmazingExcavatorRentTool.Views
             bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
             int daily_price = Convert.ToInt32(txtEditDailyPrice.Text);
             string? file_path;
-            if (editSafeFileName == "" || editSafeFileName == "Aucun fichier séclectionné")
+            if (editSafeFileName == String.Empty || editSafeFileName == "Aucun fichier séclectionné")
             {
-                file_path = null;
+                file_path = "Aucun fichier séclectionné";
             }
             else
             {
