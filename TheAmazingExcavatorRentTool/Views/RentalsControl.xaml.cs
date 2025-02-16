@@ -315,8 +315,8 @@ public partial class RentalsControl : UserControl
     {
         // Check if data are not changed 
         Rental selectedRental = (Rental)RentalGrid.SelectedItem as Rental;
-        if (selectedRental.Excavator == cbEditExcavator.SelectedItem &&
-            selectedRental.Customer == cbEditCustomer.SelectedItem &&
+        if (selectedRental.Excavator == (Excavator)cbEditExcavator.SelectedItem &&
+            selectedRental.Customer == (Customer)cbEditCustomer.SelectedItem &&
             selectedRental.StartDate == dpEditStartDate.SelectedDate &&
             selectedRental.ReturnDate == dpEditReturnDate.SelectedDate)
         {
@@ -331,13 +331,14 @@ public partial class RentalsControl : UserControl
         
 
         int id = (RentalGrid.SelectedItem as Rental).RentalId;
+        Excavator old_excavator = (RentalGrid.SelectedItem as Rental).Excavator;
         Customer customer = cbEditCustomer.SelectedItem as Customer;
         Excavator excavator = cbEditExcavator.SelectedItem as Excavator;
         DateTime start_date = (DateTime)dpEditStartDate.SelectedDate;
         DateTime return_date = (DateTime)dpEditReturnDate.SelectedDate;
         
         Rental rental_obj = new Rental(rentalId: id, customer: customer, excavator: excavator, startDate: start_date, returnDate: return_date, price: 0);
-        _rentalVm.Update(rental_obj);
+        _rentalVm.Update(rental_obj, old_excavator);
         RentalGrid.SelectedItem = rental_obj;
     }
     

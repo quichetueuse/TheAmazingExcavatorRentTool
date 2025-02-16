@@ -177,7 +177,7 @@ public class RentalVM: BaseVM
         Rentals = rentals;
     }
 
-    public void Update(Rental rental_to_update)
+    public void Update(Rental rental_to_update, Excavator old_excavator)
     {
         // Check if excavator is used by another rental
         if (rental_to_update.Excavator.IsUsed)
@@ -237,6 +237,10 @@ public class RentalVM: BaseVM
             }
         }
         
+        // Swap excavators availability
+        _ExcavatorVm.UpdateExcavatorUsability(old_excavator, false);
+        _ExcavatorVm.UpdateExcavatorUsability(rental_to_update.Excavator, true);
+        
         // Notify the user that the update succeeded
         soundPlayer.PlaySuccessSound();
         MessageBox.Show("Modifications appliquées à la location", "Modifications Appliquées", MessageBoxButton.OK,
@@ -274,8 +278,11 @@ public class RentalVM: BaseVM
             MessageBox.Show("Suppression de la location effectuée", "suppression effectuée", MessageBoxButton.OK,
                 MessageBoxImage.Information);
             break;
-            
         }
+        
+        // Set used excavator available again
+        _ExcavatorVm.UpdateExcavatorUsability(rental_to_delete.Excavator, false);
+        
         dbCon.Close();
     }
 
@@ -343,6 +350,9 @@ public class RentalVM: BaseVM
             startDate: start_date, returnDate: return_date, price: price);
         Rentals.Add(rental_obj);
         dbCon.Close();
+        
+        // Change rental selected excavator to not available
+        _ExcavatorVm.UpdateExcavatorUsability(excavator, true);
         
         // Notify the user that adding succeeded
         soundPlayer.PlaySuccessSound();

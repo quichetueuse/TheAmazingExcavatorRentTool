@@ -20,6 +20,7 @@ public class ExcavatorVM : BaseVM
     private readonly string loadQuery;
     private readonly string addQuery;
     private readonly string updateQuery;
+    private readonly string updateAvailabilityQuery;
     private readonly string deleteQuery;
     private readonly string checkRentalQuery;
     
@@ -35,6 +36,7 @@ public class ExcavatorVM : BaseVM
         checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
         updateQuery =
             "UPDATE excavator SET name=@name, description=@description, brand_id=@brand_id, bucket_liters=@bucket_liters, release_year=@release_year, is_used=@is_used, picture=@picture WHERE excavator_id=@id";
+        updateAvailabilityQuery = "UPDATE excavator SET is_used=@is_used WHERE excavator_id=@id";
         addQuery =
             "INSERT INTO excavator (name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @is_used, @daily_price, @picture_path)";
             
@@ -288,6 +290,7 @@ public class ExcavatorVM : BaseVM
 
     public void UpdateExcavator(Excavator excavator_to_update)
     {
+        // Check if an excavator with same name exists
         foreach (var excavator in Excavators)
         {
             if (excavator.Name == excavator_to_update.Name && excavator.ExcavatorId != excavator_to_update.ExcavatorId)
@@ -426,6 +429,51 @@ public class ExcavatorVM : BaseVM
             return false;
         }
         return true;
+        
+    }
+
+
+    public void UpdateExcavatorUsability(Excavator excavator, bool is_used)
+    {
+        // Check if somehow the excavator is already not available
+        if (excavator.IsUsed == is_used)
+        {
+            Console.WriteLine("Values are the same");
+            return;   
+        }
+        
+        Console.WriteLine($"changing availability for {excavator.Name}");
+        // Updating excavator in database
+        var dbCon = getDbCon();
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        var cmd = new MySqlCommand(updateAvailabilityQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(is_used));
+        cmd.Parameters.AddWithValue("@id", excavator.ExcavatorId);
+        var reader = cmd.ExecuteReader();
+        if (reader.RecordsAffected != 1)
+        {
+            Console.WriteLine("Availability change failed");
+            throw new Exception();
+        }
+        dbCon.Close();
+
+        excavator.IsUsed = is_used;
+        // Updating excavator in app
+        for (int i = 0; i < Excavators.ToList().Count; i++)
+        {
+            if (Excavators[i].ExcavatorId == excavator.ExcavatorId)
+            {
+                Excavators[i] = excavator;
+                break;
+            }
+        }
+        NonUsedExcavatorsView.Refresh();
+        AllExcavatorsView.Refresh();
         
     }
     

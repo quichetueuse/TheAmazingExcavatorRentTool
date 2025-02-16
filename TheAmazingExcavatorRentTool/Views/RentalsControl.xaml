@@ -86,7 +86,7 @@
                 
                 <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                     <Label Content="Prénom:"></Label>
-                    <ComboBox Name="cbEditExcavator" ItemsSource="{Binding ExcavatorVm.NonUsedExcavatorsView}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Excavator, ElementName=RentalGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
+                    <ComboBox Name="cbEditExcavator" ItemsSource="{Binding ExcavatorVm.AllExcavatorsView}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Excavator, ElementName=RentalGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
