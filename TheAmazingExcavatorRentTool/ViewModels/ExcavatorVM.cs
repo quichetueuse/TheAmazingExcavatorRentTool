@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using Prism.Commands;
 using MySqlConnector;
 using TheAmazingExcavatorRentTool.Models;
@@ -10,7 +11,9 @@ namespace TheAmazingExcavatorRentTool.ViewModels;
 
 public class ExcavatorVM : BaseVM
 {
-    public ObservableCollection<Excavator> Excavators { get; set; }
+    public ObservableCollection<Excavator> Excavators { get; set; } 
+    public CollectionView  NonUsedExcavatorsView { get;}
+    public CollectionView  AllExcavatorsView { get;}
 
     private SoundPlayer soundPlayer;
 
@@ -40,6 +43,10 @@ public class ExcavatorVM : BaseVM
         
         _brandvm = brandvm;
         Load_Excavators();
+
+        AllExcavatorsView = (CollectionView)new CollectionViewSource() { Source = Excavators}.View;
+        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource() { Source = Excavators}.View;
+        NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
     }
     
     private BrandVM _brandvm;
@@ -307,7 +314,7 @@ public class ExcavatorVM : BaseVM
         cmd.Parameters.AddWithValue("@release_year", excavator_to_update.ReleaseYear);
         cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(excavator_to_update.IsUsed));
         cmd.Parameters.AddWithValue("@daily_price", excavator_to_update.DailyPrice);
-        if (excavator_to_update.PicturePath == null)
+        if (excavator_to_update.PicturePath == "Aucun fichier séclectionné")
         {
             cmd.Parameters.AddWithValue("@picture", null);
         }
@@ -381,6 +388,7 @@ public class ExcavatorVM : BaseVM
         if (String.IsNullOrEmpty(picture_path) || picture_path == "Aucun fichier séclectionné")
         {
             cmd.Parameters.AddWithValue("@picture_path", null);
+            picture_path = "Aucun fichier séclectionné";
         }
         else
         {
@@ -404,6 +412,21 @@ public class ExcavatorVM : BaseVM
         BucketLiters = 0;
         ReleaseYear = 0;
         DailyPrice = 0;
+    }
+    
+    
+    private bool NonUsedExcavFilter(object obj)
+    {
+        if (obj is not Excavator)
+            return false;
+        
+        Excavator excavator = obj as Excavator;
+        if (excavator.IsUsed)
+        {
+            return false;
+        }
+        return true;
+        
     }
     
 }

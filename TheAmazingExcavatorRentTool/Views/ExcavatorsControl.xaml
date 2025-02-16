@@ -31,7 +31,7 @@
             Grid.Column="0" 
             Grid.ColumnSpan="2"
             Grid.RowSpan="3"
-            ItemsSource="{Binding Excavators}" 
+            ItemsSource="{Binding AllExcavatorsView}" 
             AutoGenerateColumns="False" 
             CanUserSortColumns="False" 
             AlternatingRowBackground="LightBlue" 
