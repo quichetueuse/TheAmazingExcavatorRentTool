@@ -364,6 +364,19 @@ namespace TheAmazingExcavatorRentTool.Views
         
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
+            // Check if data are not changed 
+            Excavator selectedExcav = (Excavator)ExcavatorGrid.SelectedItem as Excavator;
+            if (selectedExcav.Name == txtEditName.Text && selectedExcav.Description == txtEditDesc.Text &&
+                selectedExcav.Brand == cbEditBrand.SelectedItem &&
+                selectedExcav.BucketLiters == Convert.ToInt32(txtEditBucketLiters.Text) &&
+                selectedExcav.ReleaseYear == Convert.ToInt32(txtEditReleaseYear.Text) &&
+                selectedExcav.DailyPrice == Convert.ToInt32(txtEditDailyPrice.Text) &&
+                selectedExcav.PicturePath == txtEditImagePath.Text)
+            {
+                MessageBox.Show("Aucunes modifications n'ont été faites!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
             var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à la pelleteuse '{txtEditName.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (Result == MessageBoxResult.No)
                 return;

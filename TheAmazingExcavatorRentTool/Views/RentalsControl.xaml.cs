@@ -54,7 +54,7 @@ public partial class RentalsControl : UserControl
     {
         cbAddCustomer.SetCurrentValue(ComboBox.SelectedItemProperty, null);
         cbAddExcavator.SetCurrentValue(ComboBox.SelectedItemProperty, null);
-        dpAddStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
+        dpAddStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now); // rend le chmp invalide alors qu'il est censé toujours l'etre
         dpAddReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
     }
         
@@ -232,7 +232,7 @@ public partial class RentalsControl : UserControl
         // start date in edit form
         if (sender_element.Name == dpEditStartDate.Name)
         {
-            if (!isValidStartDate(sender_element.SelectedDate) || dpEditReturnDate.SelectedDate < dpEditStartDate.SelectedDate)
+            if (!isValidStartDate(sender_element.SelectedDate) || dpEditStartDate.SelectedDate > dpEditReturnDate.SelectedDate)
             {
                 EditValidStartDateImg.Source = invalidIcon;
                 editValidStartDate = false;
@@ -248,7 +248,7 @@ public partial class RentalsControl : UserControl
         // return date in add form
         if (sender_element.Name == dpAddReturnDate.Name)
         {
-            if (!isValidReturnDate(sender_element.SelectedDate) || dpAddStartDate.SelectedDate > dpAddReturnDate.SelectedDate)
+            if (!isValidReturnDate(sender_element.SelectedDate) || dpAddReturnDate.SelectedDate < dpAddStartDate.SelectedDate)
             {
                 AddValidReturnDateImg.Source = invalidIcon;
                 addValidReturnDate = false;
@@ -313,6 +313,18 @@ public partial class RentalsControl : UserControl
     
     private void ApplyChanges(object sender, RoutedEventArgs e)
     {
+        // Check if data are not changed 
+        Rental selectedRental = (Rental)RentalGrid.SelectedItem as Rental;
+        if (selectedRental.Excavator == cbEditExcavator.SelectedItem &&
+            selectedRental.Customer == cbEditCustomer.SelectedItem &&
+            selectedRental.StartDate == dpEditStartDate.SelectedDate &&
+            selectedRental.ReturnDate == dpEditReturnDate.SelectedDate)
+        {
+            MessageBox.Show("Aucunes modifications n'ont été faites!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        
         var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à cette  location ?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;

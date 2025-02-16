@@ -217,6 +217,15 @@ public partial class BrandsControl : UserControl
     
     private void ApplyChanges(object sender, RoutedEventArgs e)
     {
+        
+        // Check if data are not changed 
+        Brand selectedBrand = (Brand)BrandGrid.SelectedItem as Brand;
+        if (selectedBrand.Name == txtEditName.Text && selectedBrand.CreationYear == Convert.ToInt32(txtEditCreationYear.Text))
+        {
+            MessageBox.Show("Aucunes modifications n'ont été faites!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
         var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à cette marque '{txtEditName.Text} {txtEditCreationYear.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;

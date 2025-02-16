@@ -299,6 +299,17 @@ public partial class CustomersControl : UserControl
     
     private void ApplyChanges(object sender, RoutedEventArgs e)
     {
+        // Check if data are not changed 
+        Customer selectedCustomer = (Customer)CustomerGrid.SelectedItem as Customer;
+        if (selectedCustomer.FirstName == txtEditFirstName.Text && 
+            selectedCustomer.LastName == txtEditLastName.Text &&
+            selectedCustomer.Email == txtEditEmail.Text &&
+            selectedCustomer.BirthDate == dpEditBirthDate.SelectedDate)
+        {
+            MessageBox.Show("Aucunes modifications n'ont été faites!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
         var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à ce client '{txtEditFirstName.Text} {txtEditLastName.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
