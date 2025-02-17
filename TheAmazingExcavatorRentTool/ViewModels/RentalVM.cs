@@ -360,10 +360,10 @@ public class RentalVM: BaseVM
             MessageBoxImage.Information);
 
         // Clearing add form
-        _Customer = null;
-        _Excavator = null;
-        _StartDate = DateTime.Now;
-        _ReturnDate = DateTime.Now;
+        Customer = null;
+        Excavator = null;
+        StartDate = DateTime.Now;
+        ReturnDate = DateTime.Now;
     }
 
 
