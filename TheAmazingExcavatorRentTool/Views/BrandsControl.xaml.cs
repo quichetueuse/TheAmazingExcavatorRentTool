@@ -231,7 +231,7 @@ public partial class BrandsControl : UserControl
             return;
         
         int id = (BrandGrid.SelectedItem as Brand).BrandId;
-        String name = txtEditName.Text;
+        string name = txtEditName.Text;
         int creation_year = Convert.ToInt32(txtEditCreationYear.Text);
         
         Brand brand_obj = new Brand(brandId: id, name: name, creationYear: creation_year);
