@@ -239,7 +239,7 @@ public partial class UsersControl : UserControl
     
     private void CreatePasswordBtn_OnClick(object sender, RoutedEventArgs e)
     {
-        string password = passwordManager.GeneratePassword();
+        string password = passwordManager.GeneratePassword(14, 4);
         Button sender_element = (Button)sender;
         if (sender_element.Name == editCreatePasswordBtn.Name)
         {

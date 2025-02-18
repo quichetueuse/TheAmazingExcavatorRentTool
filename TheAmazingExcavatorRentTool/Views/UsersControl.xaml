@@ -60,7 +60,7 @@
                 <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                     <Label Content="Mot de passe:"></Label>
                     <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditPassword" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" TextChanged="ValidateTextFields"/>
-                    <Button Name="editCreatePasswordBtn" Click="CreatePasswordBtn_OnClick"></Button>
+                    <Button MinWidth="75" Content="Générer un mot de passe" Name="editCreatePasswordBtn" Click="CreatePasswordBtn_OnClick"></Button>
                     <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidPasswordImg"></Image>
                 </StackPanel>
                 
@@ -88,7 +88,7 @@
                 <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                     <Label Content="Mot de passe:"></Label>
                     <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtAddPassword" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
-                    <Button Name="addCreatePasswordBtn" Click="CreatePasswordBtn_OnClick"></Button>
+                    <Button MinWidth="75" Content="Générer un mot de passe" Name="addCreatePasswordBtn" Click="CreatePasswordBtn_OnClick"></Button>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidPasswordImg"></Image>
                 </StackPanel>
                 
