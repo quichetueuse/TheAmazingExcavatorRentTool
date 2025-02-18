@@ -375,8 +375,8 @@ public class RentalVM: BaseVM
     
 }
 
-//todo mettre à jour le use case (car marque necessite admin maintenant)
-//todo modifier mcd pour peut etre accueillir une table archive qui stockera toutes les locations supprimées
-// todo supprimer de update excavator la possibilité de le mettre en used => changement d'état automatique en fonction des locations
-//todo changer les requetes check en 
-//todo afficher dans les combobox seulement 
+//mettre à jour le use case (car marque necessite admin maintenant)
+// modifier mcd pour peut etre accueillir une table archive qui stockera toutes les locations supprimées
+// supprimer de update excavator la possibilité de le mettre en used => changement d'état automatique en fonction des locations
+//todo changer les requetes check en app
+//afficher dans les combobox seulement les excavator non utilisé
