@@ -126,9 +126,9 @@
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidReleaseYearImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Style="{StaticResource StackPanelMarginStyling}">
-                        <CheckBox IsEnabled="False" Content="Utilisation en cours" Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox>
-                    </StackPanel>
+                    <!-- <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Style="{StaticResource StackPanelMarginStyling}"> -->
+                    <!--     <CheckBox IsEnabled="False" Content="Utilisation en cours" Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox> -->
+                    <!-- </StackPanel> -->
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prix journalier:"></Label>

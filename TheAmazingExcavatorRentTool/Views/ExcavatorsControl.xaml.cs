@@ -94,7 +94,7 @@ namespace TheAmazingExcavatorRentTool.Views
             txtEditBucketLiters.SetCurrentValue(TextBox.TextProperty, "");
             txtEditReleaseYear.SetCurrentValue(TextBox.TextProperty, "");
             // checkBEditIsUsed.IsChecked = false;
-            checkBEditIsUsed.SetCurrentValue(CheckBox.IsCheckedProperty, false);
+            // checkBEditIsUsed.SetCurrentValue(CheckBox.IsCheckedProperty, false);
             txtEditDailyPrice.SetCurrentValue(TextBox.TextProperty, "");
             
             // EditImagePreview.Source = null;
@@ -395,7 +395,7 @@ namespace TheAmazingExcavatorRentTool.Views
             Brand brand = cbEditBrand.SelectedItem as Brand;
             int bucket_liters = Convert.ToInt32(txtEditBucketLiters.Text);
             int release_year = Convert.ToInt32(txtEditReleaseYear.Text);
-            bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
+            // bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
             int daily_price = Convert.ToInt32(txtEditDailyPrice.Text);
             string? file_path;
             if (editSafeFileName == String.Empty || editSafeFileName == "Aucun fichier séclectionné")
@@ -407,7 +407,7 @@ namespace TheAmazingExcavatorRentTool.Views
                 file_path = ImagesDir + editSafeFileName;
             }
             Excavator excav_obj = new Excavator(excavatorid: id, name: name, description: desc, brand: brand, 
-                bucket_liters: bucket_liters, releaseyear: release_year, isused: is_used, dailyprice: daily_price, picturepath: file_path);
+                bucket_liters: bucket_liters, releaseyear: release_year, isused: false, dailyprice: daily_price, picturepath: file_path);
             _excavatorvm.Update(excav_obj);
 
             ExcavatorGrid.SelectedItem = excav_obj;

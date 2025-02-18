@@ -35,7 +35,7 @@ public class ExcavatorVM : BaseVM
         deleteQuery = "DELETE FROM excavator WHERE excavator_id=@id";
         checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
         updateQuery =
-            "UPDATE excavator SET name=@name, description=@description, brand_id=@brand_id, bucket_liters=@bucket_liters, release_year=@release_year, is_used=@is_used, picture=@picture WHERE excavator_id=@id";
+            "UPDATE excavator SET name=@name, description=@description, brand_id=@brand_id, bucket_liters=@bucket_liters, release_year=@release_year, picture=@picture WHERE excavator_id=@id";
         updateAvailabilityQuery = "UPDATE excavator SET is_used=@is_used WHERE excavator_id=@id";
         addQuery =
             "INSERT INTO excavator (name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @is_used, @daily_price, @picture_path)";
@@ -318,7 +318,7 @@ public class ExcavatorVM : BaseVM
         cmd.Parameters.AddWithValue("@brand_id", excavator_to_update.Brand.BrandId);
         cmd.Parameters.AddWithValue("@bucket_liters", excavator_to_update.BucketLiters);
         cmd.Parameters.AddWithValue("@release_year", excavator_to_update.ReleaseYear);
-        cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(excavator_to_update.IsUsed));
+        // cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(excavator_to_update.IsUsed));
         cmd.Parameters.AddWithValue("@daily_price", excavator_to_update.DailyPrice);
         if (excavator_to_update.PicturePath == "Aucun fichier séclectionné")
         {
@@ -391,7 +391,7 @@ public class ExcavatorVM : BaseVM
         cmd.Parameters.AddWithValue("@brand_id", brand_id);
         cmd.Parameters.AddWithValue("@bucket_liters", bucket_liters);
         cmd.Parameters.AddWithValue("@release_year", release_year);
-        cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(is_used));
+        cmd.Parameters.AddWithValue("@is_used", false);
         cmd.Parameters.AddWithValue("@daily_price", daily_price);
         
         if (String.IsNullOrEmpty(picture_path) || picture_path == "Aucun fichier séclectionné")
