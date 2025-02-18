@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using MySqlConnector;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
@@ -113,5 +114,51 @@ public class UserVM: BaseVM
         dbCon.Close();
 
         Users = users;
+    }
+
+    public void Update(User user_to_update)
+    {
+        // Check if a user already exists with the same username
+        foreach (var user in Users)
+        {
+            if (user.Username == user_to_update.Username && user.UserId != user_to_update.UserId)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Un utilisateur de même nom avec le même nom éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+        // Updating user in database
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Updating user in database
+        var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@username", user_to_update.Username);
+        cmd.Parameters.AddWithValue("@password", user_to_update.Password);
+        cmd.Parameters.AddWithValue("@is_admin", user_to_update.IsAdmin);
+        cmd.Parameters.AddWithValue("@id", user_to_update.UserId);
+        cmd.ExecuteReader();
+        dbCon.Close();
+        
+        // Updating user in app
+        for (int i = 0; i < Users.ToList().Count; i++)
+        {
+            if (Users[i].UserId == user_to_update.UserId)
+            {
+                Users[i] = user_to_update;
+                break;
+            }
+        }
+        
+        // Notify the user that the update succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Modifications appliquées à l'utilisaeur", "Modifications Appliquées", MessageBoxButton.OK,
+            MessageBoxImage.Information);
     }
 }
