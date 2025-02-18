@@ -13,6 +13,8 @@ public class UserVM: BaseVM
     
     private SoundPlayer soundPlayer;
 
+    private PasswordManager passwordManager;
+
     private readonly string loadQuery;
     private readonly string addQuery;
     private readonly string updateQuery;
@@ -27,8 +29,9 @@ public class UserVM: BaseVM
         deleteQuery ="DELETE FROM _user WHERE user_id=@id";
         addQuery = "INSERT INTO _user (user_id, username, password, is_admin) VALUES (@username, @password, @is_admin)";
         
-        // Loading sound player
-        soundPlayer = new SoundPlayer();    
+        // Loading sound player and password manager
+        soundPlayer = new SoundPlayer();
+        passwordManager = new PasswordManager();
         
         // loading data
         Load();
@@ -140,7 +143,7 @@ public class UserVM: BaseVM
         // Updating user in database
         var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@username", user_to_update.Username);
-        cmd.Parameters.AddWithValue("@password", user_to_update.Password);
+        cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(user_to_update.Password));
         cmd.Parameters.AddWithValue("@is_admin", user_to_update.IsAdmin);
         cmd.Parameters.AddWithValue("@id", user_to_update.UserId);
         cmd.ExecuteReader();
@@ -193,7 +196,7 @@ public class UserVM: BaseVM
         cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
         dbCon.Close();
         
-        // Deleting customer from app
+        // Deleting user from app
         foreach (var varUser in Users.ToList())
         {
             if (varUser.UserId != user_to_delete.UserId)
@@ -224,7 +227,7 @@ public class UserVM: BaseVM
             throw new Exception(); //todo creer exception custom (style FailedConnectionException)
         }
         
-        // Check if customer with the same name exists
+        // Check if user with the same name exists
         string username = _Username;
         string password = _Password;
         bool is_admin = _IsAdmin;
@@ -240,15 +243,15 @@ public class UserVM: BaseVM
             }
         }
         
-        // Adding customer to database
+        // Adding user to database
         var cmd = new MySqlCommand(addQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@username", username);
-        cmd.Parameters.AddWithValue("@password", password);
+        cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(password));
         cmd.Parameters.AddWithValue("@is_admin", is_admin);
         
         cmd.ExecuteReader();
         
-        // Adding customer to app
+        // Adding user to app
         int user_id = Convert.ToInt32(cmd.LastInsertedId);
         User user_obj = new User(userid: user_id, username: username, password: password, isAdmin: is_admin);
         Users.Add(user_obj);
