@@ -155,7 +155,7 @@ public class CustomerVM: BaseVM
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
             throw new Exception(); //todo creer exception custom (style FailedConnectionException)
         }
-        
+        // Updating customer in database
         var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@first_name", customer_to_update.FirstName);
         cmd.Parameters.AddWithValue("@last_name", customer_to_update.LastName);
@@ -214,6 +214,7 @@ public class CustomerVM: BaseVM
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", customer_to_delete.CustomerId);
         cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        dbCon.Close();
         
         // Deleting customer from app
         foreach (var varCustomer in Customers.ToList())
@@ -229,7 +230,6 @@ public class CustomerVM: BaseVM
             break;
             
         }
-        dbCon.Close();
     }
 
     private void Add()
