@@ -14,6 +14,7 @@ namespace TheAmazingExcavatorRentTool.Views
             InitializeComponent();
             _loginvm = new LoginVM();
             Console.WriteLine("user: Admin | password: Admin");
+            Console.WriteLine("user: ELIOTB | password: azef");
         }
         
     }

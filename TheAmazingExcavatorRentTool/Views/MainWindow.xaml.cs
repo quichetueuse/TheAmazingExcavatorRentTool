@@ -38,6 +38,19 @@ public partial class MainWindow : Window
         validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
         
         
+        // Excavator view
+        TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
+        excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
+        
+        // Customer view
+        TabItem customerItem = modules_tabcontrol.Items[1] as TabItem;
+        customerItem.Content = new CustomersControl(_mainwindowvm.CustomerVm);
+        
+        // Customer view
+        TabItem rentalItem = modules_tabcontrol.Items[2] as TabItem;
+        rentalItem.Content = new RentalsControl(_mainwindowvm.RentalVm);
+        
+        
         // Check if user is admin
         if (Session.IsAdmin)
         {
@@ -51,21 +64,16 @@ public partial class MainWindow : Window
             modules_tabcontrol.Items.Insert(1, brandItem);
             
             // User view
+            TabItem userItem = new TabItem();
+            userItem.Header = "Utilisateurs";
+            userItem.Height = 30;
+            userItem.Width = 75;
+            userItem.Name = "ItemUser";
+            // userItem.Content = new BrandsControl(_mainwindowvm.BrandVm);
+            modules_tabcontrol.Items.Add(userItem);
         }
         
         
-        
-        // Excavator view
-        TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
-        excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
-        
-        // Customer view
-        TabItem customerItem = modules_tabcontrol.Items[2] as TabItem;
-        customerItem.Content = new CustomersControl(_mainwindowvm.CustomerVm);
-        
-        // Customer view
-        TabItem rentalItem = modules_tabcontrol.Items[3] as TabItem;
-        rentalItem.Content = new RentalsControl(_mainwindowvm.RentalVm);
     }
     
     
