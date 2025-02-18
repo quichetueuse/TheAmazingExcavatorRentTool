@@ -69,8 +69,8 @@ public partial class MainWindow : Window
             userItem.Height = 30;
             userItem.Width = 75;
             userItem.Name = "ItemUser";
-            // userItem.Content = new BrandsControl(_mainwindowvm.BrandVm);
-            modules_tabcontrol.Items.Add(userItem);
+            userItem.Content = new UsersControl(_mainwindowvm.UserVm);
+            modules_tabcontrol.Items.Insert(4, userItem);
         }
         
         
