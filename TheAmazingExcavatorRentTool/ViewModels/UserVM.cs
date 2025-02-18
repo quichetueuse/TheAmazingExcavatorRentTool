@@ -161,4 +161,51 @@ public class UserVM: BaseVM
         MessageBox.Show("Modifications appliquées à l'utilisaeur", "Modifications Appliquées", MessageBoxButton.OK,
             MessageBoxImage.Information);
     }
+
+    private void Delete(User user_to_delete)
+    {
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer l'utilisateur sélectionné '{user_to_delete.Username}'?", "Suppression ?",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
+        var dbCon = getDbCon();
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+
+        // Check if user to delete is the one connected
+        foreach (var user in Users)
+        {
+            if (user.UserId != user_to_delete.UserId)
+                continue;
+            
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Vous ne pouvez pas supprimer l'utilisateur avec lequel vous êtes connecté!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        // Deleting user from database
+        var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@id", user_to_delete.UserId);
+        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        dbCon.Close();
+        
+        // Deleting customer from app
+        foreach (var varUser in Users.ToList())
+        {
+            if (varUser.UserId != user_to_delete.UserId)
+                continue;
+            
+            // Notify the user that the removal succeeded
+            Users.Remove(varUser);
+            soundPlayer.PlaySuccessSound();
+            MessageBox.Show("Suppression de l'utilisateur effectuée", "suppression effectuée", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            break;
+            
+        }
+    }
 }
