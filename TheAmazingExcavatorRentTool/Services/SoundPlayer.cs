@@ -51,7 +51,7 @@ public class SoundPlayer
         isRunning = true;
         var player = (MediaPlayer)sender;
         player.Play();
-        Console.Write("Successfully played sound!");
+        Console.WriteLine("Successfully played sound!");
     }
 
     private void OnMediaFailed(object sender, ExceptionEventArgs e)
