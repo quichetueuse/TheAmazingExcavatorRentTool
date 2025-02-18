@@ -108,10 +108,10 @@ public class UserVM: BaseVM
             Int32 UserId = reader.GetInt32(0);
             string Username = reader.GetString(1);
             string Password = reader.GetString(2);
-            bool Email = reader.GetBoolean(3);
+            bool is_admin = reader.GetBoolean(3);
             
             
-            users.Add(new User(userid: UserId, username: Username, password: Password, isAdmin: IsAdmin));
+            users.Add(new User(userid: UserId, username: Username, password: Password, isAdmin: is_admin));
         }
 
         dbCon.Close();
