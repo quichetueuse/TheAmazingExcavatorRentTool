@@ -72,13 +72,13 @@ public class UserVM: BaseVM
     
     
     // Command that get called from view
-    // private DelegateCommand<Customer> _deleteCommand;
-    // public DelegateCommand<Customer> DeleteCommand =>
-    //     _deleteCommand ?? (_deleteCommand = new DelegateCommand<Customer>(Delete));
-    //
-    // private DelegateCommand _addCommand;
-    // public DelegateCommand AddCommand =>
-    //     _addCommand ?? (_addCommand = new DelegateCommand(Add));
+    private DelegateCommand<User> _deleteCommand;
+    public DelegateCommand<User> DeleteCommand =>
+        _deleteCommand ?? (_deleteCommand = new DelegateCommand<User>(Delete));
+    
+    private DelegateCommand _addCommand;
+    public DelegateCommand AddCommand =>
+        _addCommand ?? (_addCommand = new DelegateCommand(Add));
 
 
 
@@ -207,5 +207,61 @@ public class UserVM: BaseVM
             break;
             
         }
+    }
+
+    private void Add()
+    {
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter un client ?", "Ajout ?", MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
+        var dbCon = getDbCon();
+        
+        if (!dbCon.IsConnect())
+        {
+            Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
+            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+        }
+        
+        // Check if customer with the same name exists
+        string username = _Username;
+        string password = _Password;
+        bool is_admin = _IsAdmin;
+
+        foreach (var user in Users)
+        {
+            if (user.Username == username)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Un utilisateur possède le même nom!", "Erreur", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+        }
+        
+        // Adding customer to database
+        var cmd = new MySqlCommand(addQuery, dbCon.Connection);
+        cmd.Parameters.AddWithValue("@username", username);
+        cmd.Parameters.AddWithValue("@password", password);
+        cmd.Parameters.AddWithValue("@is_admin", is_admin);
+        
+        cmd.ExecuteReader();
+        
+        // Adding customer to app
+        int user_id = Convert.ToInt32(cmd.LastInsertedId);
+        User user_obj = new User(userid: user_id, username: username, password: password, isAdmin: is_admin);
+        Users.Add(user_obj);
+        dbCon.Close();
+        
+        // Notify the user that adding succeeded
+        soundPlayer.PlaySuccessSound();
+        MessageBox.Show("Ajout de l'utilisateur effectué", "Ajout effectué", MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        // Clearing add form
+        Username = "";
+        Password = "";
+        IsAdmin = false;
     }
 }
