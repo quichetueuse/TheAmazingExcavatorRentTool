@@ -175,7 +175,7 @@ public partial class UsersControl : UserControl
         // password input in add form
         if (sender_element.Name == txtAddPassword.Name)
         {
-            if (!isValidName(sender_element.Text) || sender_element.Text.Length == 0)
+            if (!isValidPassword(sender_element.Text) || sender_element.Text.Length == 0)
             {
                 AddValidPasswordImg.Source = invalidIcon;
                 addValidPassword = false;
@@ -190,7 +190,7 @@ public partial class UsersControl : UserControl
         // password input in edit form
         if (sender_element.Name == txtEditPassword.Name)
         {
-            if (!isValidName(sender_element.Text) || sender_element.Text.Length == 0)
+            if (!isValidPassword(sender_element.Text) || sender_element.Text.Length == 0)
             {
                 EditValidPasswordImg.Source = invalidIcon;
                 editvalidPassword = false;
@@ -208,6 +208,12 @@ public partial class UsersControl : UserControl
     {
         Regex regex = new Regex("^[a-zA-Zéàèç-]{0,32}$");
         return regex.IsMatch(str);
+    }
+    
+    private bool isValidPassword(string password)
+    {
+        Regex regex = new Regex("^(?=.{4,}[a-z])(?=.{4,}[A-Z])(?=.{4,}\\d)(?=.{4,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{12,}$");
+        return regex.IsMatch(password);
     }
     
     
@@ -243,11 +249,11 @@ public partial class UsersControl : UserControl
         Button sender_element = (Button)sender;
         if (sender_element.Name == editCreatePasswordBtn.Name)
         {
-            txtEditPassword.Text = password;
+            txtEditPassword.SetCurrentValue(TextBox.TextProperty, password);
         }
         else
         {
-            txtAddPassword.Text = password;
+            txtAddPassword.SetCurrentValue(TextBox.TextProperty, password);
         }
     }
     
