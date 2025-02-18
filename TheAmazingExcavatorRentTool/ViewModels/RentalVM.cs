@@ -265,6 +265,7 @@ public class RentalVM: BaseVM
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", rental_to_delete.RentalId);
         cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        dbCon.Close();
         
         // Deleting rental from app
         foreach (Rental varRental in Rentals.ToList())
@@ -282,8 +283,6 @@ public class RentalVM: BaseVM
         
         // Set used excavator available again
         _ExcavatorVm.UpdateExcavatorUsability(rental_to_delete.Excavator, false);
-        
-        dbCon.Close();
     }
 
     private void Add()
@@ -380,3 +379,6 @@ public class RentalVM: BaseVM
 // supprimer de update excavator la possibilité de le mettre en used => changement d'état automatique en fonction des locations
 //todo changer les requetes check en app
 //afficher dans les combobox seulement les excavator non utilisé
+
+// todo deplacer db.close dans les methodes delete des VM
+// todo ajouter ToList() a toutes les vboucle sur les observable collection dan les modeles
