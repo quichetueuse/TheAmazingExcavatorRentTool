@@ -214,7 +214,7 @@ public class UserVM: BaseVM
 
     private void Add()
     {
-        var Result = MessageBox.Show("Voulez-vous vraiment ajouter un client ?", "Ajout ?", MessageBoxButton.YesNo,
+        var Result = MessageBox.Show("Voulez-vous vraiment ajouter un utilisateur ?", "Ajout ?", MessageBoxButton.YesNo,
             MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
