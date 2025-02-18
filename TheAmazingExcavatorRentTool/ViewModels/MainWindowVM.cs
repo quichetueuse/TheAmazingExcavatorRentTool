@@ -39,13 +39,13 @@ public class MainWindowVM: BaseVM
     }
     
         
-    // private UserVM _uservm;
-    //     
-    // public UserVM UserVm
-    // {
-    //     get { return _uservm; }
-    //     set { _uservm = value; }
-    // }
+    private UserVM _uservm;
+        
+    public UserVM UserVm
+    {
+        get { return _uservm; }
+        set { _uservm = value; }
+    }
 
     public MainWindowVM()
     {
@@ -53,6 +53,6 @@ public class MainWindowVM: BaseVM
         ExcavatorVm = new ExcavatorVM(BrandVm);
         CustomerVm = new CustomerVM();
         RentalVm = new RentalVM(customervm: _customervm, excavatorvm: _excavatorvm);
-        // _uservm = new UserVM();
+        UserVm = new UserVM();
     }
 }
