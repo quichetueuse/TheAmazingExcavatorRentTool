@@ -44,8 +44,9 @@ public class ExcavatorVM : BaseVM
         //todo ajouter les commentaires comme dans le customerVM
         
         _brandvm = brandvm;
-        Load_Excavators();
+        Load();
 
+        // Creating CollectionViewSource to both datagrid (non filtered) and combo box (only non used)
         AllExcavatorsView = (CollectionView)new CollectionViewSource() { Source = Excavators}.View;
         NonUsedExcavatorsView = (CollectionView)new CollectionViewSource() { Source = Excavators}.View;
         NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
@@ -160,23 +161,18 @@ public class ExcavatorVM : BaseVM
         }
     }
 
-
+    // Command that get called from view
     private DelegateCommand<Excavator> _deleteCommand;
 
     public DelegateCommand<Excavator> DeleteCommand =>
-        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Excavator>(DeleteExcavator));
-
-    private DelegateCommand<Excavator> _updateCommand;
-
-    public DelegateCommand<Excavator> UpdateCommand =>
-        _updateCommand ?? (_updateCommand = new DelegateCommand<Excavator>(UpdateExcavator));
+        _deleteCommand ?? (_deleteCommand = new DelegateCommand<Excavator>(Delete));
 
     private DelegateCommand _addCommand;
 
     public DelegateCommand AddCommand =>
-        _addCommand ?? (_addCommand = new DelegateCommand(AddExcavator));
+        _addCommand ?? (_addCommand = new DelegateCommand(Add));
 
-    private void Load_Excavators()
+    private void Load()
     {
         ObservableCollection<Excavator> excavators = new ObservableCollection<Excavator>();
 
@@ -191,6 +187,7 @@ public class ExcavatorVM : BaseVM
         var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
 
         var reader = cmd.ExecuteReader();
+        // Create excavator models
         while (reader.Read())
         {
 
@@ -233,7 +230,7 @@ public class ExcavatorVM : BaseVM
     }
 
 
-    private void DeleteExcavator(Excavator excavator_to_delete)
+    private void Delete(Excavator excavator_to_delete)
     {
         var Result = MessageBox.Show($"Voulez-vous vraiment supprimer la pelleteuse '{excavator_to_delete.Name}'?", "Suppression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -247,6 +244,7 @@ public class ExcavatorVM : BaseVM
             throw new Exception(); //todo creer exception custom (style FailedConnectionException)
         }
         
+        // Check if excavator is not used in any rentals
         MySqlCommand cmd1 = new MySqlCommand(checkRentalQuery, dbCon.Connection);
         cmd1.Parameters.AddWithValue("@id", excavator_to_delete.ExcavatorId);
 
@@ -258,15 +256,19 @@ public class ExcavatorVM : BaseVM
             return;
         }
         
+        // Deleting excavator from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", excavator_to_delete.ExcavatorId);
-        var reader = cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
         
+        
+        // Deleting excavator from app
         foreach (var varExcavator in Excavators.ToList())
         {
             if (varExcavator.ExcavatorId != excavator_to_delete.ExcavatorId)
                 continue;
             Excavators.Remove(varExcavator);
+            // Notify the user that the removal succeeded
             soundPlayer.PlaySuccessSound();
             MessageBox.Show("Suppression de la pelleteuse effectuée", "suppression effectuée", MessageBoxButton.OK,
                 MessageBoxImage.Information);
@@ -288,7 +290,7 @@ public class ExcavatorVM : BaseVM
         dbCon.Close();
     }
 
-    public void UpdateExcavator(Excavator excavator_to_update)
+    public void Update(Excavator excavator_to_update)
     {
         // Check if an excavator with same name exists
         foreach (var excavator in Excavators)
@@ -309,6 +311,7 @@ public class ExcavatorVM : BaseVM
             throw new Exception(); //todo creer exception custom (style FailedConnectionException)
         }
         
+        // Update excavator in database
         var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@name", excavator_to_update.Name);
         cmd.Parameters.AddWithValue("@description", excavator_to_update.Description);
@@ -329,6 +332,7 @@ public class ExcavatorVM : BaseVM
         cmd.ExecuteReader();
         dbCon.Close();
 
+        // Update excavator in app
         for (int i = 0; i < Excavators.Count; i++)
         {
             if (Excavators[i].ExcavatorId == excavator_to_update.ExcavatorId)
@@ -337,20 +341,20 @@ public class ExcavatorVM : BaseVM
                 break;
             }
         }
-        
+        // Notify the user the update succeeded
         soundPlayer.PlaySuccessSound();
         MessageBox.Show("Modifications appliquées à la pelleteuse", "Modifications Appliquées", MessageBoxButton.OK,
             MessageBoxImage.Information);
     }
 
-    private void AddExcavator()
+    private void Add()
     {
         var Result = MessageBox.Show("Voulez-vous vraiment ajouter une pelleteuse ?", "Ajout ?", MessageBoxButton.YesNo,
             MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
-        var dbCon = getDbCon();
         
+        var dbCon = getDbCon();
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
@@ -367,7 +371,8 @@ public class ExcavatorVM : BaseVM
         bool is_used = _IsUsed;
         int daily_price = _DailyPrice;
         string picture_path = _PicturePath;
-
+        
+        // Check if an excavator exists with the same name
         foreach (var excavator in Excavators)
         {
             if (excavator.Name == name)
@@ -379,6 +384,7 @@ public class ExcavatorVM : BaseVM
             }
         }
         
+        // Adding excavator to database
         var cmd = new MySqlCommand(addQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@name", name);
         cmd.Parameters.AddWithValue("@description", description);
@@ -397,18 +403,21 @@ public class ExcavatorVM : BaseVM
         {
             cmd.Parameters.AddWithValue("@picture_path", picture_path);
         }
-
         cmd.ExecuteReader();
+        
+        // Adding excavator in app
         int id_excavator_to_add = Convert.ToInt32(cmd.LastInsertedId);
         Excavators.Add(new Excavator(excavatorid: id_excavator_to_add, name: name, description: description, brand: brand,
             bucket_liters: bucket_liters, releaseyear: release_year, isused: Convert.ToBoolean(is_used), 
             dailyprice: daily_price, picturepath: picture_path));
         dbCon.Close();
         
+        // Notify the user that adding succeeded
         soundPlayer.PlaySuccessSound();
         MessageBox.Show("Ajout de la pelleteuse effectué", "Ajout effectué", MessageBoxButton.OK,
             MessageBoxImage.Information);
 
+        // Clearing add form
         Name = "";
         Description = "";
         Brand = null;
@@ -420,10 +429,12 @@ public class ExcavatorVM : BaseVM
     
     private bool NonUsedExcavFilter(object obj)
     {
+        // If given object is not excavator
         if (obj is not Excavator)
             return false;
         
         Excavator excavator = obj as Excavator;
+        // Remove any used excavator from view
         if (excavator.IsUsed)
         {
             return false;
@@ -438,11 +449,11 @@ public class ExcavatorVM : BaseVM
         // Check if somehow the excavator is already not available
         if (excavator.IsUsed == is_used)
         {
-            Console.WriteLine("Values are the same");
+            // Console.WriteLine("Values are the same");
             return;   
         }
         
-        Console.WriteLine($"changing availability for {excavator.Name}");
+        // Console.WriteLine($"changing availability for {excavator.Name}");
         // Updating excavator in database
         var dbCon = getDbCon();
         if (!dbCon.IsConnect())
@@ -450,25 +461,26 @@ public class ExcavatorVM : BaseVM
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
             throw new Exception(); //todo creer exception custom (style FailedConnectionException)
         }
-        
+        // Update availability in database
         var cmd = new MySqlCommand(updateAvailabilityQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(is_used));
         cmd.Parameters.AddWithValue("@id", excavator.ExcavatorId);
         var reader = cmd.ExecuteReader();
         if (reader.RecordsAffected != 1)
         {
-            Console.WriteLine("Availability change failed");
+            // Console.WriteLine("Availability change failed");
             throw new Exception();
         }
         dbCon.Close();
 
-        excavator.IsUsed = is_used;
-        // Updating excavator in app
+        // excavator.IsUsed = is_used;
+        // Updating availability in app
         for (int i = 0; i < Excavators.ToList().Count; i++)
         {
             if (Excavators[i].ExcavatorId == excavator.ExcavatorId)
             {
-                Excavators[i] = excavator;
+                // Excavators[i] = excavator;
+                Excavators[i].IsUsed = is_used;
                 break;
             }
         }
