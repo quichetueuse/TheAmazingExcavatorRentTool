@@ -12,6 +12,8 @@ namespace TheAmazingExcavatorRentTool.ViewModels
 {
     public class LoginVM: BaseVM
     {
+
+        private PasswordManager passwordManager;
         
         private string _username;
 
@@ -43,6 +45,12 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             set { _errormsg = value; }
         }
 
+
+        public LoginVM()
+        {
+            passwordManager = new PasswordManager();
+        }
+
         
         private DelegateCommand<Window> _loginCommand;
         public DelegateCommand<Window> LoginCommand =>
@@ -68,7 +76,7 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             // Console.WriteLine(password);
             var cmd = new MySqlCommand(query, dbCon.Connection);
             cmd.Parameters.AddWithValue("@username", credential.UserName);
-            cmd.Parameters.AddWithValue("@password", hashPasswordGenerator(credential.Password));
+            cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(credential.Password));
             // var reader = cmd.ExecuteReader();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
             if (count == 0)
@@ -103,13 +111,6 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             current_windows.Close();
             mainWindow.WindowState = WindowState.Normal;
             mainWindow.Activate();
-        }
-        
-        private static string hashPasswordGenerator(string password)
-        {
-            System.Security.Cryptography.SHA256Managed crypt = new System.Security.Cryptography.SHA256Managed();
-            byte[] hash = crypt.ComputeHash(Encoding.UTF8.GetBytes(password), 0, Encoding.UTF8.GetByteCount(password));
-            return Convert.ToBase64String(hash);
         }
         
     }
