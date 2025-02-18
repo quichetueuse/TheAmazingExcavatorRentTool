@@ -316,9 +316,9 @@ public partial class CustomersControl : UserControl
         
 
         int id = (CustomerGrid.SelectedItem as Customer).CustomerId;
-        String first_name = txtEditFirstName.Text;
-        String last_name = txtEditLastName.Text;
-        String email = txtEditEmail.Text;
+        string first_name = txtEditFirstName.Text;
+        string last_name = txtEditLastName.Text;
+        string email = txtEditEmail.Text;
         DateTime birth_date = (DateTime)dpEditBirthDate.SelectedDate;
         
         Customer customer_obj = new Customer(customer_id: id, first_name: first_name, last_name: last_name, email: email, birth_date: birth_date);
