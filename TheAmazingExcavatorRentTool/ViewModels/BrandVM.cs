@@ -174,6 +174,7 @@ public class BrandVM: BaseVM
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", brand_to_delete.BrandId);
         cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        dbCon.Close();
         
         // Deleting brand from app
         foreach (var varBrand in Brands.ToList())
@@ -189,7 +190,6 @@ public class BrandVM: BaseVM
             break;
             
         }
-        dbCon.Close();
     }
 
     private void Add()
