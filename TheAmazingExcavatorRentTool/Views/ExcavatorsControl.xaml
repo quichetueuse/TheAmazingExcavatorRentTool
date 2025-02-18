@@ -127,7 +127,7 @@
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Style="{StaticResource StackPanelMarginStyling}">
-                        <CheckBox Content="Utilisation en cours" Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox>
+                        <CheckBox IsEnabled="False" Content="Utilisation en cours" Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
