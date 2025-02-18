@@ -260,7 +260,7 @@ public class ExcavatorVM : BaseVM
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", excavator_to_delete.ExcavatorId);
         cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
-        
+        dbCon.Close();
         
         // Deleting excavator from app
         foreach (var varExcavator in Excavators.ToList())
@@ -286,8 +286,6 @@ public class ExcavatorVM : BaseVM
         //             MessageBoxImage.Information);
         //     }
         // 
-        
-        dbCon.Close();
     }
 
     public void Update(Excavator excavator_to_update)
