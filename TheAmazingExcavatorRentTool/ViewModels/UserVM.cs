@@ -125,21 +125,16 @@ public class UserVM: BaseVM
     public void Update(User user_to_update, bool update_password)
     {
         // Check if you're trying to update current connected user
-        foreach (var user in Users)
+        if (user_to_update.UserId == Session.Id)
         {
-            if (user_to_update.UserId != Session.Id)
-                continue;
-            
             soundPlayer.PlayFailSound();
             MessageBox.Show("Vous ne pouvez pas modifer l'utilisateur avec lequel vous êtes connecté!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
         
-        
-        
-        // Check if a user already exists with the same username
         foreach (var user in Users)
         {
+            // Check if a user already exists with the same username
             if (user.Username == user_to_update.Username && user.UserId != user_to_update.UserId)
             {
                 soundPlayer.PlayFailSound();
@@ -188,6 +183,14 @@ public class UserVM: BaseVM
 
     private void Delete(User user_to_delete)
     {
+        // Check if user to delete is the one connected
+        if (Session.Id == user_to_delete.UserId)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Vous ne pouvez pas supprimer l'utilisateur avec lequel vous êtes connecté!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
         var Result = MessageBox.Show($"Voulez-vous vraiment supprimer l'utilisateur sélectionné '{user_to_delete.Username}'?", "Suppression ?",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
@@ -198,17 +201,6 @@ public class UserVM: BaseVM
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
             throw new Exception(); //todo creer exception custom (style FailedConnectionException)
-        }
-
-        // Check if user to delete is the one connected
-        foreach (var user in Users)
-        {
-            if (user.UserId != user_to_delete.UserId)
-                continue;
-            
-            soundPlayer.PlayFailSound();
-            MessageBox.Show("Vous ne pouvez pas supprimer l'utilisateur avec lequel vous êtes connecté!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
         }
         
         // Deleting user from database
