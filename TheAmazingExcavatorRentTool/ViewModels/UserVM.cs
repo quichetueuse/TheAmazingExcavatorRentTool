@@ -132,7 +132,7 @@ public class UserVM: BaseVM
             return;
         }
         
-        foreach (var user in Users)
+        foreach (User user in Users.ToList())
         {
             // Check if a user already exists with the same username
             if (user.Username == user_to_update.Username && user.UserId != user_to_update.UserId)
@@ -210,7 +210,7 @@ public class UserVM: BaseVM
         dbCon.Close();
         
         // Deleting user from app
-        foreach (var varUser in Users.ToList())
+        foreach (User varUser in Users.ToList())
         {
             if (varUser.UserId != user_to_delete.UserId)
                 continue;
@@ -245,7 +245,7 @@ public class UserVM: BaseVM
         string password = _Password;
         bool is_admin = _IsAdmin;
 
-        foreach (var user in Users)
+        foreach (User user in Users.ToList())
         {
             if (user.Username == username)
             {

@@ -103,7 +103,7 @@ public class BrandVM: BaseVM
     public void Update(Brand brand_to_update)
     {
         // Check if a customer already exists with the same first name, last name and email
-        foreach (var brand in Brands)
+        foreach (Brand brand in Brands.ToList())
         {
             if (brand.Name == brand_to_update.Name && brand_to_update.BrandId != brand_to_update.BrandId)
             {
@@ -129,7 +129,7 @@ public class BrandVM: BaseVM
         dbCon.Close();
         
         // Updating brand in app
-        for (int i = 0; i < Brands.Count; i++)
+        for (int i = 0; i < Brands.ToList().Count; i++)
         {
             if (Brands[i].BrandId == brand_to_update.BrandId)
             {
@@ -177,7 +177,7 @@ public class BrandVM: BaseVM
         dbCon.Close();
         
         // Deleting brand from app
-        foreach (var varBrand in Brands.ToList())
+        foreach (Brand varBrand in Brands.ToList())
         {
             if (varBrand.BrandId != brand_to_delete.BrandId)
                 continue;
@@ -211,7 +211,7 @@ public class BrandVM: BaseVM
         string name = _Name;
         int creation_year = _CreationYear;
 
-        foreach (var brand in Brands)
+        foreach (Brand brand in Brands.ToList())
         {
             if (brand.Name == name)
             {

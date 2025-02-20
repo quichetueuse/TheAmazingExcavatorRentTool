@@ -147,7 +147,7 @@ public class RentalVM: BaseVM
             Int32 price = reader.GetInt32(5);
             
             // Get customer model
-            foreach (Customer varCustomer in _CustomerVm.Customers)
+            foreach (Customer varCustomer in _CustomerVm.Customers.ToList())
             {
                 if (varCustomer.CustomerId == customer_id)
                 {
@@ -157,7 +157,7 @@ public class RentalVM: BaseVM
             }
             
             // Get Excavator model
-            foreach (Excavator varExcavator in _ExcavatorVm.Excavators)
+            foreach (Excavator varExcavator in _ExcavatorVm.Excavators.ToList())
             {
                 if (varExcavator.ExcavatorId == excavator_id)
                 {
@@ -188,7 +188,7 @@ public class RentalVM: BaseVM
         }
         
         // Check if a rental with the same customer, excavator on the same time period already exists
-        foreach (var rental in Rentals)
+        foreach (Rental rental in Rentals.ToList())
         {
             if (rental.RentalId == rental_to_update.RentalId)
                 continue;
@@ -308,7 +308,7 @@ public class RentalVM: BaseVM
         }
         
         // Check if a rental with the same customer, excavator on the same time period already exists
-        foreach (var rental in Rentals)
+        foreach (Rental rental in Rentals)
         {
             if (rental.Excavator.ExcavatorId == excavator.ExcavatorId &&
                 rental.Customer.CustomerId == customer.CustomerId &&
@@ -374,11 +374,6 @@ public class RentalVM: BaseVM
     
 }
 
-//mettre à jour le use case (car marque necessite admin maintenant)
-// modifier mcd pour peut etre accueillir une table archive qui stockera toutes les locations supprimées
-// supprimer de update excavator la possibilité de le mettre en used => changement d'état automatique en fonction des locations
+//todo clear les commentaires de code inutile dans excavatorVM
 //todo changer les requetes check en app
-//afficher dans les combobox seulement les excavator non utilisé
-
-// todo deplacer db.close dans les methodes delete des VM
-// todo ajouter ToList() a toutes les vboucle sur les observable collection dan les modeles
+// todo ajouter ToList() a toutes les boucle sur les observable collection dan les modeles

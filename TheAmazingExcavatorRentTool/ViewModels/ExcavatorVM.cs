@@ -263,7 +263,7 @@ public class ExcavatorVM : BaseVM
         dbCon.Close();
         
         // Deleting excavator from app
-        foreach (var varExcavator in Excavators.ToList())
+        foreach (Excavator varExcavator in Excavators.ToList())
         {
             if (varExcavator.ExcavatorId != excavator_to_delete.ExcavatorId)
                 continue;
@@ -291,7 +291,7 @@ public class ExcavatorVM : BaseVM
     public void Update(Excavator excavator_to_update)
     {
         // Check if an excavator with same name exists
-        foreach (var excavator in Excavators)
+        foreach (Excavator excavator in Excavators.ToList())
         {
             if (excavator.Name == excavator_to_update.Name && excavator.ExcavatorId != excavator_to_update.ExcavatorId)
             {
@@ -331,7 +331,7 @@ public class ExcavatorVM : BaseVM
         dbCon.Close();
 
         // Update excavator in app
-        for (int i = 0; i < Excavators.Count; i++)
+        for (int i = 0; i < Excavators.ToList().Count; i++)
         {
             if (Excavators[i].ExcavatorId == excavator_to_update.ExcavatorId)
             {

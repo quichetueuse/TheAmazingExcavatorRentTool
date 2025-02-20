@@ -136,7 +136,7 @@ public class CustomerVM: BaseVM
     public void Update(Customer customer_to_update)
     {
         // Check if a customer already exists with the same first name, last name and email
-        foreach (var customer in Customers)
+        foreach (Customer customer in Customers.ToList())
         {
             // if (customer.CustomerId == customer_to_update.CustomerId)
             //     continue;
@@ -168,7 +168,7 @@ public class CustomerVM: BaseVM
         dbCon.Close();
         
         // Updating customer in app
-        for (int i = 0; i < Customers.Count; i++)
+        for (int i = 0; i < Customers.ToList().Count; i++)
         {
             if (Customers[i].CustomerId == customer_to_update.CustomerId)
             {
@@ -217,7 +217,7 @@ public class CustomerVM: BaseVM
         dbCon.Close();
         
         // Deleting customer from app
-        foreach (var varCustomer in Customers.ToList())
+        foreach (Customer varCustomer in Customers.ToList())
         {
             if (varCustomer.CustomerId != customer_to_delete.CustomerId)
                 continue;
@@ -253,7 +253,7 @@ public class CustomerVM: BaseVM
         string email = _Email;
         DateTime birth_date = _BirthDate;
 
-        foreach (var customer in Customers)
+        foreach (Customer customer in Customers.ToList())
         {
             if (customer.FirstName == first_name && customer.LastName == last_name && customer.Email == email)
             {
