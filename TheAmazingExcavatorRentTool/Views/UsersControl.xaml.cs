@@ -212,7 +212,7 @@ public partial class UsersControl : UserControl
     
     private bool isValidPassword(string password)
     {
-        Regex regex = new Regex("^(?=.{4,}[a-z])(?=.{4,}[A-Z])(?=.{4,}\\d)(?=.{4,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{12,}$");
+        Regex regex = new Regex("^(?=.{4,}[a-z])(?=.{4,}[A-Z])(?=.{4,}\\d)(?=.{4,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{14,}$");
         return regex.IsMatch(password);
     }
     
@@ -245,7 +245,7 @@ public partial class UsersControl : UserControl
     
     private void CreatePasswordBtn_OnClick(object sender, RoutedEventArgs e)
     {
-        string password = passwordManager.GeneratePassword(14, 4);
+        string password = passwordManager.GeneratePassword(14, 5, 5, 2, 2);
         Button sender_element = (Button)sender;
         if (sender_element.Name == editCreatePasswordBtn.Name)
         {
