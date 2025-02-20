@@ -276,17 +276,6 @@ public class ExcavatorVM : BaseVM
             break;
             
         }
-        
-        // for (int i = 0; i < Excavators.Count; i++)
-        // {
-        //     if (Excavators[i].ExcavatorId == excavator_to_delete.ExcavatorId)
-        //     {
-        //         Excavators.Remove(Excavators[i]);
-        //         soundPlayer.PlaySuccessSound();
-        //         MessageBox.Show("Suppression de la pelleteuse effectuée", "suppression effectuée", MessageBoxButton.OK,
-        //             MessageBoxImage.Information);
-        //     }
-        // 
     }
 
     public void Update(Excavator excavator_to_update)
@@ -448,11 +437,10 @@ public class ExcavatorVM : BaseVM
         // Check if somehow the excavator is already not available
         if (excavator.IsUsed == is_used)
         {
-            // Console.WriteLine("Values are the same");
+            Console.WriteLine("Selected excavator is used");
             return;   
         }
         
-        // Console.WriteLine($"changing availability for {excavator.Name}");
         // Updating excavator in database
         var dbCon = getDbCon();
         if (!dbCon.IsConnect())
@@ -467,12 +455,10 @@ public class ExcavatorVM : BaseVM
         var reader = cmd.ExecuteReader();
         if (reader.RecordsAffected != 1)
         {
-            // Console.WriteLine("Availability change failed");
             throw new Exception();
         }
         dbCon.Close();
-
-        // excavator.IsUsed = is_used;
+        
         // Updating availability in app
         for (int i = 0; i < Excavators.ToList().Count; i++)
         {
