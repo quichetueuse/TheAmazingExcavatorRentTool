@@ -18,6 +18,7 @@ public class UserVM: BaseVM
     private readonly string loadQuery;
     private readonly string addQuery;
     private readonly string updateQuery;
+    private readonly string updateQueryWithoutPassword;
     private readonly string deleteQuery;
 
     public UserVM()
@@ -25,9 +26,11 @@ public class UserVM: BaseVM
         // Creating queries string
         loadQuery = "SELECT user_id, username, password, is_admin FROM _user";
         updateQuery =
-            "UPDATE _user SET username=@username, password=@password, is_admin=@is_admin WHERE customer_id=@id";
+            "UPDATE _user SET username=@username, password=@password, is_admin=@is_admin WHERE user_id=@id";
+        updateQueryWithoutPassword =
+            "UPDATE _user SET username=@username, is_admin=@is_admin WHERE user_id=@id";
         deleteQuery ="DELETE FROM _user WHERE user_id=@id";
-        addQuery = "INSERT INTO _user (user_id, username, password, is_admin) VALUES (@username, @password, @is_admin)";
+        addQuery = "INSERT INTO _user (username, password, is_admin) VALUES (@username, @password, @is_admin)";
         
         // Loading sound player and password manager
         soundPlayer = new SoundPlayer();
@@ -119,8 +122,21 @@ public class UserVM: BaseVM
         Users = users;
     }
 
-    public void Update(User user_to_update)
+    public void Update(User user_to_update, bool update_password)
     {
+        // Check if you're trying to update current connected user
+        foreach (var user in Users)
+        {
+            if (user_to_update.UserId != Session.Id)
+                continue;
+            
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Vous ne pouvez pas modifer l'utilisateur avec lequel vous êtes connecté!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        
+        
         // Check if a user already exists with the same username
         foreach (var user in Users)
         {
@@ -141,9 +157,14 @@ public class UserVM: BaseVM
         }
         
         // Updating user in database
-        var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
+        MySqlCommand cmd;
+        if (update_password)
+            cmd = new MySqlCommand(updateQuery, dbCon.Connection);
+        else
+            cmd = new MySqlCommand(updateQueryWithoutPassword, dbCon.Connection);
         cmd.Parameters.AddWithValue("@username", user_to_update.Username);
-        cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(user_to_update.Password));
+        if (update_password)
+            cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(user_to_update.Password));
         cmd.Parameters.AddWithValue("@is_admin", user_to_update.IsAdmin);
         cmd.Parameters.AddWithValue("@id", user_to_update.UserId);
         cmd.ExecuteReader();

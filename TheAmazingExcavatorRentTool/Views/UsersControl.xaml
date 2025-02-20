@@ -57,7 +57,8 @@
                     <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidUsernameImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
+                <CheckBox Name="IsEditPassword" Content="Modifier le mot de passe" Checked="IsEditPassword_OnIsEnabledChanged" Unchecked="IsEditPassword_OnIsEnabledChanged"></CheckBox>
+                <StackPanel Visibility="Collapsed" Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}" Name="PasswordStackPanel">
                     <Label Content="Mot de passe:"></Label>
                     <TextBox MaxLength="128" HorizontalAlignment="Left" Name="txtEditPassword" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" TextChanged="ValidateTextFields"/>
                     <Button MinWidth="75" Content="Générer un mot de passe" Name="editCreatePasswordBtn" Click="CreatePasswordBtn_OnClick"></Button>

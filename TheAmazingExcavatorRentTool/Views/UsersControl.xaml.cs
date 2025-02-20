@@ -41,6 +41,7 @@ public partial class UsersControl : UserControl
             
         minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
         plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
+        editvalidPassword = true;
     }
 
     private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -188,7 +189,7 @@ public partial class UsersControl : UserControl
             return;
         }
         // password input in edit form
-        if (sender_element.Name == txtEditPassword.Name)
+        if (sender_element.Name == txtEditPassword.Name && Convert.ToBoolean(IsEditPassword.IsChecked))
         {
             if (!isValidPassword(sender_element.Text) || sender_element.Text.Length == 0)
             {
@@ -212,7 +213,8 @@ public partial class UsersControl : UserControl
     
     private bool isValidPassword(string password)
     {
-        Regex regex = new Regex("^(?=.{4,}[a-z])(?=.{4,}[A-Z])(?=.{4,}\\d)(?=.{4,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{14,}$");
+        // Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{14,}$");
+        Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[!@#$%^&*\\(\\)\\-_=+\\[\\]\\{\\}\\;\\:\\,\\.<>\\?])[A-Za-z\\d!@#$%^&*\\(\\)\\-_=\\+\\[\\]\\{\\}\\;\\:\\,\\.\\<\\>\\?]{14,}$");
         return regex.IsMatch(password);
     }
     
@@ -230,15 +232,19 @@ public partial class UsersControl : UserControl
         var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à cet utilisateur '{txtEditUsername.Text}'?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (Result == MessageBoxResult.No)
             return;
-        
 
+        bool edit_password = Convert.ToBoolean(IsEditPassword.IsChecked);
         int id = selectedUser.UserId;
         string username = txtEditUsername.Text;
-        string password = txtEditPassword.Text;
+        string password;
+        if (edit_password)
+            password = txtEditPassword.Text;
+        else
+            password = selectedUser.Password;
         bool is_admin = Convert.ToBoolean(checkBEditIsAdmin.IsChecked);
         
         User user_obj = new User(userid: id, username: username, password: password, isAdmin: is_admin);
-        _userVm.Update(user_obj);
+        _userVm.Update(user_obj, edit_password);
 
         UserGrid.SelectedItem = user_obj;
     }
@@ -256,5 +262,34 @@ public partial class UsersControl : UserControl
             txtAddPassword.SetCurrentValue(TextBox.TextProperty, password);
         }
     }
-    
+
+    private void IsEditPassword_OnIsEnabledChanged(object sender, RoutedEventArgs e)
+    {
+        CheckBox sender_element = (CheckBox)sender;
+        if (!(bool)sender_element.IsChecked)
+        {
+            PasswordStackPanel.Visibility = Visibility.Collapsed;
+            editvalidPassword = true;
+            EditValidPasswordImg.Source = validIcon;
+            CanEdit();
+            return;
+        }
+        
+        
+        // Console.WriteLine($"{sender_element.Name} is now {sender_element.IsChecked}");
+        
+
+        if (!isValidPassword(txtEditPassword.Text) || txtEditPassword.Text.Length == 0)
+        {
+            EditValidPasswordImg.Source = invalidIcon;
+            editvalidPassword = false;
+            CanEdit();
+            PasswordStackPanel.Visibility = Visibility.Visible;
+            return;
+        }
+        EditValidPasswordImg.Source = validIcon;
+        editvalidPassword = true;
+        CanEdit();
+        PasswordStackPanel.Visibility = Visibility.Visible;
+    }
 }
