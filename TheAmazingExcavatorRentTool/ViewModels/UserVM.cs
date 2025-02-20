@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using MySqlConnector;
+using TheAmazingExcavatorRentTool.Exceptions;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
 
@@ -99,7 +100,7 @@ public class UserVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
@@ -148,7 +149,7 @@ public class UserVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Updating user in database
@@ -200,7 +201,7 @@ public class UserVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Deleting user from database
@@ -237,7 +238,7 @@ public class UserVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Check if user with the same name exists

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using Prism.Commands;
 using MySqlConnector;
+using TheAmazingExcavatorRentTool.Exceptions;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
 
@@ -241,7 +242,7 @@ public class ExcavatorVM : BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Check if excavator is not used in any rentals
@@ -306,7 +307,7 @@ public class ExcavatorVM : BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Update excavator in database
@@ -457,7 +458,7 @@ public class ExcavatorVM : BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         // Update availability in database
         var cmd = new MySqlCommand(updateAvailabilityQuery, dbCon.Connection);

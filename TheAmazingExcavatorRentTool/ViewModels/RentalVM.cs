@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using MySqlConnector;
+using TheAmazingExcavatorRentTool.Exceptions;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
 
@@ -127,7 +128,7 @@ public class RentalVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
@@ -214,7 +215,7 @@ public class RentalVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
@@ -258,7 +259,7 @@ public class RentalVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Deleting rental from database
@@ -326,7 +327,7 @@ public class RentalVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Calculate total rental price
@@ -376,4 +377,3 @@ public class RentalVM: BaseVM
 
 //todo clear les commentaires de code inutile dans excavatorVM
 //todo changer les requetes check en app
-// todo ajouter ToList() a toutes les boucle sur les observable collection dan les modeles

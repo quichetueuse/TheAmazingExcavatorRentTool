@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
 using MySqlConnector;
+using TheAmazingExcavatorRentTool.Exceptions;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
 
@@ -108,7 +109,7 @@ public class CustomerVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
@@ -153,7 +154,7 @@ public class CustomerVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         // Updating customer in database
         var cmd = new MySqlCommand(updateQuery, dbCon.Connection);
@@ -195,7 +196,7 @@ public class CustomerVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Checking if customer is not used in rental
@@ -244,7 +245,7 @@ public class CustomerVM: BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         // Check if customer with the same first name / last name / email already exists

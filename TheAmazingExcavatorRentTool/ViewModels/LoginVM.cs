@@ -7,6 +7,7 @@ using TheAmazingExcavatorRentTool.Services;
 using TheAmazingExcavatorRentTool.Views;
 using MySqlConnector;
 using Prism.Commands;
+using TheAmazingExcavatorRentTool.Exceptions;
 
 namespace TheAmazingExcavatorRentTool.ViewModels
 {
@@ -67,7 +68,7 @@ namespace TheAmazingExcavatorRentTool.ViewModels
         
             if (!dbCon.IsConnect()) {
                 MessageBox.Show("La connexion à la base de données à échouée", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                System.Environment.Exit(0);
+                throw new ConnectionFailedException("Connection to database failed");
             }
             
 
