@@ -260,8 +260,14 @@ public class ExcavatorVM : BaseVM
         // Deleting excavator from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", excavator_to_delete.ExcavatorId);
-        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Deleting excavator from app
         foreach (Excavator varExcavator in Excavators.ToList())
@@ -317,8 +323,14 @@ public class ExcavatorVM : BaseVM
             cmd.Parameters.AddWithValue("@picture", excavator_to_update.PicturePath);
         }
         cmd.Parameters.AddWithValue("@id", excavator_to_update.ExcavatorId);
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
 
         // Update excavator in app
         for (int i = 0; i < Excavators.ToList().Count; i++)
@@ -391,7 +403,14 @@ public class ExcavatorVM : BaseVM
         {
             cmd.Parameters.AddWithValue("@picture_path", picture_path);
         }
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            dbCon.Close();
+            return;
+        }
         
         // Adding excavator in app
         int id_excavator_to_add = Convert.ToInt32(cmd.LastInsertedId);
@@ -452,12 +471,14 @@ public class ExcavatorVM : BaseVM
         var cmd = new MySqlCommand(updateAvailabilityQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@is_used", Convert.ToInt32(is_used));
         cmd.Parameters.AddWithValue("@id", excavator.ExcavatorId);
-        var reader = cmd.ExecuteReader();
-        if (reader.RecordsAffected != 1)
-        {
-            throw new Exception();
-        }
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Updating availability in app
         for (int i = 0; i < Excavators.ToList().Count; i++)

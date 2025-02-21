@@ -1,3 +1,5 @@
+using TheAmazingExcavatorRentTool.Services;
+
 namespace TheAmazingExcavatorRentTool.ViewModels;
 
 public class MainWindowVM: BaseVM
@@ -53,6 +55,9 @@ public class MainWindowVM: BaseVM
         ExcavatorVm = new ExcavatorVM(BrandVm);
         CustomerVm = new CustomerVM();
         RentalVm = new RentalVM(customervm: _customervm, excavatorvm: _excavatorvm);
-        UserVm = new UserVM();
+        if (Session.IsAdmin)
+        {
+            UserVm = new UserVM();   
+        }
     }
 }

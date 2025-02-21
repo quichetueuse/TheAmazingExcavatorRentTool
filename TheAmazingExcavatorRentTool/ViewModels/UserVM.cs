@@ -163,8 +163,14 @@ public class UserVM: BaseVM
             cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(user_to_update.Password));
         cmd.Parameters.AddWithValue("@is_admin", user_to_update.IsAdmin);
         cmd.Parameters.AddWithValue("@id", user_to_update.UserId);
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Updating user in app
         for (int i = 0; i < Users.ToList().Count; i++)
@@ -207,8 +213,14 @@ public class UserVM: BaseVM
         // Deleting user from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", user_to_delete.UserId);
-        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Deleting user from app
         foreach (User varUser in Users.ToList())
@@ -263,7 +275,14 @@ public class UserVM: BaseVM
         cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(password));
         cmd.Parameters.AddWithValue("@is_admin", is_admin);
         
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            dbCon.Close();
+            return;
+        }
         
         // Adding user to app
         int user_id = Convert.ToInt32(cmd.LastInsertedId);

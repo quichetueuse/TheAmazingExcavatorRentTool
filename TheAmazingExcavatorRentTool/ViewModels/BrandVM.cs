@@ -126,8 +126,14 @@ public class BrandVM: BaseVM
         cmd.Parameters.AddWithValue("@name", brand_to_update.Name);
         cmd.Parameters.AddWithValue("@creation_year", brand_to_update.CreationYear);
         cmd.Parameters.AddWithValue("@id", brand_to_update.BrandId);
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Updating brand in app
         for (int i = 0; i < Brands.ToList().Count; i++)
@@ -174,8 +180,14 @@ public class BrandVM: BaseVM
         // Deleting brand from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", brand_to_delete.BrandId);
-        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Deleting brand from app
         foreach (Brand varBrand in Brands.ToList())
@@ -228,7 +240,14 @@ public class BrandVM: BaseVM
         cmd.Parameters.AddWithValue("@name", name);
         cmd.Parameters.AddWithValue("@creation_year", creation_year);
 
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            dbCon.Close();
+            return;
+        }
         
         // Adding brand to app
         int brand_id = Convert.ToInt32(cmd.LastInsertedId);

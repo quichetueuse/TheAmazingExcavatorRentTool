@@ -225,8 +225,14 @@ public class RentalVM: BaseVM
         cmd.Parameters.Add("@return_date", MySqlDbType.Date).Value = rental_to_update.ReturnDate;
         cmd.Parameters.AddWithValue("@price", price);
         cmd.Parameters.AddWithValue("@id", rental_to_update.RentalId);
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Updating rental in app
         for (int i = 0; i < Rentals.Count; i++)
@@ -265,8 +271,14 @@ public class RentalVM: BaseVM
         // Deleting rental from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", rental_to_delete.RentalId);
-        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Deleting rental from app
         foreach (Rental varRental in Rentals.ToList())
@@ -342,7 +354,14 @@ public class RentalVM: BaseVM
         cmd.Parameters.Add("@return_date", MySqlDbType.Date).Value = return_date;
         cmd.Parameters.AddWithValue("@price", price);
         
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            dbCon.Close();
+            return;
+        }
         
         // Adding rental to app
         int rental_id = Convert.ToInt32(cmd.LastInsertedId);

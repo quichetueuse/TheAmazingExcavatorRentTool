@@ -165,8 +165,14 @@ public class CustomerVM: BaseVM
         // cmd.Parameters.AddWithValue("@birth_date", str_birth_date);
         cmd.Parameters.Add("@birth_date", MySqlDbType.Date).Value = customer_to_update.BirthDate;
         cmd.Parameters.AddWithValue("@id", customer_to_update.CustomerId);
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Updating customer in app
         for (int i = 0; i < Customers.ToList().Count; i++)
@@ -214,8 +220,14 @@ public class CustomerVM: BaseVM
         // Deleting customer from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@id", customer_to_delete.CustomerId);
-        cmd.ExecuteReader(); //todo vérifier si la requete à fonctionner avant du supprimer de la liste
+        MySqlDataReader result = cmd.ExecuteReader();
         dbCon.Close();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         
         // Deleting customer from app
         foreach (Customer varCustomer in Customers.ToList())
@@ -275,7 +287,14 @@ public class CustomerVM: BaseVM
         cmd.Parameters.Add("@birth_date", MySqlDbType.Date).Value =birth_date;
         // cmd.Parameters.AddWithValue("@birth_date", str_birth_date);
         
-        cmd.ExecuteReader();
+        MySqlDataReader result = cmd.ExecuteReader();
+        if (result.RecordsAffected != 1)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Erreur durant l'éxécution de la requête!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            dbCon.Close();
+            return;
+        }
         
         // Adding customer to app
         int customer_id = Convert.ToInt32(cmd.LastInsertedId);
