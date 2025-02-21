@@ -393,6 +393,3 @@ public class RentalVM: BaseVM
     }
     
 }
-
-//todo clear les commentaires de code inutile dans excavatorVM
-//todo changer les requetes check en app
