@@ -181,7 +181,7 @@ public class RentalVM: BaseVM
     public void Update(Rental rental_to_update, Excavator old_excavator)
     {
         // Check if excavator is used by another rental
-        if (rental_to_update.Excavator.IsUsed)
+        if (rental_to_update.Excavator.IsUsed && rental_to_update.Excavator.ExcavatorId != old_excavator.ExcavatorId)
         {
             soundPlayer.PlayFailSound();
             MessageBox.Show("La pelleteuse choisie est utilisée!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -388,7 +388,7 @@ public class RentalVM: BaseVM
 
     private int CalculatePrice(DateTime start_date, DateTime return_date, int price)
     {
-        int day_difference = return_date.Day - start_date.Day;
+        int day_difference = Math.Abs(return_date.Day - start_date.Day);
         return (day_difference + 1) * price;
     }
     

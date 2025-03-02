@@ -46,6 +46,9 @@ public partial class RentalsControl : UserControl
         if (EditForm.IsVisible || AddForm.IsVisible)
             return;
 
+        dpEditStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
+        dpEditReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
+        
         DeleteBtn.IsEnabled = true;
         ManageEditFormBtn.IsEnabled = true;
     }
@@ -214,9 +217,9 @@ public partial class RentalsControl : UserControl
         DatePicker sender_element = (DatePicker)sender;
         
         // start date in add form
-        if (sender_element.Name == dpAddStartDate.Name)
+        if (sender_element.Name == dpAddStartDate.Name && dpAddReturnDate.SelectedDate != null && sender_element.SelectedDate != null)
         {
-            if (!isValidStartDate(sender_element.SelectedDate) || dpAddStartDate.SelectedDate > dpAddReturnDate.SelectedDate)
+            if (!isValidStartDate(sender_element.SelectedDate.Value.Date) || dpAddStartDate.SelectedDate.Value.Date > dpAddReturnDate.SelectedDate.Value.Date)
             {
                 AddValidStartDateImg.Source = invalidIcon;
                 addValidStartDate = false;
@@ -230,9 +233,9 @@ public partial class RentalsControl : UserControl
             return;
         }
         // start date in edit form
-        if (sender_element.Name == dpEditStartDate.Name)
+        if (sender_element.Name == dpEditStartDate.Name && dpEditReturnDate.SelectedDate != null && sender_element.SelectedDate != null)
         {
-            if (!isValidStartDate(sender_element.SelectedDate) || dpEditStartDate.SelectedDate > dpEditReturnDate.SelectedDate)
+            if (!isValidStartDate(sender_element.SelectedDate.Value.Date) || dpEditStartDate.SelectedDate.Value.Date > dpEditReturnDate.SelectedDate.Value.Date)
             {
                 EditValidStartDateImg.Source = invalidIcon;
                 editValidStartDate = false;
@@ -246,9 +249,9 @@ public partial class RentalsControl : UserControl
         }
         
         // return date in add form
-        if (sender_element.Name == dpAddReturnDate.Name)
+        if (sender_element.Name == dpAddReturnDate.Name && dpAddStartDate.SelectedDate != null && sender_element.SelectedDate != null)
         {
-            if (!isValidReturnDate(sender_element.SelectedDate) || dpAddReturnDate.SelectedDate < dpAddStartDate.SelectedDate)
+            if (!isValidReturnDate(sender_element.SelectedDate.Value.Date) || dpAddReturnDate.SelectedDate.Value.Date < dpAddStartDate.SelectedDate.Value.Date)
             {
                 AddValidReturnDateImg.Source = invalidIcon;
                 addValidReturnDate = false;
@@ -262,9 +265,9 @@ public partial class RentalsControl : UserControl
         }
         
         // return date in edit form
-        if (sender_element.Name == dpEditReturnDate.Name)
+        if (sender_element.Name == dpEditReturnDate.Name && dpEditStartDate.SelectedDate != null && sender_element.SelectedDate != null)
         {
-            if (!isValidReturnDate(sender_element.SelectedDate) || dpEditReturnDate.SelectedDate < dpEditStartDate.SelectedDate)
+            if (!isValidReturnDate(sender_element.SelectedDate.Value.Date) || dpEditReturnDate.SelectedDate.Value.Date < dpEditStartDate.SelectedDate.Value.Date)
             {
                 EditValidReturnDateImg.Source = invalidIcon;
                 editValidReturnDate = false;
