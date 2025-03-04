@@ -25,12 +25,9 @@ public partial class BrandsControl : UserControl
     
     private BrandVM _brandVm;
     
-    public BrandsControl(BrandVM brandVm)
+    public BrandsControl()
     {
-        _brandVm = brandVm;
         InitializeComponent();
-        DataContext = _brandVm;
-        
         invalidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
         validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
             
