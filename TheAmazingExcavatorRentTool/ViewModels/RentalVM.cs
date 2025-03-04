@@ -34,8 +34,8 @@ public class RentalVM: BaseVM
 
         soundPlayer = new SoundPlayer();
         
-        StartDate = DateTime.Now;
-        ReturnDate = DateTime.Now;
+        StartDate = DateTime.Now.Date;
+        ReturnDate = DateTime.Now.Date;
         
         Load();
     }

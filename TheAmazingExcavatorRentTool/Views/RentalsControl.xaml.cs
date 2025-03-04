@@ -45,9 +45,6 @@ public partial class RentalsControl : UserControl
             
         if (EditForm.IsVisible || AddForm.IsVisible)
             return;
-
-        dpEditStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
-        dpEditReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
         
         DeleteBtn.IsEnabled = true;
         ManageEditFormBtn.IsEnabled = true;
@@ -57,16 +54,16 @@ public partial class RentalsControl : UserControl
     {
         cbAddCustomer.SetCurrentValue(ComboBox.SelectedItemProperty, null);
         cbAddExcavator.SetCurrentValue(ComboBox.SelectedItemProperty, null);
-        dpAddStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now); // rend le chmp invalide alors qu'il est censé toujours l'etre
-        dpAddReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
+        dpAddStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now.Date); // rend le champ invalide alors qu'il est censé toujours l'etre
+        dpAddReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now.Date);
     }
         
     private void ClearEditForm(object sender, RoutedEventArgs e)
     {
         cbEditCustomer.SetCurrentValue(ComboBox.SelectedItemProperty, null);
         cbEditExcavator.SetCurrentValue(ComboBox.SelectedItemProperty, null);
-        dpEditStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
-        dpEditReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now);
+        dpEditStartDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now.Date);
+        dpEditReturnDate.SetCurrentValue(DatePicker.SelectedDateProperty, DateTime.Now.Date);
     }
     
     private void ManageAddForm(object sender, RoutedEventArgs e)
@@ -211,8 +208,13 @@ public partial class RentalsControl : UserControl
             CanAdd();
         }
     }
-    
-    private void ValidateDatePicker(object sender, SelectionChangedEventArgs e)
+
+    private void on_DateChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DatePicker sender_element = (DatePicker)sender;
+        ValidateDatePicker(sender_element);
+    }
+    private void ValidateDatePicker(object sender)
     {
         DatePicker sender_element = (DatePicker)sender;
         
@@ -256,11 +258,13 @@ public partial class RentalsControl : UserControl
                 AddValidReturnDateImg.Source = invalidIcon;
                 addValidReturnDate = false;
                 CanAdd();
+                ValidateDatePicker(dpAddStartDate);
                 return;
             }
             AddValidReturnDateImg.Source = validIcon;
             addValidReturnDate = true;
             CanAdd();
+            ValidateDatePicker(dpAddStartDate);
             return;
         }
         
@@ -272,11 +276,13 @@ public partial class RentalsControl : UserControl
                 EditValidReturnDateImg.Source = invalidIcon;
                 editValidReturnDate = false;
                 CanEdit();
+                ValidateDatePicker(dpEditStartDate);
                 return;
             }
             EditValidReturnDateImg.Source = validIcon;
             editValidReturnDate = true;
             CanEdit();
+            ValidateDatePicker(dpEditStartDate);
             return;
         }
     }
