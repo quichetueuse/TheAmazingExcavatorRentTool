@@ -4,7 +4,22 @@ namespace TheAmazingExcavatorRentTool.ViewModels;
 
 public class MainWindowVM: BaseVM
 {
+
+    private object _currentView;
+
+    public object CurrentView
+    {
+        get { return _currentView; }
+        set
+        {
+            _currentView = value;
+            OnPropertyChanged();
+        }
+    }
     
+    
+    
+    // Creating all view models
     
     private ExcavatorVM _excavatorvm;
         
@@ -52,6 +67,7 @@ public class MainWindowVM: BaseVM
     public MainWindowVM()
     {
         BrandVm = new BrandVM();
+        CurrentView = BrandVm;
         ExcavatorVm = new ExcavatorVM(BrandVm);
         CustomerVm = new CustomerVM();
         RentalVm = new RentalVM(customervm: _customervm, excavatorvm: _excavatorvm);
