@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
         mc:Ignorable="d"
         WindowStyle="None"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
@@ -46,6 +46,35 @@
                         </StackPanel>
                         
                         <Button Grid.Column="2"
+                                Name="MinimizeButton"
+                                Style="{StaticResource ResizeButtonTheme}"
+                                Background="Transparent"
+                                Margin="0 0 60 0"
+                                Height="30"
+                                Width="30"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Click="MinimizeWindow"
+                                Foreground="White"
+                                Content="—">
+                        </Button>
+                        
+                        
+                        <Button Grid.Column="2"
+                                Style="{StaticResource ResizeButtonTheme}"
+                                Name="MaximizeButton"
+                                Background="Transparent"
+                                Margin="0 0 30 0"
+                                Height="30"
+                                Width="30"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Click="MaximizeWindow"
+                                Foreground="White"
+                                Content="■">
+                        </Button>
+                        
+                        <Button Grid.Column="2"
                                 Style="{StaticResource CloseButtonStyle}"
                                 Name="CloseButton"
                                 Margin="0"
@@ -53,15 +82,14 @@
                                 Width="30"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Click="CloseWindow"
-                        >
+                                Click="CloseWindow">
                                 <Image Source="Assets/cross_icon.png"></Image>
                         </Button>
                         
                         <!-- Nav bar -->
                         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
-                                <RadioButton Content="Pelleteuses" Margin="0 40 0 0" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True"/>
-                                <RadioButton Content="Marques" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                                <RadioButton Content="Pelleteuses" Margin="0 40 0 0" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                                <RadioButton Content="Marques" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True"/>
                                 <RadioButton Content="Locations" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
                                 <RadioButton Content="utilisateurs" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
                         </StackPanel>

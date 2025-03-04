@@ -60,7 +60,7 @@ public partial class MainWindow : Window
             brandItem.Height = 30;
             brandItem.Width = 75;
             brandItem.Name = "ItemBrand";
-            brandItem.Content = new BrandsControl(_mainwindowvm.BrandVm);
+            brandItem.Content = new BrandsControl();
             modules_tabcontrol.Items.Insert(1, brandItem);
             
             // User view

@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 using TheAmazingExcavatorRentTool.Services;
+using TheAmazingExcavatorRentTool.ViewModels;
 using TheAmazingExcavatorRentTool.Views;
 
 namespace TheAmazingExcavatorRentTool;
@@ -10,7 +11,8 @@ public partial class MainWindowNextGen : Window
     public MainWindowNextGen()
     {
         InitializeComponent();
-        
+        MainWindowVM mainWindowVm = new MainWindowVM();
+
     }
     
     private void DragWindow(object sender, MouseButtonEventArgs e)
@@ -41,6 +43,22 @@ public partial class MainWindowNextGen : Window
         loginWindow.WindowState = WindowState.Normal;
         loginWindow.Activate();
     }
+
+
+    private void MinimizeWindow(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
     
-    
+    private void MaximizeWindow(object sender, RoutedEventArgs e)
+    {
+        if (WindowState == WindowState.Normal)
+        {
+            WindowState = WindowState.Maximized;
+        }
+        else
+        {
+            WindowState = WindowState.Normal;
+        }
+    }
 }
