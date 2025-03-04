@@ -1,0 +1,87 @@
+<Window x:Class="TheAmazingExcavatorRentTool.MainWindowNextGen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TheAmazingExcavatorRentTool"
+        xmlns:viewmodels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Title="The Amazing Excavator Rent Tool" Height="720" Width="1280">
+    <Window.DataContext>
+        <viewmodels:MainWindowVM/>
+    </Window.DataContext>
+        <Border Background="#272537" CornerRadius="20">
+                <Grid ShowGridLines="True">
+                        <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Border Background="#22202F" Grid.ColumnSpan="3" CornerRadius="20 20 0 0 "/>
+                        
+                        <!-- Only used to drag window --> 
+                        <StackPanel Grid.ColumnSpan="3" Background="Transparent" MouseLeftButtonDown="DragWindow"/>
+                                
+                        
+                        <StackPanel Orientation="Horizontal">
+                                <!-- Title bar icon -->
+                                <Image Source="Assets/app-icon.png" HorizontalAlignment="Left" Width="22" Height="22" Margin="10 0 0 0"/>
+                        
+                                <!-- Title bar title-->
+                                <TextBlock Text="Location de pelleteuses"
+                                           Margin="10, 0, 0, 0"
+                                           VerticalAlignment="Center"
+                                           Foreground="White"
+                                           FontSize="16"
+                                           FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <Button Grid.Column="2"
+                                Style="{StaticResource CloseButtonStyle}"
+                                Name="CloseButton"
+                                Margin="0"
+                                Height="30"
+                                Width="30"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Click="CloseWindow"
+                        >
+                                <Image Source="Assets/cross_icon.png"></Image>
+                        </Button>
+                        
+                        <!-- Nav bar -->
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+                                <RadioButton Content="Pelleteuses" Margin="0 40 0 0" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True"/>
+                                <RadioButton Content="Marques" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                                <RadioButton Content="Locations" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                                <RadioButton Content="utilisateurs" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                        </StackPanel>
+                        <Button Grid.Row="1" 
+                                Click="LogoutButton_OnClick"
+                                VerticalAlignment="Bottom" 
+                                HorizontalAlignment="Left" 
+                                Width="50" Height="50" 
+                                Style="{StaticResource LogoutButtonTheme}" 
+                                Margin="10"
+                                Name="LogoutButton">
+                                <Image Source="Assets/logout_icon.png" Width="30" Height="30"/>
+                        </Button>
+                        
+                        
+                        <ContentControl Grid.Column="1" Grid.Row="1" Margin="10"
+                                        Content="{Binding CurrentView}"/>
+                        
+                </Grid>
+        </Border>
+    
+    
+</Window>
