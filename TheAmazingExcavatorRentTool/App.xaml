@@ -2,69 +2,97 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TheAmazingExcavatorRentTool"
-             StartupUri="Views/LoginWindow.xaml">
+             StartupUri="MainWindowNextGen.xaml">
     <Application.Resources>
-        <Style x:Key="CenteredGridContent">
-            <Setter Property="TextBlock.TextAlignment" Value="Center" />
-            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
-            <!-- <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter> -->
-        </Style>
         
-        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-        
-        <Style x:Key="CenterGridContent" TargetType="DataGrid">
-            <Style.Resources>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                </Style>
-            </Style.Resources>
-        </Style>
-        
-        <Style TargetType="Button" x:Key="BtnBorderRadius">
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10" />
-                </Style>
-            </Style.Resources>
-        </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxStyling">
-            <Setter Property="MinWidth" Value="300"></Setter>
-        </Style>
-        
-        <Style TargetType="StackPanel" x:Key="FirstStackPanelMarginStyling">
-            <Setter Property="Margin" Value="0 10 0 20"></Setter>
-        </Style>
-        
-        <Style TargetType="StackPanel" x:Key="StackPanelMarginStyling">
-            <Setter Property="Margin" Value="0 0 0 20"></Setter>
-        </Style>
-        
-        <Style TargetType="TextBox" x:Key="TextBoxFileStyling">
-            <Setter Property="MinWidth" Value="400"></Setter>
-            <Setter Property="Width" Value="400"></Setter>
-        </Style>
-        
-        <Style TargetType="DataGrid" x:Key="HeightSetter">
-            <Style.Resources>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Height" Value="25"></Setter>  
-                </Style>
-            </Style.Resources>
-        </Style>
-        
-        <!-- <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}"> -->
-        <!--     <Setter Property="Template"> -->
-        <!--         <Setter.Value> -->
-        <!--             <ControlTemplate TargetType="{x:Type DataGridCell}"> -->
-        <!--                 <Grid Background="{TemplateBinding Background}"> -->
-        <!--                     <ContentPresenter VerticalAlignment="Center" /> -->
-        <!--                 </Grid> -->
-        <!--             </ControlTemplate> -->
-        <!--         </Setter.Value> -->
-        <!--     </Setter> -->
+        <!-- <Style x:Key="LogoutButtonTheme" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}"> -->
+        <!--     <Style.Setters> -->
+        <!--         <Setter Property="Content" Value="Test"/> -->
+        <!--          -->
+        <!--         <Setter Property="Template"> -->
+        <!--             <Setter.Value> -->
+        <!--                 <ControlTemplate> -->
+        <!--                     <Border Background="SpringGreen" CornerRadius="50" Name="LogoutButtonBorder"/> -->
+        <!--                     <ControlTemplate.Triggers> -->
+        <!--                         <Trigger Property="IsMouseOver" Value="True"> -->
+        <!--                             <Setter Property="Background" Value="Green" TargetName="LogoutButtonBorder"/> -->
+        <!--                         </Trigger> -->
+        <!--                     </ControlTemplate.Triggers> -->
+        <!--                 </ControlTemplate> -->
+        <!--             </Setter.Value> -->
+        <!--         </Setter> -->
+        <!--     </Style.Setters> -->
         <!-- </Style> -->
+        
+        <!-- <Style x:Key="CenteredGridContent"> -->
+        <!--     <Setter Property="TextBlock.TextAlignment" Value="Center" /> -->
+        <!--     <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter> -->
+        <!--     ~1~ <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter> @1@ -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader"> -->
+        <!--     <Setter Property="HorizontalContentAlignment" Value="Center"/> -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style x:Key="CenterGridContent" TargetType="DataGrid"> -->
+        <!--     <Style.Resources> -->
+        <!--         <Style TargetType="DataGridCell"> -->
+        <!--             <Setter Property="VerticalAlignment" Value="Center"/> -->
+        <!--             <Setter Property="HorizontalAlignment" Value="Center"/> -->
+        <!--         </Style> -->
+        <!--     </Style.Resources> -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style TargetType="Button" x:Key="BtnBorderRadius"> -->
+        <!--     <Style.Resources> -->
+        <!--         <Style TargetType="Border"> -->
+        <!--             <Setter Property="CornerRadius" Value="10" /> -->
+        <!--         </Style> -->
+        <!--     </Style.Resources> -->
+        <!-- </Style> -->
+        <!-- <Style TargetType="TextBox" x:Key="TextBoxStyling"> -->
+        <!--     <Setter Property="MinWidth" Value="300"></Setter> -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style TargetType="StackPanel" x:Key="FirstStackPanelMarginStyling"> -->
+        <!--     <Setter Property="Margin" Value="0 10 0 20"></Setter> -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style TargetType="StackPanel" x:Key="StackPanelMarginStyling"> -->
+        <!--     <Setter Property="Margin" Value="0 0 0 20"></Setter> -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style TargetType="TextBox" x:Key="TextBoxFileStyling"> -->
+        <!--     <Setter Property="MinWidth" Value="400"></Setter> -->
+        <!--     <Setter Property="Width" Value="400"></Setter> -->
+        <!-- </Style> -->
+        <!-- -->
+        <!-- <Style TargetType="DataGrid" x:Key="HeightSetter"> -->
+        <!--     <Style.Resources> -->
+        <!--         <Style TargetType="DataGridRow"> -->
+        <!--             <Setter Property="Height" Value="25"></Setter>   -->
+        <!--         </Style> -->
+        <!--     </Style.Resources> -->
+        <!-- </Style> -->
+        
+        <!-- Close button Style -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/CloseButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/LogoutButtonTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        
+        <!--     ~1~ Creating autokeyboard view linked to view model @1@ -->
+        <!--     <DataTemplate DataType="{x:Type viewModels:AutoKeyboardVM}"> -->
+        <!--         <views:AutoKeyboardControl/> -->
+        <!--     </DataTemplate> -->
+        <!--      -->
+        <!--     ~1~ Created autoclicker view linked to view model @1@ -->
+        <!--     <DataTemplate DataType="{x:Type viewModels:AutoClickerVM}"> -->
+        <!--         <views:AutoClickerControl/> -->
+        <!--     </DataTemplate> -->
+        <!--      -->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
