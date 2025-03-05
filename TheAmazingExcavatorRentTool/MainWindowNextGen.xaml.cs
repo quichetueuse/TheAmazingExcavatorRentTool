@@ -1,5 +1,8 @@
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using TheAmazingExcavatorRentTool.Services;
 using TheAmazingExcavatorRentTool.ViewModels;
 using TheAmazingExcavatorRentTool.Views;
@@ -12,6 +15,37 @@ public partial class MainWindowNextGen : Window
     {
         InitializeComponent();
         MainWindowVM mainWindowVm = new MainWindowVM();
+
+        if (Session.IsAdmin)
+        {
+            // Brand radio buttons
+            RadioButton BrandMenuButton = new RadioButton();
+            BrandMenuButton.Content = "Marques";
+            BrandMenuButton.Foreground = new SolidColorBrush(Colors.White);
+            BrandMenuButton.Height = 50;
+            BrandMenuButton.FontSize = 14;
+            BrandMenuButton.Style = FindResource("MenuButtonTheme") as Style;
+            BrandMenuButton.SetBinding(Button.CommandProperty, new Binding("ToBrandCommand"));
+            NavBar.Children.Insert(1, BrandMenuButton);
+            
+            
+            // Users radio buttons
+            RadioButton UserMenuButton = new RadioButton();
+            UserMenuButton.Content = "Utilisateurs";
+            UserMenuButton.Foreground = new SolidColorBrush(Colors.White);
+            UserMenuButton.Height = 50;
+            UserMenuButton.FontSize = 14;
+            UserMenuButton.Style = FindResource("MenuButtonTheme") as Style;
+            UserMenuButton.SetBinding(Button.CommandProperty, new Binding("ToUserCommand"));
+            NavBar.Children.Add(UserMenuButton);
+        }
+        // RadioButton UserMenuButton = new RadioButton();
+        // UserMenuButton.Content = "Utilisateurs";
+        // UserMenuButton.Foreground = new SolidColorBrush(Colors.White);
+        // UserMenuButton.Height = 50;
+        // UserMenuButton.FontSize = 14;
+        // UserMenuButton.Style = FindResource("MenuButtonTheme") as Style;
+        // Console.WriteLine(NavBar.Children.Add(UserMenuButton));
 
     }
     

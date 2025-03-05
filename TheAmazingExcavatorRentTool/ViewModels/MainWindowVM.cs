@@ -18,6 +18,13 @@ public class MainWindowVM: BaseVM
     }
     
     
+    public RelayCommand ToBrandCommand { get; set; }
+    public RelayCommand ToUserCommand { get; set; }
+    public RelayCommand ToExcavatorCommand { get; set; }
+    public RelayCommand ToRentalCommand { get; set; }
+    
+    
+    
     
     // Creating all view models
     
@@ -67,13 +74,35 @@ public class MainWindowVM: BaseVM
     public MainWindowVM()
     {
         BrandVm = new BrandVM();
-        CurrentView = BrandVm;
         ExcavatorVm = new ExcavatorVM(BrandVm);
         CustomerVm = new CustomerVM();
-        RentalVm = new RentalVM(customervm: _customervm, excavatorvm: _excavatorvm);
+        RentalVm = new RentalVM(customervm: CustomerVm, excavatorvm: ExcavatorVm);
         if (Session.IsAdmin)
         {
             UserVm = new UserVM();   
         }
+
+        // Loading commands
+        ToBrandCommand = new RelayCommand(o =>
+        {
+            CurrentView = BrandVm;
+        });
+        
+        ToUserCommand = new RelayCommand(o =>
+        {
+            CurrentView = UserVm;
+        });
+        
+        ToExcavatorCommand = new RelayCommand(o =>
+        {
+            CurrentView = ExcavatorVm;
+        });
+        
+        ToRentalCommand = new RelayCommand(o =>
+        {
+            CurrentView = RentalVm;
+        });
+        
+        CurrentView = ExcavatorVm;
     }
 }

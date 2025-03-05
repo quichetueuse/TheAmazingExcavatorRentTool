@@ -39,6 +39,18 @@
         <DataTemplate DataType="{x:Type viewmodels:BrandVM}">
             <views:BrandsControl/>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewmodels:ExcavatorVM}">
+            <views:ExcavatorsControl/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewmodels:UserVM}">
+            <views:UsersControl/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewmodels:RentalVM}">
+            <views:RentalsControl/>
+        </DataTemplate>
         <!--      -->
         <!--     ~1~ Created autoclicker view linked to view model @1@ -->
         <!--     <DataTemplate DataType="{x:Type viewModels:AutoClickerVM}"> -->
