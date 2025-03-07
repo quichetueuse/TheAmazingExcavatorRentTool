@@ -42,16 +42,17 @@
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
+            EnableColumnVirtualization="False"
             >
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="{x:Type DataGridRowHeader}">
+                    <Setter Property="Width" Value="20"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Content" Value="{Binding Path=AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                </Style>
+            </DataGrid.RowHeaderStyle>
             
-            <!-- Center content on both axis -->
-            <!-- <DataGrid.Resources> -->
-            <!--     <Style TargetType="DataGridCell"> -->
-            <!--         <Setter Property="HorizontalAlignment" Value="Center"></Setter> -->
-            <!--         <Setter Property="VerticalAlignment" Value="Center"></Setter> -->
-            <!--     </Style> -->
-            <!-- </DataGrid.Resources> -->
-            <!-- Loaded="DvdGrid_OnLoaded" -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
@@ -126,10 +127,6 @@
                         <TextBox HorizontalAlignment="Left" Name="txtEditReleaseYear" VerticalAlignment="Top" Style="{StaticResource TextBoxStyling}" Height="25" VerticalContentAlignment="Center" Text="{Binding SelectedItem.ReleaseYear, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidReleaseYearImg"></Image>
                     </StackPanel>
-                    
-                    <!-- <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Style="{StaticResource StackPanelMarginStyling}"> -->
-                    <!--     <CheckBox IsEnabled="False" Content="Utilisation en cours" Name="checkBEditIsUsed" VerticalContentAlignment="Center" IsChecked="{Binding SelectedItem.IsUsed, ElementName=ExcavatorGrid, Mode=OneWay}"></CheckBox> -->
-                    <!-- </StackPanel> -->
                     
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Prix journalier:"></Label>
