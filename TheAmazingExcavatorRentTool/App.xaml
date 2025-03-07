@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:TheAmazingExcavatorRentTool"
              xmlns:viewmodels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              xmlns:views="clr-namespace:TheAmazingExcavatorRentTool.Views"
-             StartupUri="MainWindowNextGen.xaml">
+             StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
         
         
