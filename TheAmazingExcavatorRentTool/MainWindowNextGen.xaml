@@ -7,11 +7,13 @@
         xmlns:viewmodels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
         mc:Ignorable="d"
         WindowStyle="None"
-        ResizeMode="CanResize"
+        ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        Title="The Amazing Excavator Rent Tool" Height="720" Width="1280">
+        Title="The Amazing Excavator Rent Tool" 
+        Height="720" Width="1280"
+        MinHeight="720" MinWidth="1280">
     <Window.DataContext>
         <viewmodels:MainWindowVM/>
     </Window.DataContext>
