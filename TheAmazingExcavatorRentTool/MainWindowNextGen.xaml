@@ -89,9 +89,8 @@
                         <!-- Nav bar -->
                         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Name="NavBar">
                                 <RadioButton Content="Pelleteuses" Margin="0 40 0 0" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True" Command="{Binding ToExcavatorCommand}"/>
-                                <!-- <RadioButton Content="Marques" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding ToBrandCommand}"/> -->
+                                <RadioButton Content="Clients" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding ToCustomerCommand}"/>
                                 <RadioButton Content="Locations" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding ToRentalCommand}"/>
-                                <!-- <RadioButton Content="utilisateurs" Foreground="White" Height="50" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding ToUserCommand}"/> -->
                         </StackPanel>
                         <Button Grid.Row="1" 
                                 Click="LogoutButton_OnClick"

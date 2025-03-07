@@ -40,9 +40,6 @@ public class ExcavatorVM : BaseVM
         updateAvailabilityQuery = "UPDATE excavator SET is_used=@is_used WHERE excavator_id=@id";
         addQuery =
             "INSERT INTO excavator (name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @is_used, @daily_price, @picture_path)";
-            
-        
-        //todo ajouter les commentaires comme dans le customerVM
         
         _brandvm = brandvm;
         Load();
@@ -182,7 +179,7 @@ public class ExcavatorVM : BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new Exception(); //todo creer exception custom (style FailedConnectionException)
+            throw new ConnectionFailedException("Connection to database failed");
         }
         
         var cmd = new MySqlCommand(loadQuery, dbCon.Connection);

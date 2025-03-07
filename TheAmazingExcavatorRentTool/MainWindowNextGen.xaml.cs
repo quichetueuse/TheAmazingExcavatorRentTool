@@ -39,13 +39,6 @@ public partial class MainWindowNextGen : Window
             UserMenuButton.SetBinding(Button.CommandProperty, new Binding("ToUserCommand"));
             NavBar.Children.Add(UserMenuButton);
         }
-        // RadioButton UserMenuButton = new RadioButton();
-        // UserMenuButton.Content = "Utilisateurs";
-        // UserMenuButton.Foreground = new SolidColorBrush(Colors.White);
-        // UserMenuButton.Height = 50;
-        // UserMenuButton.FontSize = 14;
-        // UserMenuButton.Style = FindResource("MenuButtonTheme") as Style;
-        // Console.WriteLine(NavBar.Children.Add(UserMenuButton));
 
     }
     
