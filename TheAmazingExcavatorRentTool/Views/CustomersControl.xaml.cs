@@ -27,11 +27,9 @@ public partial class CustomersControl : UserControl
     private bool addValidBirthDate;
 
     private CustomerVM _customerVm;
-    public CustomersControl(CustomerVM customerVm)
+    public CustomersControl()
     {
-        _customerVm = customerVm;
         InitializeComponent();
-        DataContext = _customerVm;
         
         invalidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
         validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
@@ -326,5 +324,14 @@ public partial class CustomersControl : UserControl
 
         CustomerGrid.SelectedItem = customer_obj;
     }
+
+    private void setContextVM()
+    {
+        _customerVm = (CustomerVM)DataContext as CustomerVM;
+    }
     
+    private void CustomersControl_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        setContextVM();
+    }
 }

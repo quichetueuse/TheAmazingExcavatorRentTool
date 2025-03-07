@@ -42,12 +42,10 @@ namespace TheAmazingExcavatorRentTool.Views
 
         
         private ExcavatorVM _excavatorvm;
-        public ExcavatorsControl(ExcavatorVM excavatorvm)
+        public ExcavatorsControl()
         {
             // InitializeComponent();
-            _excavatorvm = excavatorvm;
             InitializeComponent();
-            DataContext = _excavatorvm;
             
             invalidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
             validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
@@ -57,7 +55,6 @@ namespace TheAmazingExcavatorRentTool.Views
             ImagesDir =
                 "C:\\Users\\Eliot\\RiderProjects\\TheAmazingExcavatorRentTool\\TheAmazingExcavatorRentTool\\ExcavatorImages\\";
         }
-        
         
         
         private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -499,7 +496,18 @@ namespace TheAmazingExcavatorRentTool.Views
             addSafeFileName = ImagesDir + dialog.SafeFileName;
             _excavatorvm.PicturePath = addSafeFileName;
         }
-        
+
+
+        private void setContextVM()
+        {
+            _excavatorvm = (ExcavatorVM)DataContext as ExcavatorVM;
+        }
+
+
+        private void ExcavatorsControl_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            setContextVM();
+        }
     }
     
 }

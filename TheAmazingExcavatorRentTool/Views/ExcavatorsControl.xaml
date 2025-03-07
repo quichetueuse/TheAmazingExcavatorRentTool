@@ -7,7 +7,8 @@
              xmlns:views="clr-namespace:TheAmazingExcavatorRentTool.Views"
              xmlns:viewModels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             Loaded="ExcavatorsControl_OnLoaded">
     <UserControl.Resources></UserControl.Resources>
     <!-- <UserControl.DataContext> -->
     <!--     <viewModels:ExcavatorVM/> -->

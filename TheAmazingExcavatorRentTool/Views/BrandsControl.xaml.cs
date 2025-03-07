@@ -33,7 +33,6 @@ public partial class BrandsControl : UserControl
             
         minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
         plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
-
     }
     
     private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -202,12 +201,23 @@ public partial class BrandsControl : UserControl
     
     private bool isValidYear(string year)
     {
-        if (year.Length == 0 || year.Length > 4 || year == "")
+        if (year.Length == 0 || year.Length > 4 || year == "" || !IsDigitsOnly(year))
             return false;
         int int_year = Convert.ToInt32(year);
 
         if (int_year < 1950 || int_year > DateTime.Now.Year)
             return false;
+
+        return true;
+    }
+    
+    private bool IsDigitsOnly(string year)
+    {
+        foreach (char c in year)
+        {
+            if (c < '0' || c > '9')
+                return false;
+        }
 
         return true;
     }
@@ -235,5 +245,14 @@ public partial class BrandsControl : UserControl
         _brandVm.Update(brand_obj);
         BrandGrid.SelectedItem = brand_obj;
     }
+
     
+    private void setContextVM()
+    {
+        _brandVm = (BrandVM)DataContext as BrandVM;
+    }
+    private void BrandsControl_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        setContextVM();
+    }
 }

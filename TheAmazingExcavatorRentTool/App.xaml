@@ -44,6 +44,10 @@
             <views:ExcavatorsControl/>
         </DataTemplate>
         
+        <DataTemplate DataType="{x:Type viewmodels:CustomerVM}">
+            <views:CustomersControl/>
+        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type viewmodels:UserVM}">
             <views:UsersControl/>
         </DataTemplate>

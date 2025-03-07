@@ -28,11 +28,9 @@ public partial class UsersControl : UserControl
     private PasswordManager passwordManager;
     
     
-    public UsersControl(UserVM userVm)
+    public UsersControl()
     {
-        _userVm = userVm;
         InitializeComponent();
-        DataContext = _userVm;
 
         passwordManager = new PasswordManager();
         
@@ -291,5 +289,15 @@ public partial class UsersControl : UserControl
         editvalidPassword = true;
         CanEdit();
         PasswordStackPanel.Visibility = Visibility.Visible;
+    }
+
+    private void setContextVM()
+    {
+        _userVm = (UserVM)DataContext as UserVM;
+    }
+    
+    private void UsersControl_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        setContextVM();
     }
 }

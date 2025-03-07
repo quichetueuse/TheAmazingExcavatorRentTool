@@ -26,12 +26,10 @@ public partial class RentalsControl : UserControl
 
     private RentalVM _rentalVm;
 
-    public RentalsControl(RentalVM rentalVm)
+    public RentalsControl()
     {
-        _rentalVm = rentalVm;
         
         InitializeComponent();
-        DataContext = _rentalVm;
         
         invalidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
         validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
@@ -324,5 +322,14 @@ public partial class RentalsControl : UserControl
         _rentalVm.Update(rental_obj, old_excavator);
         RentalGrid.SelectedItem = rental_obj;
     }
+
     
+    private void setContextVM()
+    {
+        _rentalVm = (RentalVM)DataContext as RentalVM;
+    }
+    private void RentalsControl_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        setContextVM();
+    }
 }
