@@ -74,7 +74,6 @@ public class MainWindowVM: BaseVM
 
     public MainWindowVM()
     {
-        Session.IsAdmin = true; // todo remove that
         BrandVm = new BrandVM();
         ExcavatorVm = new ExcavatorVM(BrandVm);
         CustomerVm = new CustomerVM();
