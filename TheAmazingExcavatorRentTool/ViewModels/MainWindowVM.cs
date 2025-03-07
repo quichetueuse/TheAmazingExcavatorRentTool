@@ -21,6 +21,7 @@ public class MainWindowVM: BaseVM
     public RelayCommand ToBrandCommand { get; set; }
     public RelayCommand ToUserCommand { get; set; }
     public RelayCommand ToExcavatorCommand { get; set; }
+    public RelayCommand ToCustomerCommand { get; set; }
     public RelayCommand ToRentalCommand { get; set; }
     
     
@@ -73,6 +74,7 @@ public class MainWindowVM: BaseVM
 
     public MainWindowVM()
     {
+        Session.IsAdmin = true; // todo remove that
         BrandVm = new BrandVM();
         ExcavatorVm = new ExcavatorVM(BrandVm);
         CustomerVm = new CustomerVM();
@@ -101,6 +103,11 @@ public class MainWindowVM: BaseVM
         ToRentalCommand = new RelayCommand(o =>
         {
             CurrentView = RentalVm;
+        });
+        
+        ToCustomerCommand = new RelayCommand(o =>
+        {
+            CurrentView = CustomerVm;
         });
         
         CurrentView = ExcavatorVm;
