@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:TheAmazingExcavatorRentTool"
              xmlns:viewmodels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              xmlns:views="clr-namespace:TheAmazingExcavatorRentTool.Views"
-             StartupUri="Views/LoginWindow.xaml">
+             StartupUri="LoginWindowNextGen.xaml">
     <Application.Resources>
         
         
@@ -32,6 +32,8 @@
                 <ResourceDictionary Source="Themes/StackPanelTheme.xaml"/>
                 <ResourceDictionary Source="Themes/TextBoxFileTheme.xaml"/>
                 <ResourceDictionary Source="Themes/CenteredGridContentTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MainButtonTheme.xaml"/>
+                <!-- <ResourceDictionary Source="Themes/LoginFormTheme.xaml"/> -->
                 
             </ResourceDictionary.MergedDictionaries>
         

@@ -63,7 +63,7 @@ public partial class MainWindowNextGen : Window
     private void Disconnect()
     {
         Session.SessionClear();
-        Window loginWindow = new LoginWindow();
+        Window loginWindow = new LoginWindowNextGen();
         loginWindow.Show();
         Application.Current.MainWindow = loginWindow;
         this.Close();

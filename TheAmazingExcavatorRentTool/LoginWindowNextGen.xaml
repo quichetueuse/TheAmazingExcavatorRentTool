@@ -1,0 +1,129 @@
+<Window x:Class="TheAmazingExcavatorRentTool.LoginWindowNextGen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Views"
+        xmlns:viewModels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="Page de connexion"
+        Height="720" Width="1280"
+        MinHeight="720" MinWidth="1280"
+        WindowStartupLocation="CenterScreen"
+        Icon="../Assets/app-icon.png"
+        x:Name="loginwindownextgen">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=loginwindownextgen}" Key="Enter"/>
+    </Window.InputBindings>
+    <Window.DataContext>
+        <viewModels:LoginVM/>
+    </Window.DataContext>
+    
+    
+    
+    <Border Background="#272537" CornerRadius="20">
+        <Grid ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+                        <Border Background="#22202F" Grid.ColumnSpan="3" CornerRadius="20 20 0 0 "/>
+                        
+                        <!-- Only used to drag window --> 
+                        <StackPanel Grid.ColumnSpan="3" Background="Transparent" MouseLeftButtonDown="DragWindow"/>
+                                
+                        
+                        <StackPanel Orientation="Horizontal">
+                                <!-- Title bar icon -->
+                                <Image Source="Assets/app-icon.png" HorizontalAlignment="Left" Width="22" Height="22" Margin="10 0 0 0"/>
+                        
+                                <!-- Title bar title-->
+                                <TextBlock Text="Page de connexion"
+                                           Margin="10, 0, 0, 0"
+                                           VerticalAlignment="Center"
+                                           Foreground="White"
+                                           FontSize="16"
+                                           FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <Button Grid.Column="2"
+                                Name="MinimizeButton"
+                                Style="{StaticResource ResizeButtonTheme}"
+                                Background="Transparent"
+                                Margin="0 0 60 0"
+                                Height="30"
+                                Width="30"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Click="MinimizeWindow"
+                                Foreground="White"
+                                Content="—">
+                        </Button>
+                        
+                        
+                        <Button Grid.Column="2"
+                                Style="{StaticResource ResizeButtonTheme}"
+                                Name="MaximizeButton"
+                                Background="Transparent"
+                                Margin="0 0 30 0"
+                                Height="30"
+                                Width="30"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Click="MaximizeWindow"
+                                Foreground="White"
+                                Content="■">
+                        </Button>
+                        
+                        <Button Grid.Column="2"
+                                Style="{StaticResource CloseButtonStyle}"
+                                Name="CloseButton"
+                                Margin="0"
+                                Height="30"
+                                Width="30"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Click="CloseWindow">
+                                <Image Source="Assets/cross_icon.png"></Image>
+                        </Button>
+            
+            
+                        <!-- Login form -->
+                        
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 100 0 0" Background="#22202F" Height="350" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- <Border BorderBrush="White" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Border> -->
+                            <Label Content="Formulaire de connexion" Foreground="White" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="0 0 0 20 "/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="     Identifiant: " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                <TextBox Name="login_tb_username"  Text="{Binding Username}" Padding="20 0 0 0" VerticalContentAlignment="Center" FontSize="20" Width="300" Foreground="White" Background="#35324a"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                                <Label Content="Mot de passe: " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                <local:PasswordControl Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="300"/>
+                            </StackPanel>
+                            <StackPanel Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Name="quit_btn" Width="150" Margin="20" Height="75" Content="Annuler" Style="{StaticResource MainButtonTheme}" FontSize="20" Click="CloseWindow"/>
+                                <Button Name="login_btn_login" Width="150" Margin="20" Content="Valider" Style="{StaticResource MainButtonTheme}" FontSize="20" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=loginwindownextgen}"/>
+                            </StackPanel>
+                        </StackPanel>
+            
+        </Grid>
+    </Border>
+    <!-- <Grid> -->
+        <!-- <StackPanel Orientation="Vertical" VerticalAlignment="Center"> -->
+        <!--      -->
+        <!--     <Label Content="Connexion" Foreground="Gray" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="40"/> -->
+        <!--     <Label Content="Nom d'utilisateur" Margin="20 0 0 0" FontSize="16"/> -->
+        <!--     <TextBox Name="login_tb_username" Margin="20" Height="75" Text="{Binding Username}" Padding="20 0 0 0" VerticalContentAlignment="Center" FontSize="20"/> -->
+        <!--     <Label Content="Mot de passe" Margin="20 0 0 0" FontSize="16"/> -->
+        <!--     <local:PasswordControl Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/> -->
+        <!--     <Label Name="lbl_error" Foreground="Red" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding ErrorMsg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30"/> -->
+        <!--     <Button Name="login_btn_login" Width="300" Margin="20" Height="75" Content="Valider" Style="{StaticResource BtnBorderRadius}" FontSize="20" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=loginwindow}"/> -->
+        <!-- </StackPanel> -->
+    <!-- </Grid> -->
+</Window>
