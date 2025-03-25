@@ -195,7 +195,7 @@ public partial class BrandsControl : UserControl
         
     private bool isValidName(string str)
     {
-        Regex regex = new Regex("^[a-zA-Zéàèç-]{1,32}$");
+        Regex regex = new Regex("^[a-zA-Zéàèç- ]{1,32}$");
         return regex.IsMatch(str);
     }
     
