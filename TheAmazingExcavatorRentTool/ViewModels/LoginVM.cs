@@ -104,12 +104,12 @@ namespace TheAmazingExcavatorRentTool.ViewModels
         }
         
         
-        private void OpenMainWindow(Window current_windows)
+        private void OpenMainWindow(Window current_window)
         {
             MainWindowNextGen mainWindow = new MainWindowNextGen();
             mainWindow.Show();
             Application.Current.MainWindow = mainWindow;
-            current_windows.Close();
+            current_window.Close();
             mainWindow.WindowState = WindowState.Normal;
             mainWindow.Activate();
         }

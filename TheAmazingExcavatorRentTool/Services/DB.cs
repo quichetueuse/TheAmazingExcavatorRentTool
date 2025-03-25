@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using MySqlConnector;
 
 namespace TheAmazingExcavatorRentTool.Services
@@ -28,7 +29,14 @@ namespace TheAmazingExcavatorRentTool.Services
                     return false;
                 string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}", Server, DatabaseName, UserName, Password);
                 Connection = new MySqlConnection(connstring);
-                Connection.Open();
+                try
+                {
+                    Connection.Open();
+                }
+                catch (MySqlConnector.MySqlException e)
+                {
+                    return false;
+                }
             }
     
             return true;
