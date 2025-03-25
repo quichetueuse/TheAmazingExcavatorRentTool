@@ -99,17 +99,21 @@
                             <!-- <Border BorderBrush="White" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Border> -->
                             <Label Content="Formulaire de connexion" Foreground="White" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="0 0 0 20 "/>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="     Identifiant: " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
-                                <TextBox Name="login_tb_username"  Text="{Binding Username}" Padding="20 0 0 0" VerticalContentAlignment="Center" FontSize="20" Width="300" Foreground="White" Background="#35324a"/>
+                                <Label Content="    Identifiant " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                <!-- <TextBox Name="login_tb_username"  Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="20 0 0 0" FontSize="20" Tag="test1212" Style="{StaticResource FormTextBoxTheme2}" TextChanged="Login_tb_username_OnTextChanged"/> -->
+                                <TextBox Name="login_tb_username"  Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="20 0 0 0" VerticalContentAlignment="Center" FontSize="20" Width="300" Style="{StaticResource  testTheme}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                                <Label Content="Mot de passe: " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                <Label Content="Mot de passe " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
                                 <local:PasswordControl Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="300"/>
                             </StackPanel>
                             <StackPanel Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Name="quit_btn" Width="150" Margin="20" Height="75" Content="Annuler" Style="{StaticResource MainButtonTheme}" FontSize="20" Click="CloseWindow"/>
+                                <Button Name="quit_btn" Width="150" Margin="20" Content="Annuler" Style="{StaticResource MainButtonTheme}" FontSize="20" Click="CloseWindow"/>
                                 <Button Name="login_btn_login" Width="150" Margin="20" Content="Valider" Style="{StaticResource MainButtonTheme}" FontSize="20" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=loginwindownextgen}"/>
                             </StackPanel>
+                            <!-- <local:AddFormTextBoxControl/> -->
+                            <!-- <TextBox Text="Oui" Style="{StaticResource FormTextBoxTheme2}" FontSize="14" Tag="Custom Placeholder"/> -->
+                            <!-- <TextBox Text="Oui" Style="{StaticResource testTheme}" FontSize="14" BorderThickness="1"/> -->
                         </StackPanel>
             
         </Grid>
