@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Views"
              xmlns:viewModels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="1000" d:DesignWidth="1000"
              Loaded="RentalsControl_OnLoaded">
     <!-- <UserControl.DataContext> -->
     <!--     <viewModels:RentalVM/> -->
     <!-- </UserControl.DataContext> -->
     
-    <Grid ShowGridLines="False" Background="Cornsilk">
+    <Grid ShowGridLines="False" Background="{StaticResource MainWindowColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -32,34 +32,28 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="3"
             ItemsSource="{Binding Rentals}" 
-            AutoGenerateColumns="False" 
-            CanUserSortColumns="False" 
-            AlternatingRowBackground="LightBlue" 
-            CanUserReorderColumns="False" 
-            SelectionMode="Single" 
-            IsReadOnly="True" 
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
-            Style="{StaticResource HeightSetter}"
+            Style="{StaticResource MainDatagridTheme}"
         >
             
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Client" Binding="{Binding Customer.FullName, StringFormat=Mr {0}}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pelleteuse choisi" Binding="{Binding Excavator.Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
-                <DataGridTextColumn Header="Début de la location" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
-                <DataGridTextColumn Header="Fin de la location" Binding="{Binding ReturnDate, StringFormat=dd/MM/yyyy}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
-                <DataGridTextColumn Header="Prix de la location" Binding="{Binding Price, StringFormat=€ {0}}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" CellStyle="{StaticResource CenteredGridContent}"/>
+                <DataGridTextColumn Width="Auto" Header="Client" Binding="{Binding Customer.FullName, StringFormat=Mr {0}}"/>
+                <DataGridTextColumn Width="Auto" Header="Pelleteuse choisi" Binding="{Binding Excavator.Name}"/>
+                <DataGridTextColumn Width="Auto" Header="Début de la location" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy}"/>
+                <DataGridTextColumn Width="Auto" Header="Fin de la location" Binding="{Binding ReturnDate, StringFormat=dd/MM/yyyy}"/>
+                <DataGridTextColumn Width="*" Header="Prix de la location" Binding="{Binding Price, StringFormat={}{0}€}"/>
             </DataGrid.Columns>
         </DataGrid>
         
         
-        <GroupBox Grid.Column="2" Header="Modification" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="EditForm">
+        <GroupBox Grid.Column="2" Header="Modification" Grid.RowSpan="2" Style="{StaticResource MainGroupBoxTheme}" Name="EditForm">
             <StackPanel Grid.RowSpan="2">
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource FirstStackPanelMarginStyling}">
-                    <Label Content="Nom:"></Label>
-                    <ComboBox Name="cbEditCustomer" ItemsSource="{Binding CustomerVm.Customers}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Customer, ElementName=RentalGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
+                <StackPanel Style="{StaticResource FirstStackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Nom:"></Label>
+                    <ComboBox Style="{StaticResource MainComboBoxTheme}" Name="cbEditCustomer" ItemsSource="{Binding CustomerVm.Customers}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Customer, ElementName=RentalGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -85,9 +79,9 @@
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidCustomerImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Content="Prénom:"></Label>
-                    <ComboBox Name="cbEditExcavator" ItemsSource="{Binding ExcavatorVm.AllExcavatorsView}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Excavator, ElementName=RentalGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Prénom:"></Label>
+                    <ComboBox Style="{StaticResource MainComboBoxTheme}" Name="cbEditExcavator" ItemsSource="{Binding ExcavatorVm.AllExcavatorsView}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=SelectedItem.Excavator, ElementName=RentalGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -113,8 +107,8 @@
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidExcavatorImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Content="Début de la location:"></Label>
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Début de la location:"></Label>
                     <DatePicker HorizontalAlignment="Left" Name="dpEditStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.StartDate, Mode=OneWay}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -125,8 +119,8 @@
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidStartDateImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Content="Fin de la location:"></Label>
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Fin de la location:"></Label>
                     <DatePicker HorizontalAlignment="Left" Name="dpEditReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.ReturnDate, Mode=OneWay}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -138,18 +132,18 @@
                 </StackPanel>
                 
                 <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
-                    <Button Name="editBtn" Content="Enregistrer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ApplyChanges" Style="{StaticResource BtnBorderRadius}"/>
-                    <Button Name="clearEditBtn" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearEditForm" Style="{StaticResource BtnBorderRadius}"/>
+                    <Button Name="editBtn" Content="Enregistrer" Click="ApplyChanges" Style="{StaticResource FormButtonTheme}"/>
+                    <Button Name="clearEditBtn" Content="Effacer" Click="ClearEditForm" Style="{StaticResource FormButtonTheme}"/>
                 </WrapPanel>
             </StackPanel>
         </GroupBox>
         
-        <GroupBox Grid.Column="2" Header="Ajout" BorderThickness="3" BorderBrush="Black" Grid.RowSpan="2" Visibility="Hidden" Name="AddForm">
+        <GroupBox Grid.Column="2" Header="Ajout" Grid.RowSpan="2" Style="{StaticResource MainGroupBoxTheme}" Name="AddForm">
             <StackPanel Grid.RowSpan="2">
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource FirstStackPanelMarginStyling}">
-                    <Label Content="Client:"></Label>
-                    <ComboBox Name="cbAddCustomer" ItemsSource="{Binding CustomerVm.Customers}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
+                <StackPanel Style="{StaticResource FirstStackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Client:"></Label>
+                    <ComboBox Style="{StaticResource MainComboBoxTheme}" Name="cbAddCustomer" ItemsSource="{Binding CustomerVm.Customers}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -175,9 +169,9 @@
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidCustomerImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Content="Pelleteuse:"></Label>
-                    <ComboBox Name="cbAddExcavator" ItemsSource="{Binding ExcavatorVm.NonUsedExcavatorsView}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Excavator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Pelleteuse:"></Label>
+                    <ComboBox Style="{StaticResource MainComboBoxTheme}" Name="cbAddExcavator" ItemsSource="{Binding ExcavatorVm.NonUsedExcavatorsView}" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="300" Height="25" VerticalContentAlignment="Center" SelectedItem="{Binding Path=Excavator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ValidateComboboxFields">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -203,8 +197,8 @@
                 <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidExcavatorImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Content="Début de la location:"></Label>
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Début de la location:"></Label>
                     <DatePicker HorizontalAlignment="Left" Name="dpAddStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -215,8 +209,8 @@
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidStartDateImg"></Image>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Content="Fin de la location:"></Label>
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}">
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Fin de la location:"></Label>
                     <DatePicker HorizontalAlignment="Left" Name="dpAddReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -228,20 +222,20 @@
                 </StackPanel>
                 
                 <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center">
-                    <Button Name="addBtn" Content="Ajouter" Margin="10 0" MinHeight="50" MinWidth="100" Command="{Binding Path=AddCommand}" IsEnabled="False" Style="{StaticResource BtnBorderRadius}"/>
-                    <Button Name="clearAddButton" Content="Effacer" Margin="10 0" MinHeight="50" MinWidth="100" Click="ClearAddForm" Style="{StaticResource BtnBorderRadius}"/>
+                    <Button Name="addBtn" Content="Ajouter" Command="{Binding Path=AddCommand}" IsEnabled="False" Style="{StaticResource FormButtonTheme}"/>
+                    <Button Name="clearAddButton" Content="Effacer" Click="ClearAddForm" Style="{StaticResource FormButtonTheme}"/>
                 </WrapPanel>
             </StackPanel>
         </GroupBox>
         
         <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Name="ManageAddFormBtn" Width="150" Height="50" Margin="5" Click="ManageAddForm" Style="{StaticResource BtnBorderRadius}">
+            <Button Name="ManageAddFormBtn" Width="150" Height="50" Margin="5" Click="ManageAddForm" Style="{StaticResource MainButtonTheme}">
                 <Image Source="../Assets/add-icon.png" Width="24" Height="24" Name="manageAddBtnImage"></Image>
             </Button>
-            <Button Name="ManageEditFormBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Click="ManageEditForm" Style="{StaticResource BtnBorderRadius}">
-                <Image Source="../Assets/edit-icon.png" Width="24" Height="24" Name="manageEditBtnImage"></Image>
+            <Button Name="ManageEditFormBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Click="ManageEditForm" Style="{StaticResource MainButtonTheme}">
+                <Image Source="../Assets/edit-icon2.png" Width="24" Height="24" Name="manageEditBtnImage"></Image>
             </Button>
-            <Button Name="DeleteBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=RentalGrid, Path=SelectedItem}" Style="{StaticResource BtnBorderRadius}">
+            <Button Name="DeleteBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=RentalGrid, Path=SelectedItem}" Style="{StaticResource MainButtonTheme}">
                 <Image Source="../Assets/redtrashcan-icon.png" Width="24" Height="24" Name="deleteBtnImage"></Image>
             </Button>
         </StackPanel>
