@@ -195,7 +195,7 @@ public partial class BrandsControl : UserControl
         
     private bool isValidName(string str)
     {
-        Regex regex = new Regex("^[a-zA-Zéàèç- ]{1,32}$");
+        Regex regex = new Regex("^[a-zA-Z éàèç-]{1,32}$");
         return regex.IsMatch(str);
     }
     
@@ -205,7 +205,7 @@ public partial class BrandsControl : UserControl
             return false;
         int int_year = Convert.ToInt32(year);
 
-        if (int_year < 1950 || int_year > DateTime.Now.Year)
+        if (int_year < 1925 || int_year > DateTime.Now.Year)
             return false;
 
         return true;
