@@ -74,9 +74,9 @@ namespace TheAmazingExcavatorRentTool.Views
             txtAddDesc.SetCurrentValue(TextBox.TextProperty, "");
             cbAddBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
             // cbAddBrand.SelectedItem = null;
-            txtAddBucketLiters.SetCurrentValue(TextBox.TextProperty, "");
-            txtAddReleaseYear.SetCurrentValue(TextBox.TextProperty, "");
-            txtAddDailyPrice.SetCurrentValue(TextBox.TextProperty, "");
+            txtAddBucketLiters.SetCurrentValue(TextBox.TextProperty, "0");
+            txtAddReleaseYear.SetCurrentValue(TextBox.TextProperty, "0");
+            txtAddDailyPrice.SetCurrentValue(TextBox.TextProperty, "0");
 
             AddImagePreview.SetCurrentValue(Image.SourceProperty, null);
             txtAddImagePath.SetCurrentValue(TextBox.TextProperty, "Aucun fichier séclectionné");
@@ -507,6 +507,42 @@ namespace TheAmazingExcavatorRentTool.Views
         private void ExcavatorsControl_OnLoaded(object sender, RoutedEventArgs e)
         {
             setContextVM();
+            
+
+            foreach (DataGridColumn column in ExcavatorGrid.Columns)
+            {
+                if (column.Header.ToString() == "Description")
+                {
+                    // Console.Write("Actual width:"+ column.ActualWidth);
+                    column.Width = new DataGridLength(200, DataGridLengthUnitType.Pixel);
+                    break;
+                }
+            }
+            DataGridColumn lastColumn = ExcavatorGrid.Columns.Last();
+            if (lastColumn == null) return;
+            lastColumn.Width = new DataGridLength(1.0d, DataGridLengthUnitType.Star);
+        }
+
+        private void changeDatagridColumnsSize(object sender, SizeChangedEventArgs e)
+        {
+            
+            
+            // Console.Write("Changed");
+            // foreach (DataGridColumn column in ExcavatorGrid.Columns)
+            // {
+            //     if (column.Header.ToString() == "Description")
+            //     {
+            //         column.Width = new DataGridLength(200, DataGridLengthUnitType.Pixel);
+            //         continue;
+            //     }
+            //
+            //     if (column.Header.ToString() == "Image de la pelleteuse")
+            //     {
+            //         column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Star);
+            //     }
+            //
+            //     column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
+            // }
         }
     }
     
