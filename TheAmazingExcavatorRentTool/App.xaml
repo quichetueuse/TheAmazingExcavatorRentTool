@@ -50,6 +50,7 @@
                 <ResourceDictionary Source="Themes/MainDatagridTheme.xaml"/>
                 <ResourceDictionary Source="Themes/FormButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainComboBoxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MainCheckBoxTheme.xaml"/>
                 
             </ResourceDictionary.MergedDictionaries>
         
