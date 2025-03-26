@@ -13,15 +13,16 @@
         WindowStartupLocation="CenterScreen"
         Title="The Amazing Excavator Rent Tool" 
         Height="720" Width="1280"
-        MinHeight="720" MinWidth="1280">
+        Icon="Assets/app-icon.png"
+        MinHeight="1000" MinWidth="1600">
     <Window.DataContext>
         <viewmodels:MainWindowVM/>
     </Window.DataContext>
         <Border Background="#272537" CornerRadius="20">
-                <Grid ShowGridLines="True">
+                <Grid ShowGridLines="False">
                         <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                                 <RowDefinition Height="0.05*"/>
@@ -43,7 +44,7 @@
                                            Margin="10, 0, 0, 0"
                                            VerticalAlignment="Center"
                                            Foreground="White"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontWeight="Bold"/>
                         </StackPanel>
                         
@@ -106,7 +107,7 @@
                         </Button>
                         
                         
-                        <ContentControl Grid.Column="1" Grid.Row="1" Margin="10"
+                        <ContentControl Grid.Column="1" Grid.Row="1" Margin="0 0 10 10"
                                         Content="{Binding CurrentView}"/>
                         
                 </Grid>
