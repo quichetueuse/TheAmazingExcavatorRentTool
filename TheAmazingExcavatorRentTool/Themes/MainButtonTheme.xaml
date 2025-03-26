@@ -4,16 +4,21 @@
            TargetType="{x:Type Button}" x:Key="MainButtonTheme">
         
         <Setter Property="Foreground" Value="White    "/>
+        <!-- <Setter Property="Height" Value="40"/> -->
+        <Setter Property="Height" Value="70"/>
         
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="CloseButtonBorder" Background="#2d2b40" CornerRadius="10">
+                    <Border x:Name="border" Background="#35324a" CornerRadius="10">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#35324a" TargetName="CloseButtonBorder"/>
+                            <Setter Property="Background" Value="#3f3c59" TargetName="border"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#2e2c3b" TargetName="border"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
