@@ -65,7 +65,7 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        <GroupBox Grid.Column="2" Header="Modification" Style="{StaticResource MainGroupBoxTheme}" Grid.RowSpan="2" Visibility="Hidden" Name="EditForm">
+        <GroupBox Grid.Column="2" Header="Modification" Style="{StaticResource MainGroupBoxTheme}" Grid.RowSpan="2" Name="EditForm">
                 <StackPanel Grid.RowSpan="2">
                     
                     <StackPanel Style="{StaticResource FirstStackPanelMarginStyling}">
@@ -142,7 +142,7 @@
                 </StackPanel>
             </GroupBox>
         
-        <GroupBox Grid.Column="2" Header="Ajout" Style="{StaticResource MainGroupBoxTheme}" Grid.RowSpan="2" Visibility="Hidden" Name="AddForm">
+        <GroupBox Grid.Column="2" Header="Ajout" Style="{StaticResource MainGroupBoxTheme}" Grid.RowSpan="2" Name="AddForm">
                 <StackPanel Grid.RowSpan="2">
                     
                     <StackPanel Style="{StaticResource FirstStackPanelMarginStyling}">
