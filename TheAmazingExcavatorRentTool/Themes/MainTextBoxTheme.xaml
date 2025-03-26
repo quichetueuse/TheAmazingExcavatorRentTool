@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="TextBox" x:Key="testTheme">
+    <Style TargetType="TextBox" x:Key="MainTextBoxTheme">
+        <Setter Property="MinWidth" Value="175"/>
+        <Setter Property="Height" Value="30"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="CaretBrush" Value="White"/>
         <Setter Property="Template">
