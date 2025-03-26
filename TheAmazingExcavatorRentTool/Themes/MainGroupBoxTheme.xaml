@@ -4,6 +4,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderBrush" Value="White"/>
         <Setter Property="BorderThickness" Value="0.5"/>
+        <Setter Property="Visibility" Value="Hidden"></Setter>
         
     </Style>
 </ResourceDictionary>
