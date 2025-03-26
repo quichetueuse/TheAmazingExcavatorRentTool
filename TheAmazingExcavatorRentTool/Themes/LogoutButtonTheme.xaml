@@ -7,12 +7,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="Red" CornerRadius="50" Name="LogoutButtonBorder">
+                        <Border Background="DarkRed" CornerRadius="50" Name="LogoutButtonBorder">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkRed" TargetName="LogoutButtonBorder"/>
+                                <Setter Property="Background" Value="Red" TargetName="LogoutButtonBorder"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
