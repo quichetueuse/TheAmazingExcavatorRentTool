@@ -211,6 +211,10 @@ public partial class UsersControl : UserControl
     
     private bool isValidPassword(string password)
     {
+
+        if (password.Length < 14)
+            return false;
+        
         int count_num = 0;
         int count_maj = 0;
         int count_min = 0;
@@ -230,11 +234,9 @@ public partial class UsersControl : UserControl
                 count_spec++;
             }
         }
-
         if (count_maj < 5 && count_min < 5 && count_num < 2 && count_spec < 2) {
             return false;
         }
-
         return true;
         
         // Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{14,}$");
@@ -266,7 +268,6 @@ public partial class UsersControl : UserControl
         else
             password = selectedUser.Password;
         bool is_admin = Convert.ToBoolean(checkBEditIsAdmin.IsChecked);
-        
         User user_obj = new User(userid: id, username: username, password: password, isAdmin: is_admin);
         _userVm.Update(user_obj, edit_password);
 
