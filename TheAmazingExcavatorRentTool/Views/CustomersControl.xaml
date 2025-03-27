@@ -67,7 +67,7 @@
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Style="{StaticResource MainLabelTheme}" Content="Dâte de naissance:"></Label>
-                        <DatePicker HorizontalAlignment="Left" Name="dpEditBirthDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="ValidateDatePicker" SelectedDate="{Binding ElementName=CustomerGrid, Path=SelectedItem.BirthDate, Mode=OneWay}">
+                        <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditBirthDate" VerticalAlignment="Top" Width="300" VerticalContentAlignment="Center" SelectedDateChanged="ValidateDatePicker" SelectedDate="{Binding ElementName=CustomerGrid, Path=SelectedItem.BirthDate, Mode=OneWay}">
                             <DatePicker.Resources>
                                 <Style TargetType="DatePickerTextBox">
                                     <Setter Property="IsReadOnly" Value="True"/>
@@ -107,7 +107,7 @@
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Style="{StaticResource MainLabelTheme}" Content="Dâte de naissance:"></Label>
-                        <DatePicker HorizontalAlignment="Left" Name="dpAddBirthDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="ValidateDatePicker">
+                        <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddBirthDate" VerticalAlignment="Top" Width="300" VerticalContentAlignment="Center" SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="ValidateDatePicker">
                             <DatePicker.Resources>
                                 <Style TargetType="DatePickerTextBox">
                                     <Setter Property="IsReadOnly" Value="True"/>
