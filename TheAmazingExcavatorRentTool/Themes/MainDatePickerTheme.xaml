@@ -63,7 +63,7 @@
 
     </Style>
     
-    <Style BasedOn="{StaticResource {x:Type DatePicker}}" TargetType="DatePicker" x:Key="MainDatePickerTheme2">
+    <Style BasedOn="{StaticResource {x:Type DatePicker}}" TargetType="DatePicker" x:Key="MainDatePickerTheme">
         <!-- <Setter Property="Background" Value="{StaticResource MainDataGridColor}"/> -->
         <Setter Property="Height" Value="35"/>
         <!-- <Setter Property="Foreground" Value="{StaticResource TextColor}"/> -->
