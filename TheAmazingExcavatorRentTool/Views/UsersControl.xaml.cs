@@ -211,9 +211,35 @@ public partial class UsersControl : UserControl
     
     private bool isValidPassword(string password)
     {
+        int count_num = 0;
+        int count_maj = 0;
+        int count_min = 0;
+        int count_spec = 0;
+        foreach (char letter in password)
+        {
+            if (char.IsLower(letter)) {
+                count_min++;
+            }
+            else if (char.IsUpper(letter)) {
+                count_maj++;
+            }
+            else if (char.IsDigit(letter)) {
+                count_num++;
+            }
+            else {
+                count_spec++;
+            }
+        }
+
+        if (count_maj < 5 && count_min < 5 && count_num < 2 && count_spec < 2) {
+            return false;
+        }
+
+        return true;
+        
         // Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{14,}$");
-        Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[!@#$%^&*\\(\\)\\-_=+\\[\\]\\{\\}\\;\\:\\,\\.<>\\?])[A-Za-z\\d!@#$%^&*\\(\\)\\-_=\\+\\[\\]\\{\\}\\;\\:\\,\\.\\<\\>\\?]{14,}$");
-        return regex.IsMatch(password);
+        // Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[!@#$%^&*\\(\\)\\-_=+\\[\\]\\{\\}\\;\\:\\,\\.<>\\?])[A-Za-z\\d!@#$%^&*\\(\\)\\-_=\\+\\[\\]\\{\\}\\;\\:\\,\\.\\<\\>\\?]{14,}$");
+        // return regex.IsMatch(password);
     }
     
     
