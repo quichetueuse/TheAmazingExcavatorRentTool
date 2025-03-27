@@ -1,0 +1,166 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="StyleCalanderDayButton" TargetType="{x:Type CalendarDayButton}">
+
+        <Setter Property="Height" Value="20"/>
+
+        <Setter Property="Width" Value="20"/>
+
+    </Style>
+
+    <!-- Choix du mois -->
+    <Style x:Key="StyleCalanderButton" TargetType="{x:Type CalendarButton}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    
+    <Style x:Key="StyleCalendar" TargetType="{x:Type Calendar}">
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Calendar}">
+
+                    <!-- Wrapping in ViewBox will enlarge calendar of that size.-->
+
+                    <Viewbox Height="300" Width="300" >
+                        
+                        <CalendarItem x:Name="PART_CalendarItem" 
+
+                                      Background="{TemplateBinding Background}"
+
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+
+                                      BorderThickness="{TemplateBinding BorderThickness}" FontStretch="Expanded"  >
+
+
+
+                        </CalendarItem>
+
+                    </Viewbox>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+        <Setter Property="CalendarDayButtonStyle"  Value="{StaticResource StyleCalanderDayButton}"></Setter>
+
+        <Setter Property="CalendarButtonStyle"  Value="{StaticResource StyleCalanderButton}"></Setter>
+
+        <Setter Property="Foreground" Value="#FF333333"/>
+
+        <Setter Property="Background" Value="CornflowerBlue">
+
+        </Setter>
+
+        <Setter Property="BorderThickness" Value="0"/>
+
+    </Style>
+    
+    <Style BasedOn="{StaticResource {x:Type DatePicker}}" TargetType="DatePicker" x:Key="MainDatePickerTheme2">
+        <!-- <Setter Property="Background" Value="{StaticResource MainDataGridColor}"/> -->
+        <Setter Property="Height" Value="35"/>
+        <!-- <Setter Property="Foreground" Value="{StaticResource TextColor}"/> -->
+        <!-- <Setter Property="BorderBrush" Value="Transparent" /> -->
+        <!-- <Setter Property="BorderThickness" Value="1.5" /> -->
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DatePicker">
+                    <Border x:Name="Border"
+                            BorderThickness="1.5"
+                            BorderBrush="Transparent"
+                            Background="{StaticResource MainDataGridColor}"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- DatePickerTextBox override -->
+                            <DatePickerTextBox x:Name="PART_TextBox"
+                                               BorderBrush="Transparent"
+                                               Foreground="{StaticResource TextColor}"
+                                               Background="{StaticResource MainDataGridColor}"
+                                               BorderThickness="1.5"
+                                               VerticalContentAlignment="Center"
+                                               VerticalAlignment="Stretch">
+                                <!-- Remove white borders -->
+                                <DatePickerTextBox.Template>
+                                    <ControlTemplate TargetType="DatePickerTextBox">
+                                        <Grid x:Name="WatermarkContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                            <ContentControl x:Name="PART_Watermark" Focusable="False" IsHitTestVisible="False" Opacity="0" Padding="2"/>
+                                            <ScrollViewer x:Name="PART_ContentHost" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </DatePickerTextBox.Template>
+                            </DatePickerTextBox>
+                            
+                            <!-- DatePicker arrow button override -->
+                            <Button Grid.Column="1"
+                                    x:Name="PART_Button"
+                                    VerticalAlignment="Stretch"
+                                    VerticalContentAlignment="Center"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center" 
+                                    Background="Transparent">
+                                <ContentControl>
+                                    <Path Data="M 0 4 L 8 12 L 16 4" 
+                                          Stroke="{StaticResource TextColor}" 
+                                          StrokeThickness="2" 
+                                          StrokeEndLineCap="Round" 
+                                          StrokeStartLineCap="Round" />
+                                </ContentControl>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="ButtonBorder" 
+                                                BorderThickness="1 0 0 0"
+                                                BorderBrush="{StaticResource TextColor}"
+                                                CornerRadius="0 5 5 0" 
+                                                Background="{StaticResource RowColor}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource AlternateRowColor}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            
+                            <!-- Popping calendar part -->
+                            <Popup x:Name="PART_Popup" Placement="Bottom" StaysOpen="False" IsOpen="False" AllowsTransparency="True">
+                                <Border BorderThickness="1" Background="White" CornerRadius="5">
+                                    <Calendar x:Name="PART_Calendar" />
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Global template trigger -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource MouseHoverColor}"/>
+                        </Trigger>
+                        <Trigger SourceName="PART_Button" Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_Calendar" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Yellow"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CalendarStyle" Value="{StaticResource StyleCalendar}"></Setter>
+    </Style>
+</ResourceDictionary>

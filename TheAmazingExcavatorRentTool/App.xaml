@@ -51,6 +51,8 @@
                 <ResourceDictionary Source="Themes/FormButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainComboBoxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainCheckBoxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MainDatePickerTheme22.xaml"/>
+                <ResourceDictionary Source="Themes/MainDatePickerTheme.xaml"/>
                 
             </ResourceDictionary.MergedDictionaries>
         
