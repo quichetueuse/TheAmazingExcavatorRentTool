@@ -109,7 +109,7 @@
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                     <Label Style="{StaticResource MainLabelTheme}" Content="Début de la location:"></Label>
-                    <DatePicker HorizontalAlignment="Left" Name="dpEditStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.StartDate, Mode=OneWay}">
+                    <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.StartDate, Mode=OneWay}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -121,7 +121,7 @@
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                     <Label Style="{StaticResource MainLabelTheme}" Content="Fin de la location:"></Label>
-                    <DatePicker HorizontalAlignment="Left" Name="dpEditReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.ReturnDate, Mode=OneWay}">
+                    <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.ReturnDate, Mode=OneWay}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -199,7 +199,7 @@
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                     <Label Style="{StaticResource MainLabelTheme}" Content="Début de la location:"></Label>
-                    <DatePicker HorizontalAlignment="Left" Name="dpAddStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
+                    <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -211,7 +211,7 @@
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                     <Label Style="{StaticResource MainLabelTheme}" Content="Fin de la location:"></Label>
-                    <DatePicker HorizontalAlignment="Left" Name="dpAddReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
+                    <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
                                 <Setter Property="IsReadOnly" Value="True"/>
