@@ -142,6 +142,14 @@ public class UserVM: BaseVM
                 MessageBox.Show("Un utilisateur de même nom avec le même nom éxiste déjà!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            string hashedOldPassword = passwordManager.HashPassword(user_to_update.Password);
+            if (hashedOldPassword == user.Password)
+            {
+                soundPlayer.PlayFailSound();
+                MessageBox.Show("Le mot de passe est le même que le précédent!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
         // Updating user in database
         var dbCon = getDbCon();
@@ -255,7 +263,7 @@ public class UserVM: BaseVM
         
         // Check if user with the same name exists
         string username = _Username;
-        string password = _Password;
+        string password = passwordManager.HashPassword(_Password);
         bool is_admin = _IsAdmin;
 
         foreach (User user in Users.ToList())
@@ -272,7 +280,7 @@ public class UserVM: BaseVM
         // Adding user to database
         var cmd = new MySqlCommand(addQuery, dbCon.Connection);
         cmd.Parameters.AddWithValue("@username", username);
-        cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(password));
+        cmd.Parameters.AddWithValue("@password", password);
         cmd.Parameters.AddWithValue("@is_admin", is_admin);
         
         MySqlDataReader result = cmd.ExecuteReader();
