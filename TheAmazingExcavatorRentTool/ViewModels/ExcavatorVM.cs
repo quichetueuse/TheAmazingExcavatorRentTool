@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
@@ -12,10 +13,35 @@ namespace TheAmazingExcavatorRentTool.ViewModels;
 
 public class ExcavatorVM : BaseVM
 {
-    public ObservableCollection<Excavator> Excavators { get; set; } 
-    public CollectionView  NonUsedExcavatorsView { get;}
-    public CollectionView  AllExcavatorsView { get;}
+    public ObservableCollection<Excavator> Excavators { get; set; }
 
+    public ICollectionView _NonUsedExcavatorsView;
+
+    public ICollectionView NonUsedExcavatorsView
+    {
+        get
+        {
+            return _NonUsedExcavatorsView;
+        }
+        set
+        {
+            _NonUsedExcavatorsView = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ICollectionView _AllExcavatorsView;
+
+    public ICollectionView AllExcavatorsView
+    {
+        get { return _AllExcavatorsView;}
+        set
+        {
+            _AllExcavatorsView = value;
+            OnPropertyChanged();
+        }
+    }
+    
     private SoundPlayer soundPlayer;
 
     private readonly string loadQuery;
@@ -45,8 +71,8 @@ public class ExcavatorVM : BaseVM
         Load();
 
         // Creating CollectionViewSource to both datagrid (non filtered) and combo box (only non used)
-        AllExcavatorsView = (CollectionView)new CollectionViewSource() { Source = Excavators}.View;
-        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource() { Source = Excavators}.View;
+        AllExcavatorsView = (CollectionView)new CollectionViewSource() {Source = Excavators}.View;
+        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource() {Source = Excavators}.View;
         NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
     }
     
@@ -487,9 +513,13 @@ public class ExcavatorVM : BaseVM
                 break;
             }
         }
-        NonUsedExcavatorsView.Refresh();
-        AllExcavatorsView.Refresh();
+        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        // OnPropertyChanged("AllExcavatorsView");
+        // OnPropertyChanged("NonUsedExcavatorsView");
+        // AllExcavatorsView.Refresh();
+        NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
+        // NonUsedExcavatorsView.Refresh();
         
     }
-    
 }
