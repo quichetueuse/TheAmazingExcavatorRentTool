@@ -305,11 +305,6 @@ public partial class RentalsControl : UserControl
             return;
         }
         
-        
-        var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à cette  location ?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (Result == MessageBoxResult.No)
-            return;
-        
 
         int id = (RentalGrid.SelectedItem as Rental).RentalId;
         Excavator old_excavator = (RentalGrid.SelectedItem as Rental).Excavator;

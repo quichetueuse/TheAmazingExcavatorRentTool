@@ -204,6 +204,10 @@ public class RentalVM: BaseVM
             }
         }
         
+        var Result = MessageBox.Show($"Voulez-vous vraiment apporter des modifications à cette  location ?", "Modifications ?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
+        
         // Calculate total rental price
         int price = CalculatePrice(start_date: rental_to_update.StartDate,
             return_date: rental_to_update.ReturnDate, price: rental_to_update.Excavator.DailyPrice);
