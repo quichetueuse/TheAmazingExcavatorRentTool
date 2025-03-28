@@ -326,6 +326,7 @@ public partial class RentalsControl : UserControl
     private void RentalsControl_OnLoaded(object sender, RoutedEventArgs e)
     {
         setContextVM();
+        resizeGrid();
     }
     
     
@@ -335,13 +336,8 @@ public partial class RentalsControl : UserControl
         {
             double current_width = column.ActualWidth;
             // Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
-            column.MinWidth = current_width + 50;
+            column.Width = current_width + 100;
 
         }
-    }
-
-    private void RentalGrid_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        resizeGrid();
     }
 }

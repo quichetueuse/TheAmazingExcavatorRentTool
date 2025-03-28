@@ -34,7 +34,6 @@
             ItemsSource="{Binding Rentals}" 
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
-            Loaded="RentalGrid_OnLoaded"
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}"
         >
