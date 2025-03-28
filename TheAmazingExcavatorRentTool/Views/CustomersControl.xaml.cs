@@ -270,7 +270,7 @@ public partial class CustomersControl : UserControl
     
     private bool isValidName(string str)
     {
-        Regex regex = new Regex("^[a-zA-Zéàèç-]{0,32}$");
+        Regex regex = new Regex("^[a-zA-Zéàèç-îôêâùïöä]{0,32}$");
         return regex.IsMatch(str);
     }
     
