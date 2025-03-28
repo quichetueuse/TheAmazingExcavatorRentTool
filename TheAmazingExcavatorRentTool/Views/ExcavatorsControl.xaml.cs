@@ -409,10 +409,29 @@ namespace TheAmazingExcavatorRentTool.Views
 
             ExcavatorGrid.SelectedItem = excav_obj;
         }
-        private bool isValidYear(string str)
+        private bool isValidYear(string year)
         {
-            Regex regex = new Regex("^(?=.*?(19[56789]|20\\d{2}).*)\\d{4}$");
-            return regex.IsMatch(str);
+            if (year.Length == 0 || year.Length > 4 || year == "" || !IsDigitsOnly(year))
+                return false;
+            int int_year = Convert.ToInt32(year);
+
+            if (int_year < 1925 || int_year > DateTime.Now.Year)
+                return false;
+
+            return true;
+            // Regex regex = new Regex("^(?=.*?(19[56789]|20\\d{2}).*)\\d{4}$");
+            // return regex.IsMatch(str);
+        }
+        
+        private bool IsDigitsOnly(string year)
+        {
+            foreach (char c in year)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+
+            return true;
         }
         private bool isValidName(string str)
         {
