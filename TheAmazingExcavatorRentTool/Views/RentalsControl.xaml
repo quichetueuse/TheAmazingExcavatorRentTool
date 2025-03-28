@@ -21,7 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
         
         
@@ -34,6 +34,7 @@
             ItemsSource="{Binding Rentals}" 
             CanUserResizeColumns="False" 
             SelectionChanged="on_SelectionChanged" 
+            Loaded="RentalGrid_OnLoaded"
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}"
         >
@@ -98,7 +99,7 @@
                                     <TextBlock
                                         Margin="5 0"
                                         VerticalAlignment="Center">
-                                        <Run Text="{Binding DailyPrice, Mode=OneWay}" />
+                                        <Run Text="{Binding DailyPrice, Mode=OneWay, StringFormat={}{0}€}" />
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
@@ -108,7 +109,7 @@
                 </StackPanel>
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Style="{StaticResource MainLabelTheme}" Content="Début de la location:"></Label>
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Début:"></Label>
                     <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.StartDate, Mode=OneWay}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -120,7 +121,7 @@
                 </StackPanel>
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Style="{StaticResource MainLabelTheme}" Content="Fin de la location:"></Label>
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Fin:"></Label>
                     <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDateChanged="on_DateChanged" SelectedDate="{Binding ElementName=RentalGrid, Path=SelectedItem.ReturnDate, Mode=OneWay}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -188,7 +189,7 @@
                                     <TextBlock
                                         Margin="5 0"
                                         VerticalAlignment="Center">
-                                        <Run Text="{Binding DailyPrice, Mode=OneWay}" />
+                                        <Run Text="{Binding DailyPrice, Mode=OneWay, StringFormat={}{0}€}" />
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
@@ -198,7 +199,7 @@
                 </StackPanel>
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Style="{StaticResource MainLabelTheme}" Content="Début de la location:"></Label>
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Début:"></Label>
                     <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddStartDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -210,7 +211,7 @@
                 </StackPanel>
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                    <Label Style="{StaticResource MainLabelTheme}" Content="Fin de la location:"></Label>
+                    <Label Style="{StaticResource MainLabelTheme}" Content="Fin:"></Label>
                     <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddReturnDate" VerticalAlignment="Top" Width="300" Height="25" VerticalContentAlignment="Center" SelectedDate="{Binding Path=ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="on_DateChanged">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">

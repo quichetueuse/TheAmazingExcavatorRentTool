@@ -327,4 +327,21 @@ public partial class RentalsControl : UserControl
     {
         setContextVM();
     }
+    
+    
+    private void resizeGrid()
+    {
+        foreach (DataGridColumn column in RentalGrid.Columns)
+        {
+            double current_width = column.ActualWidth;
+            Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
+            column.MinWidth = current_width + 50;
+
+        }
+    }
+
+    private void RentalGrid_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        resizeGrid();
+    }
 }
