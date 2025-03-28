@@ -33,11 +33,11 @@
                 <ResourceDictionary Source="Themes/TextBoxFileTheme.xaml"/>
                 <ResourceDictionary Source="Themes/CenteredGridContentTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainButtonTheme.xaml"/>
-                <ResourceDictionary Source="Themes/FormTextBoxTheme.xaml"/>
+                <!-- <ResourceDictionary Source="Themes/FormTextBoxTheme.xaml"/> -->
                 <ResourceDictionary Source="Themes/FormTextBoxTheme2.xaml"/>
-                <ResourceDictionary Source="Themes/RoundedTextBoxTheme.xaml"/>
+                <!-- <ResourceDictionary Source="Themes/RoundedTextBoxTheme.xaml"/> -->
                 <!-- <ResourceDictionary Source="Themes/LoginFormTheme.xaml"/> -->
-                <ResourceDictionary Source="Themes/DarkTextBoxTheme.xaml"/>
+                <!-- <ResourceDictionary Source="Themes/DarkTextBoxTheme.xaml"/> -->
                 
                 <ResourceDictionary Source="Themes/MainTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainPasswordBoxTheme.xaml"/>
@@ -51,7 +51,7 @@
                 <ResourceDictionary Source="Themes/FormButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainComboBoxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MainCheckBoxTheme.xaml"/>
-                <ResourceDictionary Source="Themes/MainDatePickerTheme22.xaml"/>
+                <!-- <ResourceDictionary Source="Themes/MainDatePickerTheme22.xaml"/> -->
                 <ResourceDictionary Source="Themes/MainDatePickerTheme.xaml"/>
                 
             </ResourceDictionary.MergedDictionaries>

@@ -38,17 +38,17 @@ public partial class MainWindow : Window
         validIcon = new BitmapImage(new Uri(@"../Assets/checkmark-icon2.png", UriKind.Relative));
         
         
-        // Excavator view
-        TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
-        excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
-        
-        // Customer view
-        TabItem customerItem = modules_tabcontrol.Items[1] as TabItem;
-        customerItem.Content = new CustomersControl(_mainwindowvm.CustomerVm);
-        
-        // Customer view
-        TabItem rentalItem = modules_tabcontrol.Items[2] as TabItem;
-        rentalItem.Content = new RentalsControl(_mainwindowvm.RentalVm);
+        // // Excavator view
+        // TabItem excavatorItem = modules_tabcontrol.Items[0] as TabItem;
+        // excavatorItem.Content = new ExcavatorsControl(_mainwindowvm.ExcavatorVm);
+        //
+        // // Customer view
+        // TabItem customerItem = modules_tabcontrol.Items[1] as TabItem;
+        // customerItem.Content = new CustomersControl(_mainwindowvm.CustomerVm);
+        //
+        // // Customer view
+        // TabItem rentalItem = modules_tabcontrol.Items[2] as TabItem;
+        // rentalItem.Content = new RentalsControl(_mainwindowvm.RentalVm);
         
         
         // Check if user is admin
@@ -69,7 +69,7 @@ public partial class MainWindow : Window
             userItem.Height = 30;
             userItem.Width = 75;
             userItem.Name = "ItemUser";
-            userItem.Content = new UsersControl(_mainwindowvm.UserVm);
+            // userItem.Content = new UsersControl(_mainwindowvm.UserVm);
             modules_tabcontrol.Items.Insert(4, userItem);
         }
         
