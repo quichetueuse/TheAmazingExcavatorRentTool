@@ -27,7 +27,7 @@ public class CustomerVM: BaseVM
         loadQuery = "SELECT customer_id, first_name, last_name, email, birth_date FROM customer";
         updateQuery =
             "UPDATE customer SET first_name=@first_name, last_name=@last_name, email=@email, birth_date=@birth_date WHERE customer_id=@id";
-        checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
+        checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE customer_id=@id";
         deleteQuery ="DELETE FROM customer WHERE customer_id=@id";
         addQuery = "INSERT INTO customer (first_name, last_name, email, birth_date) VALUES (@first_name, @last_name, @email, @birth_date)";
         
@@ -193,11 +193,7 @@ public class CustomerVM: BaseVM
 
     private void Delete(Customer customer_to_delete)
     {
-        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le client sélectionné '{customer_to_delete.FirstName} {customer_to_delete.LastName}'?", "Suppression ?",
-            MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (Result == MessageBoxResult.No)
-            return;
-        
+        // CHeck if customer is not used in a or multiple rental
         var dbCon = getDbCon();
         if (!dbCon.IsConnect())
         {
@@ -216,6 +212,12 @@ public class CustomerVM: BaseVM
             MessageBox.Show("Une Location utilise ce ce client!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
+        
+        
+        var Result = MessageBox.Show($"Voulez-vous vraiment supprimer le client sélectionné '{customer_to_delete.FirstName} {customer_to_delete.LastName}'?", "Suppression ?",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (Result == MessageBoxResult.No)
+            return;
         
         // Deleting customer from database
         var cmd = new MySqlCommand(deleteQuery, dbCon.Connection);
