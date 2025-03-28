@@ -33,7 +33,6 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="3"
             ItemsSource="{Binding AllExcavatorsView}" 
-            Loaded="ExcavatorGrid_OnLoaded"
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
             EnableColumnVirtualization="False"

@@ -527,15 +527,16 @@ namespace TheAmazingExcavatorRentTool.Views
         {
             setContextVM();
             
-
+            // resizeGrid();
             foreach (DataGridColumn column in ExcavatorGrid.Columns)
             {
                 if (column.Header.ToString() == "Description")
                 {
                     // Console.Write("Actual width:"+ column.ActualWidth);
                     column.Width = new DataGridLength(200, DataGridLengthUnitType.Pixel);
-                    break;
+                    continue;
                 }
+                column.Width =  100;
             }
             DataGridColumn lastColumn = ExcavatorGrid.Columns.Last();
             if (lastColumn == null) return;
@@ -562,22 +563,6 @@ namespace TheAmazingExcavatorRentTool.Views
             //
             //     column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
             // }
-        }
-        
-        private void resizeGrid()
-        {
-            foreach (DataGridColumn column in ExcavatorGrid.Columns)
-            {
-                double current_width = column.ActualWidth;
-                // Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
-                column.MinWidth = current_width + 50;
-
-            }
-        }
-
-        private void ExcavatorGrid_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            resizeGrid();
         }
     }
     
