@@ -334,4 +334,20 @@ public partial class CustomersControl : UserControl
     {
         setContextVM();
     }
+
+    private void CustomerGrid_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        resizeGrid();
+    }
+
+    private void resizeGrid()
+    {
+        foreach (DataGridColumn column in CustomerGrid.Columns)
+        {
+            double current_width = column.ActualWidth;
+            Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
+            column.MinWidth = current_width + 50;
+
+        }
+    }
 }

@@ -21,7 +21,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
             </Grid.RowDefinitions>
     
         <DataGrid 
@@ -34,6 +34,7 @@
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}"
+            Loaded="CustomerGrid_OnLoaded"
             >
             
             <DataGrid.Columns>
@@ -60,14 +61,14 @@
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                        <Label Style="{StaticResource MainLabelTheme}" Content="Email:"></Label>
+                        <Label Style="{StaticResource MainLabelTheme}" Content="Émail:"></Label>
                         <TextBox MaxLength="64" Name="txtEditEmail" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding ElementName=CustomerGrid, Path=SelectedItem.Email, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidEmailImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Style="{StaticResource MainLabelTheme}" Content="Dâte de naissance:"></Label>
-                        <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditBirthDate" VerticalAlignment="Top" Width="300" VerticalContentAlignment="Center" SelectedDateChanged="ValidateDatePicker" SelectedDate="{Binding ElementName=CustomerGrid, Path=SelectedItem.BirthDate, Mode=OneWay}">
+                        <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpEditBirthDate" VerticalAlignment="Top" VerticalContentAlignment="Center" SelectedDateChanged="ValidateDatePicker" SelectedDate="{Binding ElementName=CustomerGrid, Path=SelectedItem.BirthDate, Mode=OneWay}">
                             <DatePicker.Resources>
                                 <Style TargetType="DatePickerTextBox">
                                     <Setter Property="IsReadOnly" Value="True"/>
@@ -100,14 +101,14 @@
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                        <Label Style="{StaticResource MainLabelTheme}" Content="Email:"></Label>
+                        <Label Style="{StaticResource MainLabelTheme}" Content="Émail:"></Label>
                         <TextBox MaxLength="64" Name="txtAddEmail" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidEmailImg"></Image>
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Style="{StaticResource MainLabelTheme}" Content="Dâte de naissance:"></Label>
-                        <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddBirthDate" VerticalAlignment="Top" Width="300" VerticalContentAlignment="Center" SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="ValidateDatePicker">
+                        <DatePicker Style="{StaticResource MainDatePickerTheme}" HorizontalAlignment="Left" Name="dpAddBirthDate" VerticalAlignment="Top" VerticalContentAlignment="Center" SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="ValidateDatePicker">
                             <DatePicker.Resources>
                                 <Style TargetType="DatePickerTextBox">
                                     <Setter Property="IsReadOnly" Value="True"/>
