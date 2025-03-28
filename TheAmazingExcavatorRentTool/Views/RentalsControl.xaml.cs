@@ -339,5 +339,7 @@ public partial class RentalsControl : UserControl
             column.Width = current_width + 100;
 
         }
+
+        RentalGrid.Columns.Last().Width = new DataGridLength(1.0d, DataGridLengthUnitType.Star);
     }
 }
