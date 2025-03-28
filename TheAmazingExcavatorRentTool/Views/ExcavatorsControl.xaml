@@ -23,7 +23,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
             </Grid.RowDefinitions>
     
         <DataGrid 
@@ -33,6 +33,7 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="3"
             ItemsSource="{Binding AllExcavatorsView}" 
+            Loaded="ExcavatorGrid_OnLoaded"
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
             EnableColumnVirtualization="False"
@@ -51,7 +52,7 @@
                 <DataGridTextColumn Width="Auto" Header="Nom" Binding="{Binding Name}" />
                 <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Description" Binding="{Binding Description}"/>
                 <DataGridTextColumn Width="Auto" Header="Marque" Binding="{Binding Brand.Name}"/>
-                <DataGridTextColumn Width="Auto" Header="Capacité du godet" Binding="{Binding BucketLiters, StringFormat={}{0}L}"/>
+                <DataGridTextColumn Width="Auto" Header="Capacité du godet" Binding="{Binding BucketLiters, StringFormat={}{0}m3}"/>
                 <DataGridTextColumn Width="Auto" Header="Année de sortie" Binding="{Binding ReleaseYear}"/> 
                 <DataGridCheckBoxColumn Width="Auto" Header="Utilisation" Binding="{Binding IsUsed}"/>
                 <DataGridTextColumn Width="Auto" Header="Prix journalier" Binding="{Binding DailyPrice, StringFormat={}{0}€}"/> 
@@ -76,7 +77,7 @@
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Description:" Style="{StaticResource MainLabelTheme}"></Label>
-                        <TextBox MaxLength="128" Name="txtEditDesc" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Description, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox VerticalContentAlignment="Top" MaxLength="512" TextWrapping="Wrap" MaxWidth="300" Name="txtEditDesc" Style="{StaticResource MainTextBoxTheme}" Height="75" Text="{Binding ElementName=ExcavatorGrid, Path=SelectedItem.Description, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDescImg"></Image>
                     </StackPanel>
                     
@@ -111,7 +112,7 @@
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                        <Label Content="Capacité du godet:" Style="{StaticResource MainLabelTheme}"></Label>
+                        <Label Content="Capacité du godet (m3):" Style="{StaticResource MainLabelTheme}"></Label>
                         <TextBox Name="txtEditBucketLiters" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding SelectedItem.BucketLiters, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidBucketLitersImg"></Image>
                     </StackPanel>
@@ -123,7 +124,7 @@
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                        <Label Content="Prix journalier:" Style="{StaticResource MainLabelTheme}"></Label>
+                        <Label Content="Prix journalier (€):" Style="{StaticResource MainLabelTheme}"></Label>
                         <TextBox Name="txtEditDailyPrice" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding SelectedItem.DailyPrice, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDailyPriceImg"></Image>
                     </StackPanel>
@@ -153,7 +154,7 @@
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Description:" Style="{StaticResource MainLabelTheme}"></Label>
-                        <TextBox MaxLength="128" Name="txtAddDesc" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox VerticalContentAlignment="Top"  MaxLength="512" TextWrapping="Wrap" MaxWidth="300" Name="txtAddDesc" Style="{StaticResource MainTextBoxTheme}" Height="75" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidDescImg"></Image>
                     </StackPanel>
                     
@@ -188,7 +189,7 @@
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                        <Label Content="Capacité du godet:" Style="{StaticResource MainLabelTheme}"></Label>
+                        <Label Content="Capacité du godet (m3) :" Style="{StaticResource MainLabelTheme}"></Label>
                         <TextBox Name="txtAddBucketLiters" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding BucketLiters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidBucketLitersImg"></Image>
                     </StackPanel>
@@ -200,7 +201,7 @@
                     </StackPanel>
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                        <Label Content="Prix journalier:" Style="{StaticResource MainLabelTheme}"></Label>
+                        <Label Content="Prix journalier (€):" Style="{StaticResource MainLabelTheme}"></Label>
                         <TextBox Name="txtAddDailyPrice" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding DailyPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidDailyPriceImg"></Image>
                     </StackPanel>

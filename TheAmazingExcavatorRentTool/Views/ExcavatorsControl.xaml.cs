@@ -435,7 +435,7 @@ namespace TheAmazingExcavatorRentTool.Views
         }
         private bool isValidName(string str)
         {
-            Regex regex = new Regex("^[a-zA-Z0-9éàèç. ,]{0,32}$");
+            Regex regex = new Regex("^[a-zA-Z0-9éàèç. ,îôêâùïöä]{0,32}$");
             return regex.IsMatch(str);
         }
 
@@ -446,7 +446,7 @@ namespace TheAmazingExcavatorRentTool.Views
         
         private bool isValidDesc(string str)
         {
-            Regex regex = new Regex("^[a-zA-Z0-9éàèç. ,]{0,128}$");
+            Regex regex = new Regex("^[a-zA-Z0-9éàèç. ,îôêâùïöëä'\\%É]{0,512}$");
             return regex.IsMatch(str);
         }
         private bool isValidNumber(string str)
@@ -563,6 +563,23 @@ namespace TheAmazingExcavatorRentTool.Views
             //     column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
             // }
         }
+        
+        private void resizeGrid()
+        {
+            foreach (DataGridColumn column in ExcavatorGrid.Columns)
+            {
+                double current_width = column.ActualWidth;
+                Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
+                column.MinWidth = current_width + 50;
+
+            }
+        }
+
+        private void ExcavatorGrid_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            resizeGrid();
+        }
     }
+    
     
 }
