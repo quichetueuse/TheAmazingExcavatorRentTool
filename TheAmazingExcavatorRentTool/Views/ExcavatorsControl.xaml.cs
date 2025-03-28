@@ -53,7 +53,7 @@ namespace TheAmazingExcavatorRentTool.Views
             minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
             plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
             ImagesDir =
-                "C:\\Users\\Eliot\\RiderProjects\\TheAmazingExcavatorRentTool\\TheAmazingExcavatorRentTool\\ExcavatorImages\\";
+                "C:\\Users\\Eliot\\Desktop\\WPF next gen\\TheAmazingExcavatorRentTool_v2\\TheAmazingExcavatorRentTool\\ExcavatorImages\\";
         }
         
         
