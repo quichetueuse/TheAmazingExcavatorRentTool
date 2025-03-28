@@ -255,4 +255,20 @@ public partial class BrandsControl : UserControl
     {
         setContextVM();
     }
+    
+    private void resizeGrid()
+    {
+        foreach (DataGridColumn column in BrandGrid.Columns)
+        {
+            double current_width = column.ActualWidth;
+            Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
+            column.MinWidth = current_width + 50;
+
+        }
+    }
+
+    private void BrandGrid_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        resizeGrid();
+    }
 }

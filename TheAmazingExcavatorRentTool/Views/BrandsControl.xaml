@@ -20,7 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
         
         <DataGrid 
@@ -30,6 +30,7 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="3"
             ItemsSource="{Binding Brands}" 
+            Loaded="BrandGrid_OnLoaded"
             SelectionChanged="on_SelectionChanged" 
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}">
