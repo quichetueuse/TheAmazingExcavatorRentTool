@@ -43,7 +43,7 @@
                                 <Image Source="Assets/app-icon.png" HorizontalAlignment="Left" Width="22" Height="22" Margin="10 0 0 0"/>
                         
                                 <!-- Title bar title-->
-                                <TextBlock Text="Page de connexion"
+                                <TextBlock Text="The Amazing Excavator Rent Tool"
                                            Margin="10, 0, 0, 0"
                                            VerticalAlignment="Center"
                                            Foreground="White"
