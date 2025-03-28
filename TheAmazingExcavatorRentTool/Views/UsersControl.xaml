@@ -76,13 +76,13 @@
                 
                 <StackPanel Style="{StaticResource FirstStackPanelMarginStyling}">
                     <Label Style="{StaticResource MainLabelTheme}" Content="Nom d'utilisateur:"></Label>
-                    <TextBox MaxLength="32" Name="txtAddUsername" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                    <TextBox MaxLength="32" Name="txtAddUsername" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidUsernameImg"></Image>
                 </StackPanel>
                 
                 <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                     <Label Style="{StaticResource MainLabelTheme}" Content="Mot de passe:"></Label>
-                    <TextBox MaxLength="128" Name="txtAddPassword" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                    <TextBox MaxLength="128" Name="txtAddPassword" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                     <Button MinWidth="75" Height="25" Content="Générer un mot de passe" Name="addCreatePasswordBtn" Click="CreatePasswordBtn_OnClick" Style="{StaticResource MainButtonTheme}"></Button>
                     <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidPasswordImg"></Image>
                 </StackPanel>
