@@ -99,7 +99,7 @@
                 <Image Source="../Assets/add-icon.png" Width="24" Height="24" Name="manageAddBtnImage"></Image>
             </Button>
             <Button Name="ManageEditFormBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Click="ManageEditForm" Style="{StaticResource MainButtonTheme}">
-                <Image Source="../Assets/edit-icon2.png" Width="24" Height="24" Name="manageEditBtnImage"></Image>
+                <Image Source="../Assets/edit-icon.png" Width="24" Height="24" Name="manageEditBtnImage"></Image>
             </Button>
             <Button Name="DeleteBtn" Width="150" Height="50" Margin="5" IsEnabled="False" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=BrandGrid, Path=SelectedItem}" Style="{StaticResource MainButtonTheme}">
                 <Image Source="../Assets/redtrashcan-icon.png" Width="24" Height="24" Name="deleteBtnImage"></Image>
