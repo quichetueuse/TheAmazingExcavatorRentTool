@@ -515,11 +515,7 @@ public class ExcavatorVM : BaseVM
         }
         NonUsedExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
         AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
-        // OnPropertyChanged("AllExcavatorsView");
-        // OnPropertyChanged("NonUsedExcavatorsView");
-        // AllExcavatorsView.Refresh();
         NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
-        // NonUsedExcavatorsView.Refresh();
         
     }
 }
