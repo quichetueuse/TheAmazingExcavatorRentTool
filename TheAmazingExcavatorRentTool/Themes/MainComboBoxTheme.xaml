@@ -88,8 +88,6 @@
                                 VerticalAlignment="Center" 
                                 Margin="3,3,23,3"
                                 Focusable="True" 
-                                Background="#FF3F3F3F"
-                                Foreground="Green"
                                 Visibility="Hidden"
                                 IsReadOnly="{TemplateBinding IsReadOnly}"/>
                             <Popup 
