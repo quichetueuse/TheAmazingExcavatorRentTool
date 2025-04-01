@@ -40,7 +40,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="Auto" Header="Nom" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Width="Auto" Header="Prénom" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Email" Binding="{Binding Email}"/>
                 <DataGridTextColumn Width="*" Header="Date de naissance" Binding="{Binding BirthDate, StringFormat=dd/MM/yyyy}"/>
             </DataGrid.Columns>
         </DataGrid>
