@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Views"
+             xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Services"
              xmlns:views="clr-namespace:TheAmazingExcavatorRentTool.Views"
              xmlns:viewModels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1000"
              Loaded="ExcavatorsControl_OnLoaded"
              ><!-- SizeChanged="changeDatagridColumnsSize"-->
+    <UserControl.Resources>
+        <local:BooleanValueConverter x:Key="BooleanValueConverter"></local:BooleanValueConverter>
+    </UserControl.Resources>
     <!-- <UserControl.DataContext> -->
     <!--     <viewModels:ExcavatorVM/> -->
     <!-- </UserControl.DataContext> -->
@@ -53,7 +56,8 @@
                 <DataGridTextColumn Width="Auto" Header="Marque" Binding="{Binding Brand.Name}"/>
                 <DataGridTextColumn Width="Auto" Header="Capacité du godet" Binding="{Binding BucketLiters, StringFormat={}{0}m3}"/>
                 <DataGridTextColumn Width="Auto" Header="Année de sortie" Binding="{Binding ReleaseYear}"/> 
-                <DataGridCheckBoxColumn Width="Auto" Header="Utilisation" Binding="{Binding IsUsed}"/>
+                <DataGridTextColumn Width="Auto" Header="Utilisée" Binding="{Binding IsUsed, Converter={StaticResource BooleanValueConverter}}"></DataGridTextColumn>
+                <!-- <DataGridCheckBoxColumn Width="Auto" Header="Utilisation" Binding="{Binding IsUsed}"/> -->
                 <DataGridTextColumn Width="Auto" Header="Prix journalier" Binding="{Binding DailyPrice, StringFormat={}{0}€}"/> 
                 <DataGridTemplateColumn Width="*" Header="Image de la pelleteuse">
                     <DataGridTemplateColumn.CellTemplate>
