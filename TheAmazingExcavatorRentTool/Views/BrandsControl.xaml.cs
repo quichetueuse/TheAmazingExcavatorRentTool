@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.ViewModels;
@@ -22,6 +23,8 @@ public partial class BrandsControl : UserControl
         
     private bool addValidName;
     private bool addValidCreationYear;
+
+    private bool isInfosViewOpened;
     
     private BrandVM _brandVm;
     
@@ -33,6 +36,8 @@ public partial class BrandsControl : UserControl
             
         minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
         plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
+
+        isInfosViewOpened = false;
     }
     
     private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -254,5 +259,23 @@ public partial class BrandsControl : UserControl
     private void BrandsControl_OnLoaded(object sender, RoutedEventArgs e)
     {
         setContextVM();
+    }
+
+    private void BrandGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (isInfosViewOpened == false)
+        {
+            isInfosViewOpened = true;
+            Brand selectedBrand = (Brand)BrandGrid.SelectedItem as Brand;
+            ViewBrandInfos ViewInfoWindow = new ViewBrandInfos(selectedBrand);
+            ViewInfoWindow.Show();
+            ViewInfoWindow.Closed += ViewInfoWindowOnClosed;   
+        }
+    }
+
+    private void ViewInfoWindowOnClosed(object? sender, EventArgs e)
+    {
+        Console.WriteLine("window got closed");
+        isInfosViewOpened = false;
     }
 }

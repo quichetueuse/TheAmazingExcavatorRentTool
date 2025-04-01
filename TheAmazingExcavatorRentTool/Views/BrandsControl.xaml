@@ -31,6 +31,7 @@
             Grid.RowSpan="3"
             ItemsSource="{Binding Brands}" 
             SelectionChanged="on_SelectionChanged" 
+            MouseDoubleClick="BrandGrid_OnMouseDoubleClick"
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}">
             <!-- <DataGrid.Resources> -->
