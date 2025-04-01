@@ -11,7 +11,8 @@
              Loaded="ExcavatorsControl_OnLoaded"
              ><!-- SizeChanged="changeDatagridColumnsSize"-->
     <UserControl.Resources>
-        <local:BooleanValueConverter x:Key="BooleanValueConverter"></local:BooleanValueConverter>
+        <local:BooleanValueConverter x:Key="BooleanValueConverter"/>
+        <local:ShortenDescConverter x:Key="ShortenDescConverter"/>
     </UserControl.Resources>
     <!-- <UserControl.DataContext> -->
     <!--     <viewModels:ExcavatorVM/> -->
@@ -51,9 +52,9 @@
             <!-- </DataGrid.RowHeaderStyle> -->
             
             <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="Nom" Binding="{Binding Name}" />
-                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Description" Binding="{Binding Description}"/>
-                <DataGridTextColumn Width="Auto" Header="Marque" Binding="{Binding Brand.Name}"/>
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Nom" Binding="{Binding Name}" />
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Description" Binding="{Binding Description, Converter={StaticResource ShortenDescConverter}, ConverterParameter=50}"/>
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Marque" Binding="{Binding Brand.Name}"/>
                 <DataGridTextColumn Width="Auto" Header="Capacité du godet" Binding="{Binding BucketLiters, StringFormat={}{0}m3}"/>
                 <DataGridTextColumn Width="Auto" Header="Année de sortie" Binding="{Binding ReleaseYear}"/> 
                 <DataGridTextColumn Width="Auto" Header="Utilisée" Binding="{Binding IsUsed, Converter={StaticResource BooleanValueConverter}}"></DataGridTextColumn>
