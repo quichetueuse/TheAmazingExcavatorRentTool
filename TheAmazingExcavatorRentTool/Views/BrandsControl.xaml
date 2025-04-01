@@ -45,7 +45,7 @@
             <!-- </DataGrid.Resources> -->
             
             <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="Nom" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Nom" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="*" Header="Date de création" Binding="{Binding CreationYear}"/>
             </DataGrid.Columns>
         </DataGrid>

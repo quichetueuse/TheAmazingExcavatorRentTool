@@ -39,8 +39,8 @@
         >
             
             <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="Client" Binding="{Binding Customer.FullName, StringFormat=Mr {0}}"/>
-                <DataGridTextColumn Width="Auto" Header="Pelleteuse choisi" Binding="{Binding Excavator.Name}"/>
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Client" Binding="{Binding Customer.FullName, StringFormat=Mr {0}}"/>
+                <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Pelleteuse choisie" Binding="{Binding Excavator.Name}"/>
                 <DataGridTextColumn Width="Auto" Header="Début de la location" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy}"/>
                 <DataGridTextColumn Width="Auto" Header="Fin de la location" Binding="{Binding ReturnDate, StringFormat=dd/MM/yyyy}"/>
                 <DataGridTextColumn Width="*" Header="Prix de la location" Binding="{Binding Price, StringFormat={}{0}€}"/>
