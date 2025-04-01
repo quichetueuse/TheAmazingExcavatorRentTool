@@ -16,7 +16,7 @@
         <Setter Property="RowStyle">
             <Setter.Value>
                 <Style TargetType="DataGridRow">
-                    <Setter Property="Height" Value="50"></Setter>
+                    <Setter Property="Height" Value="75"></Setter>
                 </Style>
             </Setter.Value>
         </Setter>
@@ -27,6 +27,7 @@
                     <Setter Property="TextBlock.TextAlignment" Value="Center" />
                     <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
                     <Setter Property="TextBlock.Foreground" Value="White"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="15"/>
                     <!-- <Setter Property="BorderThickness" Value="0 1 0 1 "></Setter> -->
                     <Setter Property="Foreground" Value="White" />
         
@@ -43,6 +44,7 @@
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter Property="Background" Value="#2d3445" TargetName="Border"/>
                                         <Setter Property="Foreground" Value="CornflowerBlue"/>
+                                        <Setter Property="FontWeight" Value="Bold"></Setter>
                                         <Setter Property="BorderBrush" Value="Yellow" TargetName="Border"/>
                                         <!-- <Setter Property="FontWeight" Value="Bold"/> -->
                             
