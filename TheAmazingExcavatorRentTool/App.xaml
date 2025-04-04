@@ -53,6 +53,8 @@
                 <ResourceDictionary Source="Themes/MainCheckBoxTheme.xaml"/>
                 <!-- <ResourceDictionary Source="Themes/MainDatePickerTheme22.xaml"/> -->
                 <ResourceDictionary Source="Themes/MainDatePickerTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MainLabelViewTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MainTextBoxViewTheme.xaml"/>
                 
             </ResourceDictionary.MergedDictionaries>
         
