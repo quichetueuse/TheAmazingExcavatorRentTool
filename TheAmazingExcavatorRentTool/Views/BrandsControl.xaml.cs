@@ -268,7 +268,7 @@ public partial class BrandsControl : UserControl
             isInfosViewOpened = true;
             Brand selectedBrand = (Brand)BrandGrid.SelectedItem as Brand;
             ViewBrandInfos ViewInfoWindow = new ViewBrandInfos(selectedBrand);
-            ViewInfoWindow.Show();
+            ViewInfoWindow.ShowDialog();
             ViewInfoWindow.Closed += ViewInfoWindowOnClosed;   
         }
     }
