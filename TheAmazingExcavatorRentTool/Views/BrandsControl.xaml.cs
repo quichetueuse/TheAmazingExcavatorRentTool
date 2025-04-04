@@ -275,7 +275,6 @@ public partial class BrandsControl : UserControl
 
     private void ViewInfoWindowOnClosed(object? sender, EventArgs e)
     {
-        Console.WriteLine("window got closed");
         isInfosViewOpened = false;
     }
 }
