@@ -32,7 +32,6 @@
                                 
                         
                         <StackPanel Orientation="Horizontal">
-                                <!-- Title bar icon -->
                         
                                 <!-- Title bar title-->
                                 <TextBlock Text="Informations concernant la marque sélectionnée"
@@ -85,7 +84,7 @@
                         </Button>
             
             
-                        <!-- Login form -->
+                        <!-- View form -->
                         
                         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 100 0 0" Background="#22202F" Height="350" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <StackPanel Style="{StaticResource StackPanelMarginStyling}">
