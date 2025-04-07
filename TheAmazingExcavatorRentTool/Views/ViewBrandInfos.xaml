@@ -5,9 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Views"
         mc:Ignorable="d"
-        Title="Informations sur la marque sélectionnée" 
         Height="720" 
-        Width="800"
+        Width="500"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -18,7 +17,7 @@
             
     
     
-    <Border Background="#272537" CornerRadius="20">
+    <Border Background="#272537" CornerRadius="20" BorderBrush="White" BorderThickness="1">
         <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.05*"/>
@@ -43,35 +42,6 @@
                         </StackPanel>
                         
                         <Button Grid.Column="2"
-                                Name="MinimizeButton"
-                                Style="{StaticResource ResizeButtonTheme}"
-                                Background="Transparent"
-                                Margin="0 0 60 0"
-                                Height="30"
-                                Width="30"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Right"
-                                Click="MinimizeWindow"
-                                Foreground="White"
-                                Content="—">
-                        </Button>
-                        
-                        
-                        <Button Grid.Column="2"
-                                Style="{StaticResource ResizeButtonTheme}"
-                                Name="MaximizeButton"
-                                Background="Transparent"
-                                Margin="0 0 30 0"
-                                Height="30"
-                                Width="30"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Right"
-                                Click="MaximizeWindow"
-                                Foreground="White"
-                                Content="■">
-                        </Button>
-                        
-                        <Button Grid.Column="2"
                                 Style="{StaticResource CloseButtonStyle}"
                                 Name="CloseButton"
                                 Margin="0"
@@ -86,15 +56,15 @@
             
                         <!-- View form -->
                         
-                        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 100 0 0" Background="#22202F" Height="350" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                                <Label Content="Nom: " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
-                                <TextBox Name="TbName" Padding="20 0 0 0" FontSize="20" Width="300" Style="{StaticResource  MainTextBoxTheme}"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 0 0 0"  Background="#22202F" Height="685" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                                <Label Content="Nom:" HorizontalAlignment="Center" Style="{StaticResource MainLabelViewTheme}"/>
+                                <TextBox Name="TbName" Width="300" Style="{StaticResource  MainTextBoxViewTheme}"/>
                             </StackPanel>
                             
-                            <StackPanel Style="{StaticResource StackPanelMarginStyling}">
-                                <Label Content="Année de création: " Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
-                                <TextBox Name="TbCreationYear" Padding="20 0 0 0" FontSize="20" Width="300" Style="{StaticResource  MainTextBoxTheme}"/>
+                            <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                                <Label Content="Année de création:" HorizontalAlignment="Center" Style="{StaticResource MainLabelViewTheme}"/>
+                                <TextBox Name="TbCreationYear" Width="300" Style="{StaticResource  MainTextBoxViewTheme}"/>
                             </StackPanel>
                         </StackPanel>
         </Grid>
