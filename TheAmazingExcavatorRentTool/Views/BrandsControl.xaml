@@ -7,9 +7,6 @@
              xmlns:viewModels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1000" Loaded="BrandsControl_OnLoaded">
-    <!-- <UserControl.DataContext> -->
-    <!--     <viewModels:BrandVM/> -->
-    <!-- </UserControl.DataContext> -->
     
     <Grid ShowGridLines="False" Background="{StaticResource MainWindowColor}">
         <Grid.ColumnDefinitions>
@@ -34,17 +31,6 @@
             MouseDoubleClick="BrandGrid_OnMouseDoubleClick"
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}">
-            <!-- <DataGrid.Resources> -->
-            <!--     <Style TargetType="{x:Type DataGridCell}"> -->
-            <!--         <Style.Triggers> -->
-            <!--             <Trigger Property="DataGridCell.IsSelected" Value="True"> -->
-            <!--                 <Setter Property="Background" Value="Transparent" /> -->
-            <!--                 <Setter Property="BorderBrush" Value="Yellow" /> -->
-            <!--             </Trigger> -->
-            <!--         </Style.Triggers> -->
-            <!--     </Style> -->
-            <!-- </DataGrid.Resources> -->
-            
             <DataGrid.Columns>
                 <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Nom" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="*" Header="Date de création" Binding="{Binding CreationYear}"/>
