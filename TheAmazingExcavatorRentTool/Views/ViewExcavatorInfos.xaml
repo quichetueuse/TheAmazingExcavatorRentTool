@@ -1,0 +1,99 @@
+<Window x:Class="TheAmazingExcavatorRentTool.Views.ViewExcavatorInfos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Views"
+        mc:Ignorable="d"
+        Height="735" 
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+        
+        <Border Background="#272537" CornerRadius="20">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.05*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <Border Background="#22202F" Grid.ColumnSpan="3" CornerRadius="20 20 0 0 "/>
+                        
+                    <!-- Only used to drag window --> 
+                    <StackPanel Grid.ColumnSpan="3" Background="Transparent" MouseLeftButtonDown="DragWindow"/>
+                            
+                    
+                    <StackPanel Orientation="Horizontal">
+                    
+                            <!-- Title bar title-->
+                            <TextBlock Text="Informations concernant la pelleteuse sélectionnée"
+                                       Margin="10, 0, 0, 0"
+                                       VerticalAlignment="Center"
+                                       Foreground="White"
+                                       FontSize="16"
+                                       FontWeight="Bold"/>
+                    </StackPanel>
+                    
+                    
+                    <Button Grid.Column="2"
+                            Style="{StaticResource CloseButtonStyle}"
+                            Name="CloseButton"
+                            Margin="0"
+                            Height="30"
+                            Width="30"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Click="CloseWindow">
+                            <Image Source="../Assets/cross_icon.png">
+                            </Image>
+                    </Button>
+        
+        
+                    <!-- View form -->
+                    
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 0 0 0" Background="#22202F" Height="700" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Nom:" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox MaxLength="32" Width="300" Name="txtName" Style="{StaticResource MainTextBoxViewTheme}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Description:" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox MaxLength="512" TextWrapping="Wrap" Width="300" Name="txtDesc" Style="{StaticResource MainTextBoxViewTheme}" Height="75"/>
+                        </StackPanel>
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Marque:" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox Width="300" Name="txtMarque" Style="{StaticResource MainTextBoxViewTheme}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Capacité du godet (m3):" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox Width="300" Name="txtBucketLiters" Style="{StaticResource MainTextBoxViewTheme}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Année de sortie:" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox Width="300" Name="txtReleaseYear" Style="{StaticResource MainTextBoxViewTheme}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Prix journalier (€):" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox Width="300" Name="txtPrice" Style="{StaticResource MainTextBoxViewTheme}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                            <Label Content="Chemin de l'image:" Style="{StaticResource MainLabelViewTheme}"/>
+                            <TextBox Width="300" Name="txtImagePath" Style="{StaticResource MainTextBoxViewTheme}" TextWrapping="Wrap" Height="75"/>
+                        </StackPanel>
+                        <Image Name="imagePreview" Width="250" Height="200" Source="../Assets/app-icon.png"/>
+                        
+                    </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -38,6 +38,7 @@
             Grid.RowSpan="3"
             ItemsSource="{Binding AllExcavatorsView}" 
             SelectionChanged="on_SelectionChanged" 
+            MouseDoubleClick="ExcavatorGrid_OnMouseDoubleClick"
             GridLinesVisibility="None"
             EnableColumnVirtualization="False"
             Style="{StaticResource MainDatagridTheme}"

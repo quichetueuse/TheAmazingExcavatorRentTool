@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.ViewModels;
@@ -39,7 +40,7 @@ namespace TheAmazingExcavatorRentTool.Views
         private string editSafeFileName;
         private string addSafeFileName;
         
-
+        private bool isInfosViewOpened;
         
         private ExcavatorVM _excavatorvm;
         public ExcavatorsControl()
@@ -54,6 +55,8 @@ namespace TheAmazingExcavatorRentTool.Views
             plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
             ImagesDir =
                 "C:\\Users\\Eliot\\Desktop\\WPF next gen\\TheAmazingExcavatorRentTool_v2\\TheAmazingExcavatorRentTool\\ExcavatorImages\\";
+
+            isInfosViewOpened = false;
         }
         
         
@@ -542,27 +545,22 @@ namespace TheAmazingExcavatorRentTool.Views
             if (lastColumn == null) return;
             lastColumn.Width = new DataGridLength(1.0d, DataGridLengthUnitType.Star);
         }
-
-        private void changeDatagridColumnsSize(object sender, SizeChangedEventArgs e)
+        
+        private void ExcavatorGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
-            
-            // Console.Write("Changed");
-            // foreach (DataGridColumn column in ExcavatorGrid.Columns)
-            // {
-            //     if (column.Header.ToString() == "Description")
-            //     {
-            //         column.Width = new DataGridLength(200, DataGridLengthUnitType.Pixel);
-            //         continue;
-            //     }
-            //
-            //     if (column.Header.ToString() == "Image de la pelleteuse")
-            //     {
-            //         column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Star);
-            //     }
-            //
-            //     column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
-            // }
+            if (isInfosViewOpened == false)
+            {
+                isInfosViewOpened = true;
+                Excavator selectedExcavator = (Excavator)ExcavatorGrid.SelectedItem as Excavator;
+                ViewExcavatorInfos ViewInfoWindow = new ViewExcavatorInfos(selectedExcavator);
+                ViewInfoWindow.Closed += ViewInfoWindowOnClosed;
+                ViewInfoWindow.ShowDialog();
+            }
+        }
+
+        private void ViewInfoWindowOnClosed(object? sender, EventArgs e)
+        {
+            isInfosViewOpened = false;
         }
     }
     
