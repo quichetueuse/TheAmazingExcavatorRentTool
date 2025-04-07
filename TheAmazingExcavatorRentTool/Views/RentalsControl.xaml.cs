@@ -152,7 +152,6 @@ public partial class RentalsControl : UserControl
             {
                 EditValidCustomerImg.Source = invalidIcon;
                 editValidCustomer = false;
-                // _excavatorvm.Brand = cbEditBrand.SelectedItem as Brand;
                 CanEdit();
                 return;
             }
@@ -169,7 +168,6 @@ public partial class RentalsControl : UserControl
             {
                 AddValidCustomerImg.Source = invalidIcon;
                 addValidCustomer = false;
-                // _excavatorvm.Brand = cbEditBrand.SelectedItem as Brand;
                 CanAdd();
                 return;
             }
@@ -340,7 +338,6 @@ public partial class RentalsControl : UserControl
         foreach (DataGridColumn column in RentalGrid.Columns)
         {
             double current_width = column.ActualWidth;
-            // Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
             column.Width = current_width + 100;
 
         }
