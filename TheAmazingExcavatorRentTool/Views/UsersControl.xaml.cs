@@ -243,10 +243,6 @@ public partial class UsersControl : UserControl
             return false;
         }
         return true;
-        
-        // Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{14,}$");
-        // Regex regex = new Regex("^(?=.{5,}[a-z])(?=.{5,}[A-Z])(?=.{2,}\\d)(?=.{2,}[!@#$%^&*\\(\\)\\-_=+\\[\\]\\{\\}\\;\\:\\,\\.<>\\?])[A-Za-z\\d!@#$%^&*\\(\\)\\-_=\\+\\[\\]\\{\\}\\;\\:\\,\\.\\<\\>\\?]{14,}$");
-        // return regex.IsMatch(password);
     }
     
     
@@ -304,10 +300,6 @@ public partial class UsersControl : UserControl
             CanEdit();
             return;
         }
-        
-        
-        // Console.WriteLine($"{sender_element.Name} is now {sender_element.IsChecked}");
-        
 
         if (!isValidPassword(txtEditPassword.Text) || txtEditPassword.Text.Length == 0)
         {
