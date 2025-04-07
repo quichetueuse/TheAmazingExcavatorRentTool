@@ -59,12 +59,12 @@
                         
                         <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right" Margin="0 10 0 20">
                             <Label Content="Nom:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox MaxLength="32" Width="300" Name="txtName" Style="{StaticResource MainTextBoxViewTheme}"/>
+                            <TextBox Width="300" Name="txtName" Style="{StaticResource MainTextBoxViewTheme}"/>
                         </StackPanel>
                         
                         <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
                             <Label Content="Description:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox MaxLength="512" TextWrapping="Wrap" Width="300" Name="txtDesc" Style="{StaticResource MainTextBoxViewTheme}" Height="75"/>
+                            <TextBox TextWrapping="Wrap" Width="300" Name="txtDesc" Style="{StaticResource MainTextBoxViewTheme}" Height="75"/>
                         </StackPanel>
                         
                         <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
