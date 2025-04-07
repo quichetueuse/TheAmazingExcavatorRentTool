@@ -1,13 +1,8 @@
-using System;
 using System.Net;
 using System.Security;
-using System.Text;
 using System.Windows;
 using TheAmazingExcavatorRentTool.Services;
-using TheAmazingExcavatorRentTool.Views;
 using MySqlConnector;
-using Prism.Commands;
-using TheAmazingExcavatorRentTool.Exceptions;
 
 namespace TheAmazingExcavatorRentTool.ViewModels
 {
@@ -45,13 +40,6 @@ namespace TheAmazingExcavatorRentTool.ViewModels
             get { return _errormsg; }
             set { _errormsg = value; }
         }
-
-
-        public LoginVM()
-        {
-            passwordManager = new PasswordManager();
-        }
-
         
         private DelegateCommand<Window> _loginCommand;
         public DelegateCommand<Window> LoginCommand =>
@@ -60,29 +48,24 @@ namespace TheAmazingExcavatorRentTool.ViewModels
 
         private void Login(Window current_window)
         {
-            // Console.WriteLine("username: " + Username);
-            // Console.WriteLine("password: " +Password);
             DB dbCon = getDbCon();
             string query = "SELECT user_id, username, password, is_admin FROM _user WHERE username=@username AND password=@password";
         
         
             if (!dbCon.IsConnect()) {
-                MessageBox.Show("La connexion à la base de données à échouée", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw new ConnectionFailedException("Connection to database failed");
+                MessageBox.Show("La base de données est inaccéssible pour le moment, essayer plus tard.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             
 
             NetworkCredential credential = new NetworkCredential(Username, Password);
             
-            // Console.WriteLine(password);
             var cmd = new MySqlCommand(query, dbCon.Connection);
             cmd.Parameters.AddWithValue("@username", credential.UserName);
             cmd.Parameters.AddWithValue("@password", passwordManager.HashPassword(credential.Password));
-            // var reader = cmd.ExecuteReader();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
             if (count == 0)
             {
-                // ErrorMsg = "Mot de passe ou nom d'utilisateur incorrect";
                 MessageBox.Show("Mot de passe ou nom d'utilisateur invalide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -99,7 +82,6 @@ namespace TheAmazingExcavatorRentTool.ViewModels
                 Session.IsAdmin = isAdmin;
             }
             dbCon.Close();
-            // Session.ShowSessionInfos();
             OpenMainWindow(current_window);
         }
         
