@@ -1,0 +1,70 @@
+<Window x:Class="TheAmazingExcavatorRentTool.Views.ViewUserInfos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TheAmazingExcavatorRentTool.Views"
+        mc:Ignorable="d"
+        Height="735" 
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    
+    <Border Background="#272537" CornerRadius="20" BorderBrush="White" BorderThickness="1">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.05*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <Border Background="#22202F" Grid.ColumnSpan="3" CornerRadius="20 20 0 0 "/>
+                        
+                <!-- Only used to drag window --> 
+                <StackPanel Grid.ColumnSpan="3" Background="Transparent" MouseLeftButtonDown="DragWindow"/>
+                        
+                
+                <StackPanel Orientation="Horizontal">
+                    <!-- Title bar title-->
+                    <TextBlock Text="Informations concernant l'utilisateur sélectionné"
+                               Margin="10, 0, 0, 0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"/>
+                </StackPanel>
+                
+                <!-- CLose button -->
+                <Button Grid.Column="2"
+                        Style="{StaticResource CloseButtonStyle}"
+                        Name="CloseButton"
+                        Margin="0"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Click="CloseWindow">
+                        <Image Source="../Assets/cross_icon.png">
+                        </Image>
+                </Button>
+    
+    
+                <!-- View form -->
+                <StackPanel Orientation="Vertical" Grid.Row="1" Height="700" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    
+                    <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right" Margin="0 10 0 20">
+                        <Label Content="Nom d'utilisateur:" Style="{StaticResource MainLabelViewTheme}"/>
+                        <TextBox Width="300" Name="txtUsername" Style="{StaticResource MainTextBoxViewTheme}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                        <Label Content="Administrateur:" Style="{StaticResource MainLabelViewTheme}"/>
+                        <TextBox Width="300" Name="txtIsAdmin" Style="{StaticResource MainTextBoxViewTheme}"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+        </Grid>
+    </Border>
+</Window>

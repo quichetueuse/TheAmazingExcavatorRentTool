@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.Services;
@@ -27,6 +28,8 @@ public partial class UsersControl : UserControl
 
     private PasswordManager passwordManager;
     
+    private bool isInfosViewOpened;
+    
     
     public UsersControl()
     {
@@ -40,6 +43,8 @@ public partial class UsersControl : UserControl
         minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
         plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
         editvalidPassword = true;
+
+        isInfosViewOpened = false;
     }
 
     private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -326,5 +331,22 @@ public partial class UsersControl : UserControl
     private void UsersControl_OnLoaded(object sender, RoutedEventArgs e)
     {
         setContextVM();
+    }
+    
+    private void UserGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (isInfosViewOpened == false)
+        {
+            isInfosViewOpened = true;
+            User selectedUser = (User)UserGrid.SelectedItem as User;
+            ViewUserInfos ViewInfoWindow = new ViewUserInfos(selectedUser);
+            ViewInfoWindow.Closed += ViewInfoWindowOnClosed;
+            ViewInfoWindow.ShowDialog();
+        }
+    }
+
+    private void ViewInfoWindowOnClosed(object? sender, EventArgs e)
+    {
+        isInfosViewOpened = false;
     }
 }

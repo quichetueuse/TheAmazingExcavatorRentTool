@@ -33,6 +33,7 @@
             Grid.RowSpan="3"
             ItemsSource="{Binding Users}" 
             SelectionChanged="on_SelectionChanged" 
+            MouseDoubleClick="UserGrid_OnMouseDoubleClick"
             GridLinesVisibility="None"
             Style="{StaticResource MainDatagridTheme}"
         >
