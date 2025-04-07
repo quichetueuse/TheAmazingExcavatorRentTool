@@ -205,7 +205,8 @@ public class ExcavatorVM : BaseVM
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
-            throw new ConnectionFailedException("Connection to database failed");
+            return;
+            // throw new ConnectionFailedException("Connection to database failed");
         }
         
         var cmd = new MySqlCommand(loadQuery, dbCon.Connection);
@@ -298,6 +299,11 @@ public class ExcavatorVM : BaseVM
             if (varExcavator.ExcavatorId != excavator_to_delete.ExcavatorId)
                 continue;
             Excavators.Remove(varExcavator);
+            
+            NonUsedExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+            AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+            NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
+            
             // Notify the user that the removal succeeded
             soundPlayer.PlaySuccessSound();
             MessageBox.Show("Suppression de la pelleteuse effectuée", "suppression effectuée", MessageBoxButton.OK,
@@ -364,6 +370,11 @@ public class ExcavatorVM : BaseVM
                 break;
             }
         }
+        
+        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
+        
         // Notify the user the update succeeded
         soundPlayer.PlaySuccessSound();
         MessageBox.Show("Modifications appliquées à la pelleteuse", "Modifications Appliquées", MessageBoxButton.OK,
@@ -441,6 +452,10 @@ public class ExcavatorVM : BaseVM
             bucket_liters: bucket_liters, releaseyear: release_year, isused: Convert.ToBoolean(is_used), 
             dailyprice: daily_price, picturepath: picture_path));
         dbCon.Close();
+        
+        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
         
         // Notify the user that adding succeeded
         soundPlayer.PlaySuccessSound();
