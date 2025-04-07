@@ -11,6 +11,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="5 0 0 0"/>
         <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Margin" Value="0 0 5 0"/>
         
         <Setter Property="Template">
             <Setter.Value>
