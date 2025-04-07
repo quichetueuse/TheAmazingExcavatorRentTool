@@ -108,7 +108,7 @@
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Année de sortie:" Style="{StaticResource MainLabelTheme}"></Label>
-                        <TextBox Name="txtEditReleaseYear" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding SelectedItem.ReleaseYear, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
+                        <TextBox Name="txtEditReleaseYear" MaxLength="4" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding SelectedItem.ReleaseYear, ElementName=ExcavatorGrid, Mode=OneWay}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidReleaseYearImg"></Image>
                     </StackPanel>
                     
@@ -183,7 +183,7 @@
                     
                     <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Année de sortie:" Style="{StaticResource MainLabelTheme}"></Label>
-                        <TextBox Name="txtAddReleaseYear" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
+                        <TextBox Name="txtAddReleaseYear" MaxLength="4" Style="{StaticResource MainTextBoxTheme}" Height="25" Text="{Binding ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="ValidateTextFields"/>
                         <Image Source="../Assets/redcross-icon.png" Width="24" Height="24" Margin="8 0 0 0" Name="AddValidReleaseYearImg"></Image>
                     </StackPanel>
                     
