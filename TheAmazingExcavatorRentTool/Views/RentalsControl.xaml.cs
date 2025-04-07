@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.ViewModels;
@@ -25,6 +26,8 @@ public partial class RentalsControl : UserControl
     private bool addValidReturnDate;
 
     private RentalVM _rentalVm;
+    
+    private bool isInfosViewOpened;
 
     public RentalsControl()
     {
@@ -36,6 +39,8 @@ public partial class RentalsControl : UserControl
             
         minusIcon = new BitmapImage(new Uri(@"../Assets/minus-icon.png", UriKind.Relative));
         plusIcon = new BitmapImage(new Uri(@"../Assets/add-icon.png", UriKind.Relative));
+
+        isInfosViewOpened = false;
     }
     
     private void on_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -342,4 +347,22 @@ public partial class RentalsControl : UserControl
 
         RentalGrid.Columns.Last().Width = new DataGridLength(1.0d, DataGridLengthUnitType.Star);
     }
+    private void RentalGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (isInfosViewOpened == false)
+        {
+            isInfosViewOpened = true;
+            Rental selectedRental = (Rental)RentalGrid.SelectedItem as Rental;
+            ViewRentalInfos ViewInfoWindow = new ViewRentalInfos(selectedRental);
+            ViewInfoWindow.Closed += ViewInfoWindowOnClosed;
+            ViewInfoWindow.ShowDialog();
+        }
+    }
+
+    private void ViewInfoWindowOnClosed(object? sender, EventArgs e)
+    {
+        isInfosViewOpened = false;
+    }
+    
+    
 }
