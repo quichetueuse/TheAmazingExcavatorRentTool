@@ -45,7 +45,6 @@ namespace TheAmazingExcavatorRentTool.Views
         private ExcavatorVM _excavatorvm;
         public ExcavatorsControl()
         {
-            // InitializeComponent();
             InitializeComponent();
             
             invalidIcon = new BitmapImage(new Uri(@"../Assets/redcross-icon.png", UriKind.Relative));
@@ -76,7 +75,6 @@ namespace TheAmazingExcavatorRentTool.Views
             txtAddName.SetCurrentValue(TextBox.TextProperty, "");
             txtAddDesc.SetCurrentValue(TextBox.TextProperty, "");
             cbAddBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
-            // cbAddBrand.SelectedItem = null;
             txtAddBucketLiters.SetCurrentValue(TextBox.TextProperty, "0");
             txtAddReleaseYear.SetCurrentValue(TextBox.TextProperty, "0");
             txtAddDailyPrice.SetCurrentValue(TextBox.TextProperty, "0");
@@ -93,13 +91,7 @@ namespace TheAmazingExcavatorRentTool.Views
             cbEditBrand.SetCurrentValue(ComboBox.SelectedItemProperty, null);
             txtEditBucketLiters.SetCurrentValue(TextBox.TextProperty, "");
             txtEditReleaseYear.SetCurrentValue(TextBox.TextProperty, "");
-            // checkBEditIsUsed.IsChecked = false;
-            // checkBEditIsUsed.SetCurrentValue(CheckBox.IsCheckedProperty, false);
             txtEditDailyPrice.SetCurrentValue(TextBox.TextProperty, "");
-            
-            // EditImagePreview.Source = null;
-            // txtEditImagePath.Text = "Aucun fichier séclectionné";
-            // editSafeFileName = null;
 
         }
 
@@ -383,7 +375,6 @@ namespace TheAmazingExcavatorRentTool.Views
 
             editSafeFileName = Path.GetFileName(txtEditImagePath.Text);
             
-            // if file is not present in local image dir and file is set
             if (!File.Exists(ImagesDir + editSafeFileName) && editSafeFileName != "Aucun fichier séclectionné")
             {
                 File.Copy(txtEditImagePath.Text, ImagesDir + editSafeFileName);
@@ -395,7 +386,6 @@ namespace TheAmazingExcavatorRentTool.Views
             Brand brand = cbEditBrand.SelectedItem as Brand;
             int bucket_liters = Convert.ToInt32(txtEditBucketLiters.Text);
             int release_year = Convert.ToInt32(txtEditReleaseYear.Text);
-            // bool is_used = Convert.ToBoolean(checkBEditIsUsed.IsChecked);
             int daily_price = Convert.ToInt32(txtEditDailyPrice.Text);
             string? file_path;
             if (editSafeFileName == String.Empty || editSafeFileName == "Aucun fichier séclectionné")
@@ -422,8 +412,6 @@ namespace TheAmazingExcavatorRentTool.Views
                 return false;
 
             return true;
-            // Regex regex = new Regex("^(?=.*?(19[56789]|20\\d{2}).*)\\d{4}$");
-            // return regex.IsMatch(str);
         }
         
         private bool IsDigitsOnly(string year)
@@ -471,24 +459,12 @@ namespace TheAmazingExcavatorRentTool.Views
             {
                 txtEditImagePath.SetCurrentValue(TextBox.TextProperty, "Aucun fichier séclectionné");
                 editSafeFileName = null;
-                // EditImagePreview.Source = null;
                 EditImagePreview.SetCurrentValue(Image.SourceProperty, null);
                 return;
             }
-            // txtEditImagePath.Text = dialog.FileName;
             txtEditImagePath.SetCurrentValue(TextBox.TextProperty, dialog.FileName);
-            // EditImagePreview.Source = new BitmapImage(new Uri(dialog.FileName));
             EditImagePreview.SetCurrentValue(Image.SourceProperty, new BitmapImage(new Uri(dialog.FileName)));
             editSafeFileName = ImagesDir + dialog.SafeFileName;
-            
-            
-            // Binding myBinding = new Binding();
-            // myBinding.Source = _excavatorvm;
-            // myBinding.Path = new PropertyPath("PicturePath");
-            // myBinding.Mode = BindingMode.TwoWay;
-            // myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            // BindingOperations.SetBinding(txtEditImagePath, TextBox.TextProperty, myBinding);
-            // Console.WriteLine(safeFileName);
         }
 
         private void BtnAddBrowseImage_OnClick(object sender, RoutedEventArgs e)
@@ -530,12 +506,10 @@ namespace TheAmazingExcavatorRentTool.Views
         {
             setContextVM();
             
-            // resizeGrid();
             foreach (DataGridColumn column in ExcavatorGrid.Columns)
             {
                 if (column.Header.ToString() == "Description")
                 {
-                    // Console.Write("Actual width:"+ column.ActualWidth);
                     column.Width = new DataGridLength(200, DataGridLengthUnitType.Pixel);
                     continue;
                 }

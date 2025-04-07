@@ -14,86 +14,86 @@
         AllowsTransparency="True"
         >
         
-        <Border Background="#272537" CornerRadius="20" BorderBrush="White" BorderThickness="1">
-            <Grid ShowGridLines="False">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.05*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+    <Border Background="#272537" CornerRadius="20" BorderBrush="White" BorderThickness="1">
+        <Grid ShowGridLines="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        
+            <Border Background="#22202F" Grid.ColumnSpan="3" CornerRadius="20 20 0 0 "/>
+                    
+            <!-- Only used to drag window --> 
+            <StackPanel Grid.ColumnSpan="3" Background="Transparent" MouseLeftButtonDown="DragWindow"/>
+                    
             
-                <Border Background="#22202F" Grid.ColumnSpan="3" CornerRadius="20 20 0 0 "/>
-                        
-                    <!-- Only used to drag window --> 
-                    <StackPanel Grid.ColumnSpan="3" Background="Transparent" MouseLeftButtonDown="DragWindow"/>
-                            
-                    
-                    <StackPanel Orientation="Horizontal">
-                    
-                            <!-- Title bar title-->
-                            <TextBlock Text="Informations concernant la pelleteuse sélectionnée"
-                                       Margin="10, 0, 0, 0"
-                                       VerticalAlignment="Center"
-                                       Foreground="White"
-                                       FontSize="16"
-                                       FontWeight="Bold"/>
-                    </StackPanel>
-                    
-                    
-                    <Button Grid.Column="2"
-                            Style="{StaticResource CloseButtonStyle}"
-                            Name="CloseButton"
-                            Margin="0"
-                            Height="30"
-                            Width="30"
-                            VerticalAlignment="Top"
-                            HorizontalAlignment="Right"
-                            Click="CloseWindow">
-                            <Image Source="../Assets/cross_icon.png">
-                            </Image>
-                    </Button>
-        
-        
-                    <!-- View form -->
-                    
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 0 0 0" Height="700" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right" Margin="0 10 0 20">
-                            <Label Content="Nom:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox Width="300" Name="txtName" Style="{StaticResource MainTextBoxViewTheme}"/>
-                        </StackPanel>
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
-                            <Label Content="Description:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox TextWrapping="Wrap" Width="300" Name="txtDesc" Style="{StaticResource MainTextBoxViewTheme}" Height="75"/>
-                        </StackPanel>
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
-                            <Label Content="Marque:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox Width="300" Name="txtMarque" Style="{StaticResource MainTextBoxViewTheme}"/>
-                        </StackPanel>
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
-                            <Label Content="Capacité du godet (m3):" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox Width="300" Name="txtBucketLiters" Style="{StaticResource MainTextBoxViewTheme}"/>
-                        </StackPanel>
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
-                            <Label Content="Année de sortie:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox Width="300" Name="txtReleaseYear" Style="{StaticResource MainTextBoxViewTheme}"/>
-                        </StackPanel>
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
-                            <Label Content="Prix journalier (€):" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox Width="300" Name="txtPrice" Style="{StaticResource MainTextBoxViewTheme}"/>
-                        </StackPanel>
-                        
-                        <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
-                            <Label Content="Chemin de l'image:" Style="{StaticResource MainLabelViewTheme}"/>
-                            <TextBox Width="300" Name="txtImagePath" Style="{StaticResource MainTextBoxViewTheme}" TextWrapping="Wrap" Height="75"/>
-                        </StackPanel>
-                        <Image Name="imagePreview" Width="250" Height="200" Source="../Assets/app-icon.png"/>
-                        
-                    </StackPanel>
+            <StackPanel Orientation="Horizontal">
+            
+                    <!-- Title bar title-->
+                    <TextBlock Text="Informations concernant la pelleteuse sélectionnée"
+                               Margin="10, 0, 0, 0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"/>
+            </StackPanel>
+                
+            <!-- Close button -->
+            <Button Grid.Column="2"
+                    Style="{StaticResource CloseButtonStyle}"
+                    Name="CloseButton"
+                    Margin="0"
+                    Height="30"
+                    Width="30"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Click="CloseWindow">
+                    <Image Source="../Assets/cross_icon.png">
+                    </Image>
+            </Button>
+
+    
+            <!-- View form -->
+            
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 0 0 0" Height="700" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right" Margin="0 10 0 20">
+                    <Label Content="Nom:" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox Width="300" Name="txtName" Style="{StaticResource MainTextBoxViewTheme}"/>
+                </StackPanel>
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                    <Label Content="Description:" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox TextWrapping="Wrap" Width="300" Name="txtDesc" Style="{StaticResource MainTextBoxViewTheme}" Height="75"/>
+                </StackPanel>
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                    <Label Content="Marque:" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox Width="300" Name="txtMarque" Style="{StaticResource MainTextBoxViewTheme}"/>
+                </StackPanel>
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                    <Label Content="Capacité du godet (m3):" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox Width="300" Name="txtBucketLiters" Style="{StaticResource MainTextBoxViewTheme}"/>
+                </StackPanel>
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                    <Label Content="Année de sortie:" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox Width="300" Name="txtReleaseYear" Style="{StaticResource MainTextBoxViewTheme}"/>
+                </StackPanel>
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                    <Label Content="Prix journalier (€):" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox Width="300" Name="txtPrice" Style="{StaticResource MainTextBoxViewTheme}"/>
+                </StackPanel>
+                
+                <StackPanel Style="{StaticResource StackPanelMarginStyling}" HorizontalAlignment="Right">
+                    <Label Content="Chemin de l'image:" Style="{StaticResource MainLabelViewTheme}"/>
+                    <TextBox Width="300" Name="txtImagePath" Style="{StaticResource MainTextBoxViewTheme}" TextWrapping="Wrap" Height="75"/>
+                </StackPanel>
+                <Image Name="imagePreview" Width="250" Height="200" Source="../Assets/app-icon.png"/>
+                
+            </StackPanel>
         </Grid>
     </Border>
 </Window>

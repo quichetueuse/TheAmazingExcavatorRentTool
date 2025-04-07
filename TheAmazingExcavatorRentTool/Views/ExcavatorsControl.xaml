@@ -8,27 +8,23 @@
              xmlns:viewModels="clr-namespace:TheAmazingExcavatorRentTool.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1000"
-             Loaded="ExcavatorsControl_OnLoaded"
-             ><!-- SizeChanged="changeDatagridColumnsSize"-->
+             Loaded="ExcavatorsControl_OnLoaded">
     <UserControl.Resources>
         <local:BooleanValueConverter x:Key="BooleanValueConverter"/>
         <local:ShortenDescConverter x:Key="ShortenDescConverter"/>
     </UserControl.Resources>
-    <!-- <UserControl.DataContext> -->
-    <!--     <viewModels:ExcavatorVM/> -->
-    <!-- </UserControl.DataContext> -->
     
     <Grid ShowGridLines="False" Background="{StaticResource MainWindowColor}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="0.5*"></RowDefinition>
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+        </Grid.RowDefinitions>
     
         <DataGrid 
             Name="ExcavatorGrid" 
@@ -41,16 +37,7 @@
             MouseDoubleClick="ExcavatorGrid_OnMouseDoubleClick"
             GridLinesVisibility="None"
             EnableColumnVirtualization="False"
-            Style="{StaticResource MainDatagridTheme}"
-            >
-            <!-- <DataGrid.RowHeaderStyle> -->
-            <!--     <Style TargetType="{x:Type DataGridRowHeader}"> -->
-            <!--         <Setter Property="Width" Value="20"/> -->
-            <!--         <Setter Property="FontSize" Value="20"/> -->
-            <!--         <Setter Property="FontWeight" Value="Bold"/> -->
-            <!--         <Setter Property="Content" Value="{Binding Path=AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" /> -->
-            <!--     </Style> -->
-            <!-- </DataGrid.RowHeaderStyle> -->
+            Style="{StaticResource MainDatagridTheme}">
             
             <DataGrid.Columns>
                 <DataGridTextColumn Width="Auto" ElementStyle="{StaticResource WrapText}" Header="Nom" Binding="{Binding Name}" />
@@ -59,7 +46,6 @@
                 <DataGridTextColumn Width="Auto" Header="Capacité du godet" Binding="{Binding BucketLiters, StringFormat={}{0}m3}"/>
                 <DataGridTextColumn Width="Auto" Header="Année de sortie" Binding="{Binding ReleaseYear}"/> 
                 <DataGridTextColumn Width="Auto" Header="Utilisée" Binding="{Binding IsUsed, Converter={StaticResource BooleanValueConverter}}"></DataGridTextColumn>
-                <!-- <DataGridCheckBoxColumn Width="Auto" Header="Utilisation" Binding="{Binding IsUsed}"/> -->
                 <DataGridTextColumn Width="Auto" Header="Prix journalier" Binding="{Binding DailyPrice, StringFormat={}{0}€}"/> 
                 <DataGridTemplateColumn Width="*" Header="Image de la pelleteuse">
                     <DataGridTemplateColumn.CellTemplate>
@@ -71,7 +57,7 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        <GroupBox Grid.Column="2" Header="Modification" Style="{StaticResource MainGroupBoxTheme}" Grid.RowSpan="2" Name="EditForm">
+            <GroupBox Grid.Column="2" Header="Modification" Style="{StaticResource MainGroupBoxTheme}" Grid.RowSpan="2" Name="EditForm">
                 <StackPanel Grid.RowSpan="2">
                     
                     <StackPanel Style="{StaticResource FirstStackPanelMarginStyling}">
@@ -86,7 +72,7 @@
                     <Image Source="../Assets/checkmark-icon2.png" Width="24" Height="24" Margin="8 0 0 0" Name="EditValidDescImg"></Image>
                     </StackPanel>
                     
-                    <StackPanel Style="{StaticResource StackPanelMarginStyling}"> <!--VerticalAlignment="Top"-->
+                    <StackPanel Style="{StaticResource StackPanelMarginStyling}">
                         <Label Content="Marque:" Style="{StaticResource MainLabelTheme}"></Label>
                         <ComboBox Style="{StaticResource MainComboBoxTheme}" Name="cbEditBrand" ItemsSource="{Binding BrandVm.Brands}" Width="300" Height="30" SelectedItem="{Binding Path=SelectedItem.Brand, ElementName=ExcavatorGrid, Mode=OneWay}" SelectionChanged="ValidateComboboxFields">
                             <ComboBox.ItemTemplate>
@@ -95,7 +81,6 @@
                                         <TextBlock 
                                             Margin="5 0"
                                             VerticalAlignment="Center">
-                                            <!-- <Run  Text="Nom entier :" /> -->
                                             <Run Text="{Binding Name, Mode=OneWay}"/>
                                         </TextBlock>
                                         <TextBlock 
@@ -106,7 +91,6 @@
                                         <TextBlock
                                             Margin="5 0"
                                             VerticalAlignment="Center">
-                                            <!-- <Run  Text="Crée en :" /> -->
                                             <Run Text="{Binding CreationYear, Mode=OneWay}" />
                                         </TextBlock>
                                     </StackPanel>
@@ -172,7 +156,6 @@
                                         <TextBlock 
                                             Margin="5 0"
                                             VerticalAlignment="Center">
-                                            <!-- <Run  Text="Nom entier :" /> -->
                                             <Run Text="{Binding Name, Mode=OneWay}"/>
                                         </TextBlock>
                                         <TextBlock 
@@ -183,7 +166,6 @@
                                         <TextBlock
                                             Margin="5 0"
                                             VerticalAlignment="Center">
-                                            <!-- <Run  Text="Crée en :" /> -->
                                             <Run Text="{Binding CreationYear, Mode=OneWay}" />
                                         </TextBlock>
                                     </StackPanel>

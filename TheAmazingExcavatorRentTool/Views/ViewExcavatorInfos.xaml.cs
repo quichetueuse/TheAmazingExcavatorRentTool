@@ -29,9 +29,6 @@ public partial class ViewExcavatorInfos : Window
         txtPrice.Text = _selectedExcavator.DailyPrice.ToString();
         txtImagePath.Text = _selectedExcavator.PicturePath;
         imagePreview.Source = new BitmapImage(new Uri(_selectedExcavator.PicturePath, UriKind.Absolute));
-
-        // TbName.Text = _selectedBrand.Name;
-        // TbCreationYear.Text = _selectedBrand.CreationYear.ToString();
     }
         
     private void DragWindow(object sender, MouseButtonEventArgs e)
