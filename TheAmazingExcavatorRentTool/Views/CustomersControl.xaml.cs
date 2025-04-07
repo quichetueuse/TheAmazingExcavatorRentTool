@@ -287,7 +287,6 @@ public partial class CustomersControl : UserControl
 
     private bool isValidBirthDate(DateTime? date)
     {
-        // return (date.Year < DateTime.Now.Year && date.);
         if (date == null)
         {
             return false;
@@ -350,7 +349,6 @@ public partial class CustomersControl : UserControl
         foreach (DataGridColumn column in CustomerGrid.Columns)
         {
             double current_width = column.ActualWidth;
-            // Console.WriteLine($"Current width for column {column.Header} is {current_width} (final size is {current_width + 50})");
             column.MinWidth = current_width + 50;
 
         }
