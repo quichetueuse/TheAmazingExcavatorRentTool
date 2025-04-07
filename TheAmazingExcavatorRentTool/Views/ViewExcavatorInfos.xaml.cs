@@ -33,23 +33,6 @@ public partial class ViewExcavatorInfos : Window
         // TbName.Text = _selectedBrand.Name;
         // TbCreationYear.Text = _selectedBrand.CreationYear.ToString();
     }
-    
-    private void MinimizeWindow(object sender, RoutedEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
-    }
-    
-    private void MaximizeWindow(object sender, RoutedEventArgs e)
-    {
-        if (WindowState == WindowState.Normal)
-        {
-            WindowState = WindowState.Maximized;
-        }
-        else
-        {
-            WindowState = WindowState.Normal;
-        }
-    }
         
     private void DragWindow(object sender, MouseButtonEventArgs e)
     {
