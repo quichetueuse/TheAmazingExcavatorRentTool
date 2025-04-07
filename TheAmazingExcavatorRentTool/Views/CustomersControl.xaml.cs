@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TheAmazingExcavatorRentTool.Models;
 using TheAmazingExcavatorRentTool.ViewModels;
@@ -25,6 +26,8 @@ public partial class CustomersControl : UserControl
     private bool addValidLastName;
     private bool addValidEmail; 
     private bool addValidBirthDate;
+    
+    private bool isInfosViewOpened;
 
     private CustomerVM _customerVm;
     public CustomersControl()
@@ -47,6 +50,8 @@ public partial class CustomersControl : UserControl
 
         DeleteBtn.IsEnabled = true;
         ManageEditFormBtn.IsEnabled = true;
+        
+        isInfosViewOpened = false;
     }
     
     private void ClearAddForm(object sender, RoutedEventArgs e)
@@ -349,5 +354,22 @@ public partial class CustomersControl : UserControl
             column.MinWidth = current_width + 50;
 
         }
+    }
+    
+    private void CustomerGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (isInfosViewOpened == false)
+        {
+            isInfosViewOpened = true;
+            Customer selectedCustomer = (Customer)CustomerGrid.SelectedItem as Customer;
+            ViewCustomerInfos ViewInfoWindow = new ViewCustomerInfos(selectedCustomer);
+            ViewInfoWindow.Closed += ViewInfoWindowOnClosed;
+            ViewInfoWindow.ShowDialog();
+        }
+    }
+
+    private void ViewInfoWindowOnClosed(object? sender, EventArgs e)
+    {
+        isInfosViewOpened = false;
     }
 }
