@@ -13,7 +13,7 @@
         Background="Transparent"
         AllowsTransparency="True">
         
-                <Border Background="#272537" CornerRadius="20" BorderBrush="White" BorderThickness="1">
+        <Border Background="#272537" CornerRadius="20" BorderBrush="White" BorderThickness="1">
             <Grid ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.05*"/>
