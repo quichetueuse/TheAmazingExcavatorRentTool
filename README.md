@@ -10,37 +10,37 @@ Les diagrammes suivants représentent la conception technique du projet :
 
 ### Diagramme des cas d'utilisation
 
-![UseCase](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/USECASES.png)
+![UseCase](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/USECASES.PNG)
 
 ### Modèle Conceptuel de Données
 
-![MCD](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/MCD.png)
+![MCD](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/MCD.PNG)
 
 ## Aperçu des interfaces
 
 ### Page de connexion
 
-![Page de connexion](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/login.png)
+![Page de connexion](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/login.PNG)
 
 ### Page de gestion des pelleteuses
 
-![Page de gestion des pelleteuses](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/pelleteuse-formulaire.png)
+![Page de gestion des pelleteuses](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/pelleteuse-formulaire.PNG)
 
 ### Page de gestion des marques de pelleteuses
 
-![Page de gestion des marques de pelleteuses](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/marque-formulaire.png)
+![Page de gestion des marques de pelleteuses](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/marque-formulaire.PNG)
 
 ### Page de gestion des clients
 
-![Page de gestion des clients](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/customer-formulaire.png)
+![Page de gestion des clients](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/customer-formulaire.PNG)
 
 ### Page de gestion des locations de pelleteuses
 
-![Page de gestion des locations de pelleteuses](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/location-formulaire.png)
+![Page de gestion des locations de pelleteuses](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/location-formulaire.PNG)
 
 ### Page de gestion des utilisateurs
 
-![Page de gestion des utilisations de l'application](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/utilisateur-formulaire3.png)
+![Page de gestion des utilisations de l'application](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/utilisateur-formulaire3.PNG)
 
 ## Fonctionnalités
 
