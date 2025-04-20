@@ -81,6 +81,6 @@ Les diagrammes suivants représentent la conception technique du projet :
 
 ### Installation
 
-1. Cloner le dépot git sur lequel vous êtes
-2. Importer `heavy_app_e5.sql` dans la base de données du serveur LAMP
-3. Ouvrir le projet dans votre IDE ou via lignes de commande et lancez l'application
+1. Clonez le dépot git sur lequel vous êtes
+2. Importez `heavy_app_e5.sql` dans la base de données du serveur LAMP
+3. Ouvrez le projet dans votre IDE ou via lignes de commande et lancez l'application
