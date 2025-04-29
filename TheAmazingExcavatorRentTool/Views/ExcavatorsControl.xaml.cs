@@ -506,6 +506,23 @@ namespace TheAmazingExcavatorRentTool.Views
         {
             setContextVM();
             
+            //Update Brand in excavator if name was changed
+            foreach (Excavator excav in _excavatorvm.Excavators.ToList())
+            {
+                foreach (Brand brand in _excavatorvm.BrandVm.Brands.ToList())
+                {
+                    if (excav.Brand.BrandId == brand.BrandId && excav.Brand.Name != brand.Name || excav.Brand.BrandId == brand.BrandId && excav.Brand.CreationYear != brand.CreationYear)
+                    {
+                        _excavatorvm.Excavators.ElementAt(_excavatorvm.Excavators.IndexOf(excav)).Brand = brand;
+                        break;
+                    }
+                }
+            }
+
+            _excavatorvm.updateViews();
+            ExcavatorGrid.ItemsSource = _excavatorvm.AllExcavatorsView;
+            
+            // Resize Desc column
             foreach (DataGridColumn column in ExcavatorGrid.Columns)
             {
                 if (column.Header.ToString() == "Description")

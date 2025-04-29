@@ -62,7 +62,7 @@ public class ExcavatorVM : BaseVM
         deleteQuery = "DELETE FROM excavator WHERE excavator_id=@id";
         checkRentalQuery = "SELECT COUNT(*) FROM rental WHERE excavator_id=@id";
         updateQuery =
-            "UPDATE excavator SET name=@name, description=@description, brand_id=@brand_id, bucket_liters=@bucket_liters, release_year=@release_year, picture=@picture WHERE excavator_id=@id";
+            "UPDATE excavator SET name=@name, description=@description, brand_id=@brand_id, bucket_liters=@bucket_liters, release_year=@release_year, daily_price=@daily_price, picture=@picture WHERE excavator_id=@id";
         updateAvailabilityQuery = "UPDATE excavator SET is_used=@is_used WHERE excavator_id=@id";
         addQuery =
             "INSERT INTO excavator (name, description, brand_id, bucket_liters, release_year, is_used, daily_price, picture) VALUES (@name, @description, @brand_id, @bucket_liters, @release_year, @is_used, @daily_price, @picture_path)";
@@ -325,13 +325,24 @@ public class ExcavatorVM : BaseVM
                 return;
             }
         }
-
-        var dbCon = getDbCon();
         
+        var dbCon = getDbCon();
         if (!dbCon.IsConnect())
         {
             Console.WriteLine("Cannot connect to database (maybe MySql server isn't running!)");
             throw new ConnectionFailedException("Connection to database failed");
+        }
+        
+        // Check if excavator is used in location 
+        MySqlCommand cmd1 = new MySqlCommand(checkRentalQuery, dbCon.Connection);
+        cmd1.Parameters.AddWithValue("@id", excavator_to_update.ExcavatorId);
+
+        Int32 count = Convert.ToInt32(cmd1.ExecuteScalar());
+        if (count > 0)
+        {
+            soundPlayer.PlayFailSound();
+            MessageBox.Show("Une Location utilise ce cette pelleteuse!", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
         }
         
         // Update excavator in database
@@ -532,5 +543,12 @@ public class ExcavatorVM : BaseVM
         AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
         NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
         
+    }
+
+    public void updateViews()
+    {
+        NonUsedExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        AllExcavatorsView = (CollectionView)new CollectionViewSource { Source = Excavators }.View;
+        NonUsedExcavatorsView.Filter = NonUsedExcavFilter;
     }
 }

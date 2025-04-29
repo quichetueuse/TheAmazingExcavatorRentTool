@@ -329,6 +329,25 @@ public partial class RentalsControl : UserControl
     private void RentalsControl_OnLoaded(object sender, RoutedEventArgs e)
     {
         setContextVM();
+        
+        //Update customer in rental if it changed
+        foreach (Rental rental in _rentalVm.Rentals.ToList())
+        {
+            foreach (Customer customer in _rentalVm.CustomerVm.Customers.ToList())
+            {
+                if (rental.Customer.CustomerId == customer.CustomerId && rental.Customer.BirthDate != customer.BirthDate || 
+                    rental.Customer.CustomerId == customer.CustomerId && rental.Customer.Email != customer.Email || 
+                    rental.Customer.CustomerId == customer.CustomerId && rental.Customer.FirstName != customer.FirstName ||
+                    rental.Customer.CustomerId == customer.CustomerId && rental.Customer.LastName != customer.LastName)
+                {
+                    _rentalVm.Rentals.ElementAt(_rentalVm.Rentals.IndexOf(rental)).Customer = customer;
+                    break;
+                }
+            }
+        }
+        
+        RentalGrid.ItemsSource = _rentalVm.Rentals;
+        
         resizeGrid();
     }
     
