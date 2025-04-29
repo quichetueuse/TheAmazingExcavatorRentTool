@@ -392,7 +392,7 @@ public class RentalVM: BaseVM
 
     private int CalculatePrice(DateTime start_date, DateTime return_date, int price)
     {
-        int day_difference = Math.Abs(return_date.Day - start_date.Day);
+        int day_difference = (return_date - start_date).Days;
         return (day_difference + 1) * price;
     }
     
