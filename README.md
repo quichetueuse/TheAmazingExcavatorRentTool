@@ -40,7 +40,7 @@ Les diagrammes suivants représentent la conception technique du projet :
 
 ### Page de gestion des utilisateurs
 
-![Page de gestion des utilisations de l'application](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/utilisateur-formulaire3.PNG)
+![Page de gestion des utilisations de l'application](https://github.com/quichetueuse/TheAmazingExcavatorRentTool/blob/master/ReadMeImages/user-formulaire3.PNG)
 
 ## Fonctionnalités
 
